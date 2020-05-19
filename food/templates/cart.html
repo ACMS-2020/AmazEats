@@ -1,13 +1,15 @@
 {% extends "base_delivery.html" %}
+{% load multiply %}
 {% block content %}
-{% csrf_token %}
+
 
 <div class="container">
-{% csrf_token %}
 	<div class="jumbotron text-center" style="margin-bottom:0;background-color:#232F3E;color:#ffffff;">
             <h1>AmazEats</h1>
             <p style="color:#ffa000;">The Food You Like !!</p>
         </div>
+	<form>
+		{% csrf_token %}
 	{% if cart_items %}
 <table id="cart" class="table table-hover table-condensed">
     				<thead>
@@ -35,7 +37,7 @@
 							<td data-th="Quantity">
 								<input type="number" class="form-control text-center" value="{{ i.quantity }}" id="{{ i.food_id }}" onchange="quantityChange(event,{{ i.price }})">
 							</td>
-							<td data-th="Subtotal" class="text-center" id="element{{ i.food_id }}">{{i.price}}</td>
+							<td data-th="Subtotal" class="text-center" id="element{{ i.food_id }}">{% widthratio i.quantity 1 i.price %}</td>
 							<td class="actions" data-th="">
 								<!--<button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>-->
 								<a href="/food/removeFromCart/{{ i.food_id }}" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
@@ -61,6 +63,7 @@
 		<a href="/fooditems/" class="btn btn-warning mt-3"><i class="fa fa-angle-left"></i> Continue Shopping</a>
 	</center>
 			{% endif %}
+	</form>
 		</div>
 
 

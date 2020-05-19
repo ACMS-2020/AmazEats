@@ -2,18 +2,18 @@
 {% block content %}
     <body>
 
-       <nav class="navbar navbar-expand-lg " style="background-color: #232F3E;color: white;" >
-  <a class="navbar-brand" href="#">AmazEats</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+      <!-- <nav class="navbar navbar-expand-lg " style="background-color: #232F3E;color: white;" >
+      <a class="navbar-brand" href="#">AmazEats</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-        <a class="nav-link" href="/food/user_orders">Profile</a>
-      </li>
-      <li class="nav-item dropdown">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/food/user_orders">Profile</a>
+        </li>
+        <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           Favourites
         </a>
@@ -29,12 +29,11 @@
         <a class="nav-link" href="/logout">logout</a>
       </li>
     </ul>
-    <!--<form class="form-inline" action='/fooditems/res_search' method = 'get'>
+    <form class="form-inline" action='/fooditems/res_search' method = 'get'>
       <input class="form-control mr-sm-2" type="search" name='q'  placeholder="Search" aria-label="Search">
       <button class="btn my-2 my-sm-0" type="submit" style=" background-color:#FF9900;">Search</button>
-    </form>-->
-  </div>
-</nav>
+    </form>  </div>
+</nav>-->
 
         <div class="jumbotron text-center" style="margin-bottom:0;background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQTKPmO0QsWFsyN2Qk4JLGKpoRQRvXj5JtIFsL1T9V-Aeu-PACh&usqp=CAU');background-size:cover;color:#ffffff;">
             <h1>AmazEats</h1>
@@ -56,7 +55,7 @@
                             <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Orders</a>
                             <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Your Favourites</a>
                             <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Ratings and reviews</a>
-                        <a class="nav-link" href="/logout">logout</a>
+                       <a class="nav-link" href="/logout">logout</a>
                         </div>
                         <hr class="d-sm-none">
                     </div>
@@ -66,7 +65,6 @@
                             <a class="nav-item nav-link active" href="/food/order_history">Order History</a>
                         </nav>
                         {% if obj %}
-                        <!--<h3> Order History </h3>-->
                         {% for item in obj %}
                         {% if item.status in not_needed %}
                             <div class="card m-5 text-white mx-auto" style="width: 800px;background-color:#232F3E"  >
@@ -110,13 +108,13 @@
                                     <a class="pagination-number" href="?page={{ num }}">{{ num }}</a>&nbsp;
                                 {% endif %}
                             {% endfor %}
+
                             {% if values.has_next %}
                             <a class="pagination-action" href="?page={{ values.next_page_number }}"><i class="fas fa-angle-double-right"></i></a>
                             <a class="pagination-action" href="?page={{ values.paginator.num_pages }}"><i class=""fas fa-angle-right></i></a>
                         {% endif %}
                     </div>
                         {% else %}
-
                              <center>
 		                    <img src="https://cdn.dribbble.com/users/1168645/screenshots/3152485/no-orders_2x.png" style="height:300;" class="mt-4 align-bottom rounded mx-auto d-block" alt="order processing">
 		                    <h5 class="card-title">You have no orders yet</h5>

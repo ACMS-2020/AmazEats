@@ -8,8 +8,9 @@ from FoodItems.models import *
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 
+
 from datetime import datetime
-items_per_page = 5
+items_per_page = 8
 # Create your views here.
 '''
 def display_items(request,res_id):
@@ -129,6 +130,7 @@ def processed_order(request,order_id):
 def user_order_details(request):
     not_needed = ['Delivered', 'Rejected']
     obj = Order.objects.filter(user_id=request.user.username).order_by('-order_id')
+    print("user orders",len(obj))
     paginator = Paginator(obj, items_per_page)
     page = request.GET.get('page')
     if page == None:
@@ -205,6 +207,10 @@ def order_delivered(request,order_id):
 @only_customer
 def cart(request):
     obj =  Cart.objects.filter(user_id=request.user.username)
+    #food_images={}
+    #for i in obj:
+    #   food = FoodItem.objects.get(food_id=i.food_id)
+    #   food_image.append(food.image)
     return render(request,"cart.html",{'cart_items':obj})
 
 
@@ -218,15 +224,19 @@ def cancel_order(request,order_id):
 def order_history(request):
     not_needed = ['Delivered','Rejected']
     obj = Order.objects.filter(user_id=request.user.username).order_by('-order_id')
-    paginator = Paginator(obj, items_per_page)
+    print("obj length",len(obj))
+    paginator = Paginator(obj,items_per_page)
+    print("paginator",paginator)
     page = request.GET.get('page')
     if page == None:
         page = 1
     ind = int(page) - 1
+    print(paginator.num_pages)
     obj = obj[ind * items_per_page:ind * items_per_page + items_per_page]
     values = paginator.get_page(page)
     return render(request, 'order_history.html', {'obj': obj, 'values': values, 'not_needed':not_needed})
 
+@csrf_exempt
 @only_customer
 def alter_cart_items(request):
     if request.method == "POST":
