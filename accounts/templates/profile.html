@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+
+{% block content %}
+{% load static %}
+<h1> Edit Profile </h1>
+	<form method="POST">
+		{% csrf_token %} 
+		{% for field in form %}
+      <p>
+        {{ de.field.label }}
+        {{ field.label_tag }}
+        {{ field }}
+        {{ de.field.tag }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+		<button>Edit Profile</button>
+	</form>
+
+{% endblock content%}

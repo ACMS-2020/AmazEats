@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+{%  extends 'base.html' %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FoodItems</title>
+
+</head>
+<body>
+
+  <style>
+  .card-img-top {
+      width: 100%;
+      height: 15vw;
+      object-fit: cover;
+  }
+  .col-10 {
+  height: 90vh;
+  overflow-y: scroll;
+}
+  </style>
+
+<nav class="navbar navbar-dark bg-dark justify-content-between">
+  <a class="navbar-brand">Catalogue</a>
+  <a href="/fooditems/add_fooditem">Add items</a>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" name='q' placeholder="Search" aria-label="Search">
+    <button class="btn btn-info my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</nav>
+
+</br>
+
+<div class = "row">
+
+<div class = "col-10">
+
+<div class="row row-cols-1 row-cols-md-4" style="padding : 10px;">
+      {% for f in food %}
+
+      <div class="col mb-4" >
+      <div class="card text-white bg-secondary mb-3" style="width: 17rem; margin-bottom:0;">
+        <image src="{{ f.image.url }}" class="card-img-top" alt="{{ f.food_name }}" />
+        <div class="card-body" >
+          <h4 class="card-title">{{ f.food_name }}</h4>
+          <table class="card-table table table-sm text-white table-borderless">
+    <tbody>
+      <tr>
+        <td>&#8377; {{ f.price }}</td>
+        <td>{{ f.veg }}</td>
+      </tr>
+      <tr>
+        <td>{{ f.cuisine_type }}</td>
+        <td>{{ f.item_type }}</td>
+      </tr>
+      <tr>
+        <td colspan="2">{{ f.serviceable }}</td>
+      </tr>
+
+      <tr>
+        <td>{{ f.avg_rating }}</td>
+        <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalScrollable{{f.food_name}}">
+          reviews
+        </button></td>
+      </tr>
+
+<!-- for Restaurant display -->
+
+      <tr>
+        <td><a href="/fooditems/update_price/{{ f.food_id }}" class="btn btn-info">update price</a></td>
+        <td><a href="/fooditems/update_acceptable/{{ f.food_id }}" class="btn btn-info">update Acceptable</a></td>
+      </tr>
+      <tr>
+        <td colspan="2"><a href="/fooditems/delete_fooditem/{{ f.food_id }}" class="btn btn-info">Delete</a></td>
+      </tr>
+    </tbody>
+  </table>
+    </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModalScrollable{{f.food_name}}" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" style="align:center;">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalScrollableTitle">Reviews</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{ f.food_name }}
+          <p>
+          {% for r in f.rating_set.all %}
+            {{ r.user_id }} : {{ r.reviews }}<br/>
+          {% endfor %}
+        </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+            {% endfor %}
+  </div>
+</div>
+
+  <div class="col-2">
+    <div class="row">
+      <div class="col">
+        <h3>Filters</h3></br>
+        <form method="post">
+          {% csrf_token %}
+
+          {{ pFilter.form.as_p }}
+          <button class = "btn btn-info" type="submit">search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+</body>
+</html>
+
+{% endblock %}

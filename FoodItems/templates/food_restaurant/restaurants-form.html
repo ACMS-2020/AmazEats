@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<h1>New/Update Restaurant</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Save</button>
+</form>
+
+{% if restaurant %}
+<a href="{% url 'delete_restaurant' restaurant.username %}">Delete</a>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+{% block content %}
+<head>
+	<title>Simple Auth System</title>
+	 <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="animate.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script>
+  	$('.carousel').carousel({
+	touch: true // default
+	})
+  </script>
+</head>
+<style>
+
+	body
+	{
+		font-family:'Poppins';
+	}
+
+	.carousel-inner .item
+	{
+		height: 100vh;
+	}
+
+	.navbar-inverse
+	{
+		background-color: transparent;
+		border-color: transparent;
+	}
+
+	.navbar-inverse .navbar-brand
+	{
+		color: #fff;
+		font-size: 40px;
+		padding: 40px 15px;
+		font-weight: 900;
+	}
+
+	.nav.navbar-nav.navbar-right
+	{
+		margin: 25px 0;
+		font-weight: bold;
+	}
+
+	.navbar-inverse .navbar-nav > li > a
+	{
+		color: #fff;
+		text-transform: uppercase;
+	}
+
+	.banner
+	{
+		-webkit-background-size:cover;
+		background-size: cover;
+		background-position: center center;
+		background-repeat: no-repeat;
+		height: 100vh;
+	}
+
+	.carousel-caption
+	{
+		padding-bottom: 250px;
+		font-family: 'Poppins';
+	}
+
+	.carousel-caption h2
+	{
+		font-size: 50px;
+	}
+
+	.carousel-caption h2 span
+	{
+		color: #FF9900;
+	}
+
+	.carousel-caption a
+	{
+		background: #FF9900;
+		padding: 15px 25px;
+		display: inline-block;
+		margin-top: 15px;
+		color: #fff;
+		text-transform: uppercase;
+		border-radius: 25px;
+	}
+
+	.carousel-control.right
+	{
+		background-image: none;
+	}
+
+
+	.carousel-control.left
+	{
+		background-image: ;
+	}
+
+	.carousel-indicators .active
+	{
+		background-color: #FF9900;
+		border-color: #FF9900;
+	}
+
+
+	@media only screen and (min-width: 768px) and (max-width: 991px)
+	{
+
+	}
+
+	@media only screen and (max-width: 767px)
+	{
+		.navbar-inverse .navbar-brand{
+			font-size: 30px
+			padding:20px 15px;
+		}
+
+		.navbar-collapse
+		{
+			background: rgba(0,0,0,0.55);
+		}
+
+		.carousel-caption
+		{
+			padding-bottom: 150px;
+		}
+		.carousel-caption h2
+		{
+			font-size: 25px;
+		}
+
+		.carousel-caption h3
+		{
+			font-size: 18px;
+		}
+
+		.carousel-caption a
+		{
+			padding: 10px;
+		}
+
+		.indicate
+		{
+			list-style-type: square;
+		}
+
+
+	}
+
+</style>
+<body>
+	<nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+
+  <div class="container">
+
+  	<div class="navbar-header">
+
+  		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navCollapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+  </button>
+
+  <a class="navbar-brand " style="font-size: 27px; color: #FF9900;"><span><img src="media/amazon-icon-1.webp" height="32px" width="32px"; ></span> AmazEats </a>
+	</div>
+
+  <div class="collapse navbar-collapse" id="navCollapse">
+   <ul class="nav navbar-nav navbar-right">
+   	<li ><a href="/" >Home</a></li>
+   	<li ><a href="{% url 'login_url' %} " >Login</a></li>
+   	<li ><a href="{% url 'register_url' %}">Register</a></li>
+   </ul>
+   </div>
+  </div>
+</nav>
+
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-touch=true>
+  <ul class="carousel-indicators" data-touch=true>
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active" ba></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ul>
+
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+     	<div class="banner" style="background-image: url('media/user.jpg');"></div>
+     	<div class="carousel-caption">
+     		<h2 class="animated bounceInRight" style="animation-delay: 1s;">Order your <span>favourite</span> food from home</h2>
+     		<h3 class="animated bounceInLeft" style="animation-delay: 2s;">We have many options</h3>
+     		<p class="animated bounceInRight" style="animation-delay: 1s;text-transform:none;"><a href="/">Know more</a></p>
+
+     	</div>
+    </div>
+    <div class="item">
+      <div class="banner" style="background-image: url('media/restaurant2.jpg'); "></div>
+      <div class="carousel-caption">
+     		<h2 ><span>Connecting</span> various restaurants and people</h2>
+     		<h3 class="animated bounceInLeft" style="animation-delay: 2s;">Delicious food at Doorstep</h3>
+     		<p class="animated bounceInRight" style="animation-delay: 1s;text-transform:none;" ><a href="/">Know more</a></p>
+     	</div>
+     </div>
+    <div class="item">
+      <div class="banner" style="background-image: url('media/delivery.jpg'); "></div>
+      <div class="carousel-caption">
+     		<h2>Get your food delivered <span>on time</span></h2>
+     		<h3 class="animated bounceInLeft" style="animation-delay: 2s;">We won't keep you waiting</h3>
+     		<p class="animated bounceInRight" style="animation-delay: 1s;text-transform:lowercase;"><a href="/">Know more</a></p>
+     	</div>
+    </div>
+  </div>
+
+  <a class="left carousel-control" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+
+{% endblock %}
+
+
+
+</body>
+</html>

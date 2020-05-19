@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <style>
+            nav {
+                margin: 2px;
+                padding:0px;
+                text-align: center;
+                background: #ffffff;
+            }
+
+            .navbar-inverse .navbar-nav > .active > a:focus{
+                color: rgb(255, 255, 255);
+                background-color: red
+            }
+
+            nav a {
+                transition: 0.3s ease;
+                background: #343A40;
+                color: white;
+                font-size: 20px;
+                text-decoration: none;
+                border-top: 4px solid transparent;
+                border-bottom: 4px solid transparent;
+                padding: 2px 0;
+                margin: 0 2px;
+                font-size: 17px;
+            }
+
+            nav a:hover {
+                border-top: 4px #17A2B8;
+                border-bottom: 4px #17A2B8;
+                padding: 0px 0;
+                color:#fff;
+            }
+
+            .fakeimg {
+                height: 200px;
+                background: #aaa;
+            }
+
+            .pagination{
+                text-align:center;
+                margin-top:1em;
+            }
+
+            .pagination-number{
+                background-color:#17A2B8;
+                padding:0.5em 0.8em;
+                color:#fff;
+                border-radius:2px;
+            }
+
+            .pagination-action{
+                margin:0 0.1em;
+                display: inline-block;
+                padding: 0.5em;
+                color: #B9B9B9;
+                font-size: 1.3em;
+            }
+
+            pagination-action:hover{
+                color:#fff;
+                background-color:#117a8b;
+            }
+
+            .pagination-number:hover, .pagination-current{
+                background-color:#117a8b;
+            }
+        </style>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/yourcode.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        {% block content %}
+        {% endblock content %}
+    </body>
+</html>

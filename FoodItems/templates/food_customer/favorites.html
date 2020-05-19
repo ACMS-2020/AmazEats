@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+{%  extends 'base.html' %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Favorites</title>
+
+</head>
+<body>
+<style>
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+.card:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+.btn{
+  background-color:#FF9900;
+  border: 0px #FF9900;
+}
+.card{
+  background-color: #232F3E;
+}
+.navbar{
+  background-color: #232F3E;
+  color: white;
+}
+
+</style>
+
+<!-- for customer display -->
+
+<nav class="navbar navbar-expand-lg ">
+  <a class="navbar-brand" href="#">AmazEats</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Favourites
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Restaurants</a>
+          <a class="dropdown-item" href="#">FoodItems</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/food/cart">cart</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">logout</a>
+      </li>
+    </ul>
+    <form class="form-inline" action='/fooditems/res_search' method = 'get'>
+      <input class="form-control mr-sm-2" type="search" name='q'  placeholder="Search" aria-label="Search">
+      <button class="btn my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+</br>
+
+
+<div class = "container" style="padding-left: 10px; padding-right: 10px;">
+
+<div class="row row-cols-1 row-cols-md-4"  >
+{% if types == "restaurants" %}
+
+{% for r in res %}
+    <a href="/fooditems/display_fooditems/{{ r.username }}" class="btn btn-fix text-left">
+      <div class="col mb-4" >
+      <div class="card text-white bg-secondary mb-3" style="width: 242px;">
+        <div class="card-body" >
+          <h2 class="card-title">{{ r.username }} </h2>
+    <a href="/fooditems/delete_favourites/{{ r.username }}" class="btn btn-info">remove from Favourites</a>
+    </div>
+    </div>
+  </div>
+</a>
+
+{% endfor %}
+
+{% else %}
+
+{% for f in res %}
+      {% if f.serviceable == "available" %}
+      <div class="col mb-4" >
+      <div class="card text-white mb-3" style="width: 17rem;">
+        <image src="{{ f.image.url }}" class="card-img-top" alt="{{ f.food_name }}" />
+        <div class="card-body" >
+          <h2 class="card-title">{{ f.food_name }}</h2>
+          <table class="card-table table table-sm text-white table-borderless">
+    <tbody>
+      <tr>
+        <td>&#8377; {{ f.price }}</td>
+        <td>{{ f.veg }}</td>
+      </tr>
+      <tr>
+        <td>{{ f.cuisine_type }}</td>
+        <td>{{ f.item_type }}</td>
+      </tr>
+      <tr>
+        <td>{{ f.avg_rating }}</td>
+        <td>
+          <!-- Button trigger modal -->
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalScrollable{{f.food_name}}">
+  reviews
+</button></td>
+
+      </tr>
+    </tbody>
+  </table>
+  <form method ="post" action="/fooditems/input_ratings/{{ f.food_id }}">
+    {% csrf_token %}
+      <input type="text" name="rating" placeholder = "your rating" size=12/>
+      <input type="submit" class="btn btn-info btn-sm" name="Submit"/>
+  </form>
+
+  <a class="btn btn-info" href="/food/addToCart/{{ f.food_id }}" role="button">addToCart</a></td>
+  <a href="/fooditems/delete_favourites/{{ f.food_id|stringformat:"i" }}" class="btn btn-info">remove from Favourites</a>
+
+    </div>
+    </div>
+  </div>
+
+  {% endif %}
+
+  <div class="modal fade" id="exampleModalScrollable{{f.food_name}}" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalScrollableTitle">Reviews</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <form method ='post' action='/fooditems/input_reviews/{{ f.food_id }}'>
+            {% csrf_token %}
+              <input type='text' name='reviews' placeholder = 'your reviews'/>
+              <input type='submit' class="btn btn-primary btn-sm" name='Submit'/>
+          </form>
+        </br>
+          {{ f.food_name }}
+          <p>
+          {% for r in f.rating_set.all %}
+            {{ user.username }} : {{ r.reviews }}<br/>
+          {% endfor %}
+        </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+{% endfor %}
+{% endif %}
+
+</div>
+</div>
+</body>
+</html>
+
+{% endblock %}
