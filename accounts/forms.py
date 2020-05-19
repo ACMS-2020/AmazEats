@@ -11,7 +11,7 @@ class SignUpForm(UserCreationForm):
     lname = forms.CharField(max_length=30, required=False, help_text='Optional.')
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
     phone= forms.CharField(max_length=11,required=True)
-    usertype=forms.CharField(label="Select the type",widget=forms.Select(choices=user_type))
+    usertype=forms.CharField(label="Select the type",widget=forms.Select(choices=user_type),initial="restaurant")
     class Meta:
         model = User
         fields = ('username', 'fname', 'lname', 'email', 'phone','password1', 'password2','usertype' )

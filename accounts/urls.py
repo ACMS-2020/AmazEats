@@ -10,4 +10,5 @@ path('login/dashboard/',views.dashboardView,name="log_dashboard"),
 path('dashboard/',views.dashboardView,name="dashboard"),
 path('logout/',views.LogoutView,name="logout"),
 path('EditProfile/',views.EditProfileView,name="EditProfile"),
+path('changePassword/',views.changePasswordView,name="changePassword"),
 ]

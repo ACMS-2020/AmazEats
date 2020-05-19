@@ -1,46 +1,131 @@
-{% extends 'index.html' %}
 <head>
-<meta http-equiv="refresh" content="0; url=http://127.0.0.1:8000/accounts/login/dashboard" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="animate.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
+
+<style>
+	.navbar-inverse
+  {
+    background-color: #232F3E;
+    border-color: #232F3E;
+   
+  }
+
+  .navbar-inverse .navbar-brand
+  {
+    color: #fff;
+    font-size: 40px;
+    padding: 40px 15px;
+    font-weight: 900;
+  }
+
+  .nav.navbar-nav.navbar-right
+  {
+    margin: 5px 0px;
+    font-weight: bold;
+    display: inline-block;
+  }
+  
+  .nav.navbar-nav.navbar-left
+  {
+    margin: 5px 0;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  .navbar-inverse .navbar-nav > li
+  {
+    display: inline-block;
+    padding-right: 20px;
+  }
+
+  .navbar-inverse .navbar-nav > li > a
+  {
+    color: #fff;
+    display: inline-block;
+    font-size: 15px;
+  }
+
+	@media only screen and (min-width: 768px) and (max-width: 991px)
+	{
+
+	}
+
+	@media only screen and (max-width: 767px)
+	{
+		.navbar-inverse .navbar-brand{
+			font-size: 30px
+			padding:20px 15px;
+		}
+
+		.navbar-collapse
+		{
+			background: rgba(0,0,0,0.55);
+		}
+
+		
+
+		.indicate
+		{
+			list-style-type: square;
+		}
+
+
+	}
+</style>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+
+  <div class="container">
+
+    <a class="nav navbar-nav navbar-left" style="font-size: 27px; color: #FF9900;float: left;"><span><img src="/media/amazon-icon-1.webp" height="32px" width="32px"; /></span> AmazEats </a>
+
+    <div class="navbar-header" style="float: left;">
+
+      
+
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navCollapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+  
+
+  
+  
+
+  <div class="collapse navbar-collapse" id="navCollapse" >
+   <ul class="nav navbar-nav navbar-left" style="display: inline-block;">
+    <li ><a href="/dashboard" >Home</a></li>
+    <li ><a href="/food/res_pending_order/" >Profile</a></li>
+    <li ><a href="/fooditems/add_fooditem">Add FoodItems</a></li>
+    <li ><a href="/logout/">LogOut</a></li>
+
+    <li>  
+    <form class="form-inline" action='/fooditems/res_search' method = 'get' style="margin-top: 12px;">
+      <input style="height:30px;font-size: 15px;" class="form-control mr-sm-2" type="search" name='q'  placeholder="Search" aria-label="Search">
+      <button size="10px"class="btn btn-info" type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </li>
+  </ul>
+
+ 
+   
+   </div>
+  </div>
+</nav>
+<br>
+<br>
+<br>
 {% block content %}
 	{% csrf_token %}
-	<nav class="navbar navbar-expand-lg ">
-	<a class="navbar-brand" href="#">AmazEats</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		<ul class="navbar-nav mr-auto">
-		<li class="nav-item">
-			<a class="nav-link" href="/food/res_pending_order/">Profile</a>
-		</li>
-
-
-			<li>
-				<a class="nav-link" href="/fooditems/add_fooditem">add item</a>
-			</li>
-		<li class="nav-item">
-			<a class="nav-link" href="/logout">logout</a>
-		</li>
-		</ul>
-		<form class="form-inline" action='/fooditems/res_search' method = 'get'>
-		<input class="form-control mr-sm-2" type="search" name='q'  placeholder="Search" aria-label="Search">
-		<button class="btn my-2 my-sm-0" type="submit">Search</button>
-		</form>
-	</div>
-	</nav>
-
 	<h1>Welcome, {{user.username}}</h1>
 	<p>Now get to deliver your favourite food </p>
-	{% if user.is_authenticated %}
-		<a href="{% url 'logout' %}">LogOut</a>
-	{% endif %}
-
-{% if messages %}
-	<script >
-		alert('{{messages}}')
-	</script>
-{% endif %}
-
 {% endblock content%}

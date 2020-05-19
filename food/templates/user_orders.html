@@ -3,39 +3,7 @@
 
     <body>
 
-    <nav class="navbar navbar-expand-lg " style="background-color: #232F3E;color: white;" >
-  <a class="navbar-brand" href="#">AmazEats</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-        <a class="nav-link" href="/food/user_orders">Profile</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          Favourites
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href= "/fooditems/favourites/{{ type|default:'restaurants' }}">Restaurants</a>
-          <a class="dropdown-item" href="/fooditems/favourites/{{ type|default:'fooditems' }}">FoodItems</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/food/cart">cart</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/logout">logout</a>
-      </li>
-    </ul>
-    <!--<form class="form-inline" action='/fooditems/res_search' method = 'get'>
-      <input class="form-control mr-sm-2" type="search" name='q'  placeholder="Search" aria-label="Search">
-      <button class="btn my-2 my-sm-0" type="submit" style=" background-color:#FF9900;">Search</button>
-    </form>-->
-  </div>
-</nav>
+  
         <div class="jumbotron text-center" style="margin-bottom:0;background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQTKPmO0QsWFsyN2Qk4JLGKpoRQRvXj5JtIFsL1T9V-Aeu-PACh&usqp=CAU');background-size:cover;color:#ffffff;">
             <h1>AmazEats</h1>
             <p style="color:#ffa000;">The Food You Like !!</p>
@@ -48,15 +16,18 @@
                                 <img class="border border-warning" src="https://getdrawings.com/free-icon/facebook-female-profile-icon-56.png" style="height:150;width:150;border-radius:50%;margin:10"/>
                                 <h5 class="card-title">{{ request.user.username }}</h5>
                                 <p class="card-text">Hyderabad</p>
-                                <a href="#" style="background-color:#ffa000;color:#ffffff;" class="btn">Edit Profile</a>
+                                <a href="/EditProfile" style="background-color:#ffa000;color:#ffffff;" class="btn">Edit Profile</a>
                             </div>
                         </div>
 
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="text-color:#131A22">
                             <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Orders</a>
+                            <a class="nav-link"href="{% url 'dashboard' %}">Home</a>
                             <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Your Favourites</a>
                             <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Ratings and reviews</a>
-                        <a class="nav-link" href="/logout">logout</a>
+                         <a class="nav-link" href="/food/cart">Cart</a>
+                        <a class="nav-link" href="/logout">Logout</a>
+
                         </div>
                         <hr class="d-sm-none">
                     </div>

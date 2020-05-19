@@ -1,5 +1,10 @@
 <html>
     <head>
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="animate.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <style>
 
             .ml-5,.mx-5{
@@ -10,42 +15,7 @@
                 background-color:#232F3E;
             }
 
-            .nav>a.active,
-            .nav>a:focus {
-                 background-color: #FF9900 !important;
-            }
-
-            nav {
-                margin: 2px;
-                padding:0px;
-                text-align: center;
-                background: #ffffff;
-            }
-
-            .navbar-inverse .navbar-nav > .active > a:focus{
-                color: rgb(255, 255, 255);
-                background-color: red
-            }
-
-            nav a {
-                transition: 0.3s ease;
-                background: #232F3E;
-                color: white;
-                font-size: 20px;
-                text-decoration: none;
-                border-top: 4px solid transparent;
-                border-bottom: 4px solid transparent;
-                padding: 2px 0;
-                margin: 0 2px;
-                font-size: 17px;
-            }
-
-            nav a:hover {
-                border-top: 4px #232F3E;
-                border-bottom: 4px #232F3E;
-                padding: 0px 0;
-                color:#fff;
-            }
+            
 
             .fakeimg {
                 height: 200px;
@@ -96,6 +66,7 @@
     </head>
     <body>
         {% block content %}
+        
         {% endblock content %}
     </body>
 </html>

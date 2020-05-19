@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 @only_customer
 def display_fooditems(request,username):
+    print(username)
     res = Restaurant.objects.get(pk = username)
     food = FoodItem.objects.filter(restaurant = res)
     pFilter = ProductFilter(request.POST , queryset = food)

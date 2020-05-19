@@ -7,7 +7,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
 
 
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
@@ -37,14 +37,14 @@
       border-radius: 18px;
       background : #FFFFFF35;
       box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
-      text-align: center;
+      text-align: center; 
     }
 
     .card-image
     {
-
+      
       margin-top: 10px;
-      grid-area: image;
+      grid-area: image;     
     }
 
     .card-text
@@ -79,31 +79,31 @@
     }
 
 
-    .input-icons i {
-            position: absolute;
-        }
-
-        .input-icons {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .icon {
+    .input-icons i { 
+            position: absolute; 
+        } 
+          
+        .input-icons { 
+            width: 100%; 
+            margin-bottom: 10px; 
+        } 
+          
+        .icon { 
           padding-top: 17px;
             color: #a2a2a8;
             background: transparent;
-        }
+        } 
 
-
+      
   </style>
 
 
 {% block content %}
 <body style="background-image:url('/media/loginbg.png')">
+  
 
 
-
-
+	
 
   <div class="card">
     <div class="card-image">
@@ -125,9 +125,9 @@
               <td>{{ field.label_tag }}</td>
               <td>{{ field }}</td>
             </tr>
-
-
-
+            
+             
+           
               <!-- <tr>
               {% if field.help_text %}
                 <small style="color: grey">{{ field.help_text }}</small>
@@ -141,11 +141,11 @@
               {% for error in field.errors %}
                 <p style="color: red; font-size: 13px;line-height: 5px;">{{ error }}</p>
               {% endfor %}
-
+          
 
         {% endfor %}
       </div><p></p>
-
+        
         <button class="element" type="Login" style="width: 130px;height: 35px;"><b>Get Started</button><br/><p></p>
         <a href="{% url 'login_url' %}" style="color: white;outline: 0;">Have an account?&nbsp;&nbsp;<span style="color:#FF9900">Login</span> </a></b>
         </form>

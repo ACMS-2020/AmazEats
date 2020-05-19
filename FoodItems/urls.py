@@ -22,7 +22,7 @@ urlpatterns = [
     path('', views.list_restaurants, name='list_restaurants'),
     path('res_favourites/<str:username>',views.res_favourites, name = 'restaurant_favourites'),
     path('food_favourites/<int:id>',views.food_favourites, name = 'food_favourites'),
-    path('favourites/<str:type>',views.favourites, name = 'favourites'),
+    path('favourites/<str:type>',views.favourites, name='favourites'),
     path('delete_favourites/<str:id>',views.delete_favourites, name = 'delete_favourites'),
 
 ]

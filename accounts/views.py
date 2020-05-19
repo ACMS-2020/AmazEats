@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login,logout,authenticate
@@ -42,6 +44,7 @@ def registerView(request):
 			type1=request.POST["usertype"]
 			print(username)
 			user = authenticate(username=username, password=raw_password)
+
 			login(request, user)
 			sendDetails(request)
 			if type1=='restaurant':
@@ -95,9 +98,8 @@ def EditProfileView(request):
 	type1=User.objects.get(username=request.user.username).type1
 	if type1=='restaurant':
 		form=RestaurantEditForm(request.POST)
-		de={}
+		
 		res=Restaurant.objects.get(username=User(username=request.user.username))
-		de['name']=res.name
 		if form.is_valid():
 			print('Form Valid')
 			r=Restaurant(username=User(username=request.user.username))
@@ -128,19 +130,18 @@ def EditProfileView(request):
 				res.save()
 				print('Saved')
 				message={'message':"Update Successful"}
-				return render(request,'rdashboard.html',{'message':message})
+				return HttpResponseRedirect(reverse('dashboard'))
 			except:
 				pass
 
 
-		return render(request,'profile.html',{'form':form,'de':de})
+		return render(request,'profile.html',{'form':form,'type':type1})
 
 	elif type1=='delivery':
 		form=DeliveryAgentEditForm(request.POST)
-		de={}
+		
 
 		res=DeliveryAgent.objects.get(username=User(username=request.user.username))
-		de['drivingLicense']=res.drivingLicense
 		if form.is_valid():
 			print('Form Valid')
 
@@ -162,14 +163,11 @@ def EditProfileView(request):
 				return HttpResponseRedirect(reverse('dashboard'))
 			except:
 				pass
-		return render(request,'profile.html',{'form':form,'de':de})
+		return render(request,'profile.html',{'form':form,'type':type1})
 
 	else:
 		form=UserEditForm(request.POST)
-		de={}
-		s=str('Location')
-		de[s]=request.POST['Location']
-
+		
 		if form.is_valid():
 			c=Customer(username=User(username=request.user.username))
 			if request.POST.get('Location')!='':
@@ -181,10 +179,22 @@ def EditProfileView(request):
 			except:
 				pass
 
-		return render(request,'profile.html',{'form':form,'de':de})
+		return render(request,'profile.html',{'form':form,'type':type1})
 
 
-
+def changePasswordView(request):
+	if request.method == 'POST':
+		form = PasswordChangeForm(request.user, request.POST)
+		if form.is_valid():
+			user = form.save()
+			update_session_auth_hash(request, user)  # Important!
+			messages.success(request, 'Your password was successfully updated!')
+			return HttpResponseRedirect(reverse('dashboard'))
+		else:
+			messages.error(request, 'Please correct the error below.')
+	else:
+		form = PasswordChangeForm(request.user)
+	return render(request, 'change_password.html', {'form': form})
 
 
 def LogoutView(request):

@@ -8,14 +8,14 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
 
 
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 
 </head>
 {% block content %}
-
+	
 	<style>
 		body
 		{
@@ -30,23 +30,23 @@
 		.card
 		{
 			align-self: center;
+			display: grid;
 			width: 350px;
 			height: 420px;
-			display: grid;
 			grid-template-columns:350px;
 			grid-template-rows: 120px 210px 60px;
 			grid-template-areas: "image" "text" "stats";
 			border-radius: 18px;
-			background : #7c7c7fE1;
+			background :#FFFFFF35;
 			box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
-			text-align: center;
+			text-align: center; 
 		}
 
 		.card-image
 		{
 			align-self: center;
 			margin-top: 10px;
-			grid-area: image;
+			grid-area: image;	    
 		}
 
 		.card-text
@@ -80,25 +80,25 @@
 		}
 
 
-		.input-icons i {
-            position: absolute;
-        }
-
-        .input-icons {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .icon {
+		.input-icons i { 
+            position: absolute; 
+        } 
+          
+        .input-icons { 
+            width: 100%; 
+            margin-bottom: 10px; 
+        } 
+          
+        .icon { 
         	padding-top: 17px;
             color: #a2a2a8;
             background: transparent;
-        }
+        } 
 
-
+      
 	</style>
 	<body style="background-image:url('/media/loginbg.png')">
-
+	
 	<div class="card">
 		<div class="card-image">
 			<svg class="bi bi-people-circle" width="80px" height="80px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -112,26 +112,26 @@
 			<h2 style="color:#FF9900"> Login </h2>
 			<form method="POST">
 				{% csrf_token %}
-
+	    
 	   			<table align="center" cellspacing="5px">
-
+					
 
 					<tr>
 						<div class="input-icons">
-
+							
 						<td >
 							<i class="fa fa-user icon"></i>
 							<input style="padding-left: 10px;width: 200px;height: 32px;" placeholder="Username" class="element" type="text" name="username" id="username" required ></td>
 						</div>
 					</tr>
-
+					
 					<tr>
 						<td>
 							<i class="fa fa-lock icon" style="padding-right:2px;"></i>
 							<input style="padding-left: 10px;width: 200px;height: 32px;" class="element"  placeholder="Password" type="password" name="password" id="password" required ></td>
 					</tr>
 				</table>
-
+				
 				<p style="color: red;font-size: 14px;">{{error}}</p>
 				<button class="element" type="Login" style="width: 90px;height: 35px;"><b>Let's Go</button><br/><br/>
 				<a href="{% url 'register_url' %}" style="color: white;outline: 0;">New&nbsp;User?&nbsp;&nbsp;<span style="color:#FF9900">SignUp</span> </a></b>
@@ -140,6 +140,5 @@
 	</div>
 
 </body>
-
+	
 {% endblock content%}
-

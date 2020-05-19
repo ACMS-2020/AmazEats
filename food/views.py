@@ -18,15 +18,17 @@ def display_items(request,res_id):
     context = {'items':items}
     return render(request,'items.html',context)'''
 
-@csrf_exempt
+#@csrf_exempt
 @only_customer
 def addToCart(request,item_id):
+    print('cart entered')
     try:
         cartTrail = Cart.objects.get(food_id=item_id)
         cartTrail.quantity += 1
         cartTrail.save()
     except Cart.DoesNotExist:
         items = FoodItem.objects.filter(food_id=item_id)[0]
+        print(items.restaurant_id)
         cartItem = Cart.objects.create(user_id=request.user.username, res_id=items.restaurant_id, food_id=item_id,food_name=items.food_name,price=items.price)
         cartItem.save()
     print("added")
@@ -57,7 +59,7 @@ def checkOut(request):
     cart = Cart.objects.filter(user_id=request.user.username)
     if(not cart.exists()):
         return render(request,"order_placed.html")
-    order = Order.objects.create(user_id=request.user.username,restaurant_id=cart[0].res_id)
+    order = Order.objects.create(user_id=request.user.username,restaurant_id=cart[0].res_id,order_date=datetime.now())
     for i in cart:
         order.order_set.create(item_id=i.food_id,quantity=i.quantity,item_name=i.food_name)
         item = FoodItem.objects.filter(food_id=i.food_id)
@@ -205,12 +207,13 @@ def order_delivered(request,order_id):
 
 @only_customer
 def cart(request):
+
     obj =  Cart.objects.filter(user_id=request.user.username)
-    #food_images={}
+    food_images={}
     #for i in obj:
     #   food = FoodItem.objects.get(food_id=i.food_id)
     #   food_images.add(food.image)
-    return render(request,"cart.html",{'cart_items':obj,'food_images':food_images})
+    return render(request,"cart.html",{'cart_items':obj})
 
 
 @only_customer
