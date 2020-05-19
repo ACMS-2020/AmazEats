@@ -70,7 +70,7 @@
                        <!-- <h3> Current Orders </h3>-->
                         {%if obj%}
                         {% for item in obj %}
-                        {% if item.status != "Delivered"%}
+                        <!--{% if item.status != "Delivered"%}-->
                             <div class="card m-5 text-white mx-auto" style="width: 800px;background-color:#232F3E"  >
                                 <div class="card-header">
                                     <span><h3> Order Number : {{ item.order_id }} </h3></span>
@@ -278,7 +278,7 @@
                                           </div>
                                         </div>
 
-                        {% endif %}
+                        <!--{% endif %}-->
                         {% endfor %}
                         <div class="pagination justify-content-center mb-5">
                             {% if values.has_previous %}

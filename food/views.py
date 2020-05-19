@@ -128,8 +128,7 @@ def processed_order(request,order_id):
 
 @only_customer
 def user_order_details(request):
-    not_needed = ['Delivered', 'Rejected']
-    obj = Order.objects.filter(user_id=request.user.username).order_by('-order_id')
+    obj = Order.objects.filter(user_id=request.user.username).exclude(status="Delivered").exclude(status="Rejected").order_by('-order_id')
     print("user orders",len(obj))
     paginator = Paginator(obj, items_per_page)
     page = request.GET.get('page')
@@ -138,7 +137,7 @@ def user_order_details(request):
     ind = int(page) - 1
     obj = obj[ind * items_per_page:ind * items_per_page + items_per_page]
     values = paginator.get_page(page)
-    return render(request,'user_orders.html',{'obj':obj,'values':values,'not_needed':not_needed})
+    return render(request,'user_orders.html',{'obj':obj,'values':values})
 
 @only_customer
 def reorder(request,order_id):
@@ -210,8 +209,8 @@ def cart(request):
     #food_images={}
     #for i in obj:
     #   food = FoodItem.objects.get(food_id=i.food_id)
-    #   food_image.append(food.image)
-    return render(request,"cart.html",{'cart_items':obj})
+    #   food_images.add(food.image)
+    return render(request,"cart.html",{'cart_items':obj,'food_images':food_images})
 
 
 @only_customer
@@ -223,7 +222,7 @@ def cancel_order(request,order_id):
 @only_customer
 def order_history(request):
     not_needed = ['Delivered','Rejected']
-    obj = Order.objects.filter(user_id=request.user.username).order_by('-order_id')
+    obj = Order.objects.filter(user_id=request.user.username,status__in=['Delivered','Rejected']).order_by('-order_id')
     print("obj length",len(obj))
     paginator = Paginator(obj,items_per_page)
     print("paginator",paginator)
