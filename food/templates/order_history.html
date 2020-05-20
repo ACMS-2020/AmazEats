@@ -1,5 +1,126 @@
 {% extends "base_delivery.html" %}
 {% block content %}
+<head>
+    <style>
+        .modal-confirm {
+		color: #636363;
+		width: 325px;
+	}
+	.modal-confirm .modal-content {
+		padding: 20px;
+		border-radius: 5px;
+		border: none;
+	}
+	.modal-confirm .modal-header {
+		border-bottom: none;
+        position: relative;
+	}
+	.modal-confirm h4 {
+		text-align: center;
+		font-size: 26px;
+		margin: 30px 0 -15px;
+	}
+	.modal-confirm .form-control, .modal-confirm .btn {
+		min-height: 40px;
+		border-radius: 3px;
+	}
+	.modal-confirm .close {
+        position: absolute;
+		top: -5px;
+		right: -5px;
+	}
+	.modal-confirm .modal-footer {
+		border: none;
+		text-align: center;
+		border-radius: 5px;
+		font-size: 13px;
+	}
+	.modal-confirm .icon-box {
+		color: #fff;
+		position: absolute;
+		margin: 0 auto;
+		left: 0;
+		right: 0;
+		top: -70px;
+		width: 95px;
+		height: 95px;
+		border-radius: 50%;
+		z-index: 9;
+		background: #82ce34;
+		padding: 15px;
+		text-align: center;
+		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+	}
+	.modal-confirm .icon-box i {
+		font-size: 58px;
+		position: relative;
+		top: 3px;
+	}
+	.modal-confirm.modal-dialog {
+		margin-top: 80px;
+	}
+    .modal-confirm .btn {
+        color: #fff;
+        border-radius: 4px;
+		background: #82ce34;
+		text-decoration: none;
+		transition: all 0.4s;
+        line-height: normal;
+        border: none;
+    }
+	.modal-confirm .btn:hover, .modal-confirm .btn:focus {
+		background: #6fb32b;
+		outline: none;
+	}
+	.trigger-btn {
+		display: inline-block;
+		margin: 100px auto;
+	}
+
+  .navbar-inverse
+  {
+    background-color: #232F3E;
+    border-color: #232F3E;
+
+  }
+
+  .navbar-inverse .navbar-brand
+  {
+    color: #fff;
+    font-size: 40px;
+    padding: 40px 15px;
+    font-weight: 900;
+  }
+
+  .nav.navbar-nav.navbar-right
+  {
+    margin: 5px 0px;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  .nav.navbar-nav.navbar-left
+  {
+    margin: 5px 0;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  .navbar-inverse .navbar-nav > li
+  {
+    display: inline-block;
+    padding-right: 20px;
+  }
+
+  .navbar-inverse .navbar-nav > li > a
+  {
+    color: #fff;
+    display: inline-block;
+    font-size: 15px;
+  }
+
+    </style>
+</head>
     <body>
 
       <!-- <nav class="navbar navbar-expand-lg " style="background-color: #232F3E;color: white;" >
@@ -54,10 +175,10 @@
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="text-color:#131A22">
 
                             <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Orders</a>
-                            <a class="nav-link"href="{% url 'dashboard' %}">Home</a>
-                            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Your Favourites</a>
-                            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Ratings and reviews</a>
-                       <a class="nav-link" href="/logout">Logout</a>
+                            <a class="nav-link" style="color:#232F3E" href="{% url 'dashboard' %}">Home</a>
+                            <a class="nav-link" id="v-pills-profile-tab" style="color:#232F3E" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Your Favourites</a>
+                            <a class="nav-link" id="v-pills-messages-tab" style="color:#232F3E" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Ratings and reviews</a>
+                       <a class="nav-link" style="color:#0d98ba" href="/logout">Logout</a>
                         </div>
                         <hr class="d-sm-none">
                     </div>
@@ -91,7 +212,9 @@
                                     </ul>
                                     <span class="card-text">Ordered On : {{ item.order_date }} </span>
                                     {% if item.status == "Delivered" %}
-                                    <span><a href="/food/reorder/{{ item.order_id }}" style="background-color:#FF9900" class="btn btn-info float-right">Reorder</a></span>
+                                    <!--<span><a href="/food/reorder/{{ item.order_id }}"  class="btn btn-info float-right">Reorder</a>-->
+                                    <a id = "{{ item.order_id }}" class="btn btn-info float-right" href="#reorder" style="background-color:#FF9900" onclick="reOrder(event);" data-toggle="modal"> Reorder </a>
+                                    </span>
                                     {% endif %}
                                 </div>
                             </div>
@@ -129,5 +252,35 @@
         <div class="jumbotron text-center" style="margin-bottom:0">
             <p>By Me</p>
         </div>
+
+    <script>
+function reOrder(event)
+{
+  var me = event.currentTarget
+  var order_id = me.getAttribute("id");
+  jQuery.get("/food/reorder/"+order_id+"/",function(data, status){
+  });
+}
+</script>
+
+    <!-- Modal HTML -->
+<div id="reorder" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="icon-box">
+					<i class="material-icons">&#xE876;</i>
+				</div class="modal-title">
+				<h4>Awesome!</h4>
+			  </div>
+			<div class="modal-body">
+				<p class="text-center">Yay !! Order placed</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+			</div>
+		</div>
+	</div>
+</div>
     </body>
 {% endblock content %}

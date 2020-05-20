@@ -15,7 +15,9 @@ from django.contrib.auth.decorators import login_required
 def display_fooditems(request,username):
     print(username)
     res = Restaurant.objects.get(pk = username)
+    print(res)
     food = FoodItem.objects.filter(restaurant = res)
+    print(food)
     pFilter = ProductFilter(request.POST , queryset = food)
     food = pFilter.qs
     return render(request,'food_customer/foodItems.html',{'food':food , 'pFilter' : pFilter, 'res':res })

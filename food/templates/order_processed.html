@@ -33,6 +33,8 @@
                             <a class="nav-item nav-link" href="/food/res_dispatched_order/">Dispatched</a>
                         </nav>
 
+
+                        {% if obj %}
                         {% for item in obj %}
                             <div class="card m-5 text-white mx-auto" style="width: 800px;background-color:#232F3E"  >
                                 <div class="card-header">
@@ -54,6 +56,7 @@
                                 </div>
                             </div>
                         {% endfor %}
+
                         <div class="pagination justify-content-center mb-5">
                             {% if values.has_previous %}
                                 <a class="pagination-action" href="?page=1"><i class="fas fa-angle-double-left"></i></a>
@@ -72,6 +75,15 @@
                             <a class="pagination-action" href="?page={{ values.paginator.num_pages }}"><i class=""fas fa-angle-right></i></a>
                         {% endif %}
                     </div>
+
+                        {% else %}
+                             <center>
+		<img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/29b9cc48772065.58a1d7373a835.gif" style="height:300;" class="mt-4 align-bottom rounded mx-auto d-block" alt="order processing">
+		<h5 class="card-title">Yaay !! You processed all your orders.. </h5>
+                            <p><small> Delight of serving</small></p>
+	</center>
+
+                        {% endif %}
                 </div>
             </div>
         </div>

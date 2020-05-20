@@ -32,7 +32,7 @@
                             <a class="nav-item nav-link" href="/food/res_processing_order/">Processing</a>
                             <a class="nav-item nav-link" href="/food/res_dispatched_order/">Dispatched</a>
                         </nav>
-
+                        {% if obj %}
                         {% for item in obj %}
                             <div class="card m-5 text-white mx-auto" style="width: 800px;background-color:#232F3E"  >
                                 <div class="card-header">
@@ -73,6 +73,15 @@
                             <a class="pagination-action" href="?page={{ values.paginator.num_pages }}"><i class=""fas fa-angle-right></i></a>
                         {% endif %}
                     </div>
+                        {% else %}
+                             <center>
+		<img src="https://i.pinimg.com/originals/4b/5b/98/4b5b984999cdd2c9eac2195570d85df5.gif" style="height:300;" class="m-4 align-bottom rounded mx-auto d-block" alt="order processing">
+		<h5 class="card-title">Searching for your orders !! </h5>
+                            <p><small>Great day ahead .. Let's wait </small></p>
+	</center>
+
+                        {% endif %}
+
                 </div>
             </div>
         </div>

@@ -34,7 +34,7 @@
                             <a class="nav-item nav-link active" href="/food/orders_available">Available Deliveries</a>
                             <a class="nav-item nav-link" href="/food/your_delivery">Your Deliveries</a>
                         </nav>
-
+                        {% if obj %}
                         {% for item in obj %}
                             <div class="card m-5 text-white mx-auto" style="width: 800px;background-color:#232F3E"  >
                                 <div class="card-header">
@@ -75,6 +75,14 @@
                             <a class="pagination-action" href="?page={{ values.paginator.num_pages }}"><i class=""fas fa-angle-right></i></a>
                         {% endif %}
                     </div>
+                        {% else %}
+                             <center>
+		<img src="https://www.emp-online.com/on/demandware.static/Sites-GLB-Site/-/default/dw9c06662d/images/logos/empty-cart.gif" style="height:300;" class="m-4 align-bottom rounded mx-auto d-block" alt="order processing">
+		<h5 class="card-title">No orders yet..</h5>
+                            <p><small></small></p>
+	</center>
+
+                        {% endif %}
                 </div>
             </div>
         </div>

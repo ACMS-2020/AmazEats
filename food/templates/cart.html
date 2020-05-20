@@ -1,0 +1,108 @@
+{% extends "base_delivery.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+	<div class="jumbotron text-center" style="margin-bottom:0;background-color:#232F3E;color:#ffffff;">
+            <h1>AmazEats</h1>
+            <p style="color:#ffa000;">The Food You Like !!</p>
+        </div>
+
+	{% if cart_items %}
+<table id="cart" class="table table-hover table-condensed">
+    				<thead>
+						<tr>
+							<th style="width:50%">Product</th>
+							<th style="width:10%">Price</th>
+							<th style="width:8%">Quantity</th>
+							<th style="width:22%" class="text-center">Subtotal</th>
+							<th style="width:10%"></th>
+						</tr>
+					</thead>
+					<tbody>
+
+					{% for i in cart_items %}
+						<tr>
+							<td data-th="Product">
+								<div class="row">
+									<div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+									<div class="col-sm-10">
+										<h4 class="ml-5">{{ i.food_name }}</h4>
+									</div>
+								</div>
+							</td>
+							<td data-th="Price" val="{{i.price}}" >Rs. {{ i.price }}</td>
+							<td data-th="Quantity">
+								<input type="number" class="form-control text-center" value="{{ i.quantity }}" id="{{ i.food_id }}" onchange="quantityChange(event,{{ i.price }})">
+							</td>
+							<td data-th="Subtotal" class="text-center" id="element{{ i.food_id }}">{% widthratio i.quantity 1 i.price %}</td>
+							<td class="actions" data-th="">
+								<!--<button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>-->
+								<a href="/food/removeFromCart/{{ i.food_id }}" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
+							</td>
+						</tr>
+					{% endfor %}
+					</tbody>
+					<tfoot>
+
+						<tr>
+							<td><a href="/fooditems/" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+							<td colspan="2" class="hidden-xs"></td>
+							<td class="hidden-xs text-center" value="{{i.price}}*{{i.quantity}}" id="subt"><strong>Total Rs. </strong></td>
+							<td><a href="/food/checkOut" class="btn btn-success btn-block">Checkout</a></td>
+						</tr>
+					</tfoot>
+				</table>
+			{% else %}
+
+	<center>
+		<img src="https://candleroses.com/images/Cart-empty.gif" class="w-20 m-4 align-bottom rounded mx-auto d-block" alt="order processing">
+		<h5 class="card-title">Your cart is empty</h5>
+		<a href="/fooditems/" class="btn btn-warning mt-3"><i class="fa fa-angle-left"></i> Continue Shopping</a>
+	</center>
+			{% endif %}
+
+		</div>
+
+
+<script>
+
+	function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+$.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    });
+
+	function quantityChange(event,price){
+		var cur = event.currentTarget;
+		document.getElementById("element"+cur.getAttribute('id')).innerHTML = cur.value*price;
+
+		var food_id = cur.getAttribute('id');
+		var quantity = cur.value;
+		alert(quantity);
+		jQuery.post("/food/alter_cart/",
+		{
+		food_id : food_id,
+		quantity: quantity
+		},function () {
+            alert("quantity changed");
+            });
+
+	}
+</script>
+{% endblock content %}
