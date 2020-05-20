@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 
-{%  extends 'base.html' %}
 
 {% block content %}
 <html lang="en">
@@ -34,22 +33,12 @@
 </head>
 <style>
 
-  body
-  {
-    font-family:'Poppins';
-  }
 
-  .carousel-inner .item
-  {
-    height: 100vh;
-  }
-
-
-  .navbar-inverse
+.navbar-inverse
   {
     background-color: #232F3E;
     border-color: #232F3E;
-   
+    font-family: 'Poppins';
   }
 
   .navbar-inverse .navbar-brand
@@ -66,7 +55,7 @@
     font-weight: bold;
     display: inline-block;
   }
-  
+
   .nav.navbar-nav.navbar-left
   {
     margin: 5px 0;
@@ -87,37 +76,28 @@
     font-size: 15px;
   }
 
+	@media only screen and (min-width: 768px) and (max-width: 991px)
+	{
+
+	}
+
+	@media only screen and (max-width: 767px)
+	{
+		.navbar-inverse .navbar-brand{
+			font-size: 30px;
+			padding:20px 15px;
+		}
+		.navbar-collapse
+		{
+			background: transparent;
+		}
+		.indicate
+		{
+			list-style-type: square;
+		}
 
 
-  @media only screen and (min-width: 768px) and (max-width: 991px)
-  {
-
-  }
-
-  @media only screen and (max-width: 767px)
-  {
-    .navbar-inverse .navbar-brand{
-      font-size: 30px
-      padding:20px 15px;
-    }
-
-    .navbar-collapse
-    {
-      background: #232F3E;
-    }
-
-    
-    .indicate
-    {
-      list-style-type: square;
-    }
-
-    .navbar-inverse .navbar-nav > li
-    {
-    
-    padding-right: 10px;
-    }
-
+	}
 
   .card-img-top {
       width: 100%;
@@ -131,54 +111,38 @@
   </style>
 
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse">
 
   <div class="container">
 
-    <a class="nav navbar-nav navbar-left" style="font-size: 27px; color: #FF9900;float: left;"><span><img src="/media/amazon-icon-1.webp" height="32px" width="32px"; ></span> AmazEats </a>
+    <a class="nav navbar-nav navbar-left" style="font-size: 27px; color: #FF9900;float: left;"><span><img src="/media/amazon-icon-1.webp" height="32px" width="32px"; /></span> AmazEats </a>
 
     <div class="navbar-header" style="float: left;">
-
-      
-
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navCollapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
     </div>
-  
-
-  
-  
 
   <div class="collapse navbar-collapse" id="navCollapse" >
    <ul class="nav navbar-nav navbar-left" style="display: inline-block;">
-    <li ><a href="/fooditems/" >Home</a></li>
-    <li ><a href="/food/user_orders/" >Profile</a></li>
-    <li ><a href="/food/cart/">Cart</a></li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background: transparent;color: white;">
-          Favourites
-        </a>
-        <div style="background: #FFFFFF40;" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="/fooditems/favourites/ {{ type|default:'restaurants' }}" style="background: transparent;color: white;font-size: 12px;"><b>Restaurants</b></a>
-          <a class="dropdown-item" href="/fooditems/favourites/ {{ type|default:'fooditems' }}" style="background: transparent;color: white;font-size: 12px;"><b>Food Items</b></a>
-        </div>
-      </li>
+    <li ><a href="/dashboard" >Home</a></li>
+    <li ><a href="/food/res_pending_order/" >Profile</a></li>
+    <li ><a href="/fooditems/add_fooditem">Add FoodItems</a></li>
     <li ><a href="/logout/">LogOut</a></li>
 
-    <li>  
+    <li>
     <form class="form-inline" action='/fooditems/res_search' method = 'get' style="margin-top: 12px;">
       <input style="height:30px;font-size: 15px;" class="form-control mr-sm-2" type="search" name='q'  placeholder="Search" aria-label="Search">
-      <button size="10px" style=" background-color: #FF9900;border: #FF9900;"class="btn btn-info" type="submit"><i class="fa fa-search fa-2x"></i></button>
+      <button size="10px"class="btn btn-info" type="submit"><i class="fa fa-search"></i></button>
     </form>
   </li>
   </ul>
-   
    </div>
   </div>
 </nav>
+
 </br>
 
 <div class = "row">

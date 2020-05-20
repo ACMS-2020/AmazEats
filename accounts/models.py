@@ -13,7 +13,7 @@ class User(models.Model):
 
 
 class Restaurant(models.Model):
-	username=models.ForeignKey(User,editable=False,on_delete=models.CASCADE,primary_key=True)
+	username=models.OneToOneField(User,editable=False,on_delete=models.CASCADE,primary_key=True)
 	name=models.CharField(max_length=20,default="")
 	Location=models.CharField(max_length=100,default="")
 	startTime=models.TimeField(default="00:00")
@@ -25,7 +25,7 @@ class Restaurant(models.Model):
 	image = models.ImageField()
 
 class DeliveryAgent(models.Model):
-	username=models.ForeignKey(User,editable=False,on_delete=models.CASCADE,primary_key=True)
+	username=models.OneToOneField(User,editable=False,on_delete=models.CASCADE,primary_key=True)
 	rating=models.CharField(max_length=20,default="")
 	vehicleNumber=models.CharField(max_length=10,default="")
 	status=models.BooleanField(default=False)
@@ -33,5 +33,5 @@ class DeliveryAgent(models.Model):
 
 
 class Customer(models.Model):
-	username=models.ForeignKey(User,editable=False,on_delete=models.CASCADE,primary_key=True)
+	username=models.OneToOneField(User,editable=False,on_delete=models.CASCADE,primary_key=True)
 	Location=models.CharField(max_length=100,default="")

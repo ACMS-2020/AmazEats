@@ -61,17 +61,13 @@
 	@media only screen and (max-width: 767px)
 	{
 		.navbar-inverse .navbar-brand{
-			font-size: 30px
+			font-size: 30px;
 			padding:20px 15px;
 		}
-
 		.navbar-collapse
 		{
-			background: rgba(0,0,0,0.55);
+			background: transparent;
 		}
-
-		
-
 		.indicate
 		{
 			list-style-type: square;
@@ -80,31 +76,27 @@
 
 	}
 </style>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse">
 
   <div class="container">
 
     <a class="nav navbar-nav navbar-left" style="font-size: 27px; color: #FF9900;float: left;"><span><img src="/media/amazon-icon-1.webp" height="32px" width="32px"; /></span> AmazEats </a>
 
-    <div class="navbar-header" style="float: left;">
-
-      
-
+    <div class="navbar-header" style="padding-left:20px;float: left;">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navCollapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
     </div>
-  
-
-  
-  
 
   <div class="collapse navbar-collapse" id="navCollapse" >
    <ul class="nav navbar-nav navbar-left" style="display: inline-block;">
     <li ><a href="/dashboard" >Home</a></li>
     <li ><a href="/food/res_pending_order/" >Profile</a></li>
+       <li>
+       <a href="/fooditems/restaurant_fooditems">Catalogue</a>
+       </li>
     <li ><a href="/fooditems/add_fooditem">Add FoodItems</a></li>
     <li ><a href="/logout/">LogOut</a></li>
 
@@ -115,12 +107,11 @@
     </form>
   </li>
   </ul>
-
- 
-   
    </div>
   </div>
 </nav>
+
+
 <br>
 <br>
 <br>

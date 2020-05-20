@@ -95,6 +95,7 @@ def loginView(request):
 
 @login_required
 def EditProfileView(request):
+
 	type1=User.objects.get(username=request.user.username).type1
 	if type1=='restaurant':
 		form=RestaurantEditForm(request.POST)
