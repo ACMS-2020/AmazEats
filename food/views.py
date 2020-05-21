@@ -8,7 +8,13 @@ from FoodItems.models import *
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+#changes
+from django.template.defaulttags import register
 
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
+#changes
 
 from datetime import datetime
 items_per_page = 8
@@ -28,6 +34,7 @@ def addToCart(request,item_id):
         cartTrail.save()
     except Cart.DoesNotExist:
         items = FoodItem.objects.filter(food_id=item_id)[0]
+        #cart_obj = Cart.objects.filter(user_id=request.user.username)[0]
         cartItem = Cart.objects.create(user_id=request.user.username, res_id=items.restaurant.username.username, food_id=item_id,food_name=items.food_name,price=items.price)
         cartItem.save()
     print("added")
@@ -206,13 +213,14 @@ def order_delivered(request,order_id):
 
 @only_customer
 def cart(request):
-
     obj =  Cart.objects.filter(user_id=request.user.username)
-    food_images={}
-    #for i in obj:
-    #   food = FoodItem.objects.get(food_id=i.food_id)
-    #   food_images.add(food.image)
-    return render(request,"cart.html",{'cart_items':obj})
+    food_images=dict()
+    for i in obj:
+        food = FoodItem.objects.get(food_id=i.food_id)
+        if food_images.get(i.food_id)==None:
+            food_images[i.food_id]=food.image.url
+    print(food_images)
+    return render(request,"cart.html",{'cart_items':obj,'food_images':food_images})
 
 
 @only_customer
@@ -247,6 +255,6 @@ def alter_cart_items(request):
         food_item = Cart.objects.get(food_id=food_id)
         food_item.quantity = 0
         food_id.save()
-    return HttpResponse("ok")
+    return JsonResponse({'data':'ok'})
 
 
