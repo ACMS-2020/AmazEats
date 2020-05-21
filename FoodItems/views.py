@@ -4,7 +4,7 @@ from .models import *
 from accounts.models import *
 from .forms import FoodItemsForm,PriceForm,AcceptableForm,RestaurantForm
 from .filters import ProductFilter
-from .decorators import only_customer
+from .decorators import only_customer,only_restaurant
 from django.contrib.auth.decorators import login_required
 
 
@@ -21,35 +21,6 @@ def display_fooditems(request,username):
     pFilter = ProductFilter(request.POST , queryset = food)
     food = pFilter.qs
     return render(request,'food_customer/foodItems.html',{'food':food , 'pFilter' : pFilter, 'res':res })
-
-# @login_required
-@only_customer
-def input_reviews(request , id):
-    food = FoodItem.objects.get(pk = id)
-    if (Rating.objects.filter(food_id = food , user_id = request.user.username).exists()):
-        r = Rating.objects.filter(food_id = food , user_id = request.user.username)
-        r[reviews] = request.POST['reviews']
-        r.save()
-    else:
-        reviews = request.POST['reviews']
-        r = Rating(food_id = food, reviews = reviews)
-        r.save()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-
-# @login_required
-@only_customer
-def input_ratings(request , id):
-    food = FoodItem.objects.get(pk = id)
-    if (Rating.objects.filter(food_id = food , user_id = request.user.username).exists()):
-        r = Rating.objects.filter(food_id = food , user_id = request.user.username)
-        r[rating] = request.POST['rating']
-        r.save()
-    else:
-        rating = request.POST['rating']
-        r = Rating( food_id = food, rating = rating)
-        r.save()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @only_customer
 def list_restaurants(request):
@@ -68,13 +39,13 @@ def search(request, username):
         food = FoodItem.objects.filter(restaurant = res)
     pFilter = ProductFilter(request.POST , queryset = food)
     food = pFilter.qs
-    return render(request,'food_customer/foodItems.html',{'food':food , 'pFilter' : pFilter })
+    return render(request,'food_customer/foodItems.html',{'food':food , 'res':res , 'pFilter' : pFilter })
 
 def res_search(request):
     query_string = ''
     if 'q' in request.GET:
         query_string = request.GET['q']
-        res = Restaurant.objects.filter(username__icontains = query_string)
+        res = Restaurant.objects.filter(username__username__icontains = query_string)
         print(res)
     else:
         res = Restaurant.objects.all()
@@ -85,21 +56,27 @@ def res_search(request):
 @only_customer
 def res_favourites(request,username):
     user = Customer.objects.get(username=request.user.username)
-    fav = Favourite()
-    fav.user_id = user
-    fav.category_id = username
-    fav.type = "restaurants"
-    fav.save()
+    if (Favourite.objects.filter(category_id = username , user_id = user).exists()):
+        pass
+    else:
+        fav = Favourite()
+        fav.user_id = user
+        fav.category_id = username
+        fav.type = "restaurants"
+        fav.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @only_customer
 def food_favourites(request,id):
     user = Customer.objects.get(username=request.user.username)
-    fav = Favourite()
-    fav.user_id = user
-    fav.category_id = str(id)
-    fav.type = "fooditems"
-    fav.save()
+    if (Favourite.objects.filter(category_id = str(id) , user_id = user).exists()):
+        pass
+    else:
+        fav = Favourite()
+        fav.user_id = user
+        fav.category_id = str(id)
+        fav.type = "fooditems"
+        fav.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @only_customer
@@ -161,7 +138,7 @@ def delete_favourites(request,id):
 #VIEWS FOR RESTAURANT ACCOUNT
 
 
-@login_required
+@only_restaurant
 def add_fooditems(request):
     form = FoodItemsForm()
     if request.method == "POST":
@@ -177,6 +154,7 @@ def add_fooditems(request):
                 pass
     return render(request,'food_restaurant/index.html',{'form':form})
 
+@only_restaurant
 def display(request):
     res = Restaurant.objects.get(pk = request.user.username )
     food = FoodItem.objects.filter(restaurant = res)
@@ -184,7 +162,7 @@ def display(request):
     food = pFilter.qs
     return render(request,'food_restaurant/show.html',{'food':food , 'pFilter' : pFilter})
 
-# @login_required
+@only_restaurant
 def delete_fooditems(request,id):
     try:
         food = FoodItem.objects.get(pk=id)
@@ -193,7 +171,7 @@ def delete_fooditems(request,id):
     food.delete()
     return redirect("/fooditems/restaurant_fooditems")
 
-# @login_required
+@only_restaurant
 def update_price(request,id):
     food = FoodItem.objects.get(pk=id)
     form = PriceForm(instance = food)
@@ -207,7 +185,7 @@ def update_price(request,id):
                 pass
     return render(request,'food_restaurant/index.html',{'form':form})
 
-# @login_required
+@only_restaurant
 def update_acceptable(request,id):
     food = FoodItem.objects.get(pk=id)
     if request.method == "POST":
@@ -222,15 +200,16 @@ def update_acceptable(request,id):
         form = AcceptableForm(instance = food)
     return render(request,'food_restaurant/index.html',{'form':form})
 
-# def create_restaurant(request):
-#     form= RestaurantForm(request.POST or None)
-#
-#     if form.is_valid():
-#         form.save()
-#         return redirect('/fooditems/restaurant_fooditems')
-#     return render(request, 'restaurant_templates/restaurants-form.html', {'form': form})
+@only_restaurant
+def create_restaurant(request):
+    form= RestaurantForm(request.POST or None)
 
-# @login_required
+    if form.is_valid():
+        form.save()
+        return redirect('/fooditems/restaurant_fooditems')
+    return render(request, 'restaurant_templates/restaurants-form.html', {'form': form})
+
+@only_restaurant
 def update_restaurant(request, username):
     restaurant = Restaurant.objects.get(pk = username)
     form = RestaurantForm(request.POST or None, instance=restaurant)
@@ -240,7 +219,7 @@ def update_restaurant(request, username):
         return redirect('/fooditems/restaurant_fooditems')
     return render(request, 'food_restaurant/restaurants-form.html', {'form': form, 'restaurant': restaurant})
 
-# @login_required
+@only_restaurant
 def delete_restaurant(request, username):
     restaurant = Restaurant.objects.get(pk = username)
 

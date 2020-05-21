@@ -38,23 +38,6 @@ class Rating(models.Model):
 	rating = models.IntegerField(default = 0, null = True)
 	reviews = models.TextField(max_length = 400 , null = True)
 
-
-#Restaurant Databses
-
-# class Restaurant(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     name = models.CharField(max_length=50)
-#     address = models.CharField(max_length=500)
-#     city = models.CharField(max_length=500)
-#     cuisines = models.CharField(max_length=100)
-#     contact_no = models.IntegerField()
-#     avg_cost_for_a_person = models.IntegerField()
-#     is_delivering_now = models.BooleanField(default=True)
-#     restaurant_image = models.ImageField()
-#     #rating = models.DecimalField(max_digits=2, decimal_places=1,null=True)
-
-#Favourite DataBases
-
 #Favourite DataBases
 
 class Favourite(models.Model):

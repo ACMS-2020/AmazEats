@@ -1,7 +1,3 @@
-<!DOCTYPE html>
-
-
-
 {% block content %}
 <html lang="en">
 <head>
@@ -25,14 +21,76 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/yourcode.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-        
-        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
-<body>
+<body style="background-color: #E8E8E8">
 <style>
+  .card-img-top {
+          width: 100%;
+          height: 12vw;
+          object-fit: cover;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+        }
+
+        .myfilter{
+          display:inline;
+        }
+
+        .btn, .btn:hover{
+          background-color:#FF9900;
+          border: 0px #FF9900;
+          color:#ffffff;
+          font-size: 1.5rem;
+        }
+
+        .card{
+          background-color: #232F3E;
+          color:#ffffff;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          font-size:1.5rem;
+        }
+
+        .container-fluid .jumbotron{
+          background-color: #232F3E;
+          color:#ffffff;
+          border:0px;
+          border-radius: 0px;
+        }
+
+        .modal-open .modal {
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+       
+        .food{
+          position:absolute;
+          top:2%;
+          left:40%;
+          width:100%;
+          font-size: 1.5rem;
+        }
+
+        .food .modal-title
+        {
+          font-size: 3.5rem;
+        }
+                
+        .food .modal-dialog{
+          position: relative;
+          margin: 0 auto;
+          top: 25%;
+          left:0%;
+        }
+
+        .scroll{
+          overflow-y:auto; max-height: 100px;
+        }
+
   .navbar-inverse
   {
     background-color: #232F3E;
@@ -75,8 +133,6 @@
     font-size: 15px;
   }
 
-
-
   @media only screen and (min-width: 768px) and (max-width: 991px)
   {
 
@@ -107,29 +163,11 @@
     }
   }
 
-.card-img-top {
-    width: 100%;
-    height: 15vw;
-    object-fit: cover;
-}
-.card:hover {
-  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-}
-.btn{
-  background-color:#FF9900;
-  border: 0px #FF9900;
-}
-.card{
-  background-color: #232F3E;
-}
-.navbar{
-  background-color: #232F3E;
-  color: white;
-}
 
 </style>
 
 <!-- for customer display -->
+<div class="container-fluid" style="padding-left: 0rem; padding-right: 0rem;">
 <nav class="navbar navbar-inverse navbar-fixed-top">
 
   <div class="container">
@@ -138,18 +176,12 @@
 
     <div class="navbar-header" style="float: left;">
 
-      
-
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navCollapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
     </div>
-  
-
-  
-  
 
   <div class="collapse navbar-collapse" id="navCollapse" >
    <ul class="nav navbar-nav navbar-left" style="display: inline-block;">
@@ -174,115 +206,137 @@
     </form>
   </li>
   </ul>
-
  
-   
    </div>
   </div>
 </nav>
 
 
-</br>
+<div class="container-fluid border" style="background-color:#ffffff;width:88%;margin-bottom: 2%;">
+  {% if type == "restaurants" %}
+  <br/>
+  <h1 class="text-center " style="font-size: 40px;">Favourite Restaurants</h1>
+  <hr/>
+  <div class="row row-cols-1 row-cols-md-5" style="padding-left: 1rem;padding-top: 2rem;" >
 
-
-<div class = "container" style="padding-left: 10px; padding-right: 10px;">
-
-<div class="row row-cols-1 row-cols-md-4"  >
-{% if types == "restaurants" %}
-
-{% for r in res %}
-    <a href="/fooditems/display_fooditems/{{ r.username }}" class="btn btn-fix text-left">
-      <div class="col mb-4" >
-      <div class="card text-white bg-secondary mb-3" style="width: 242px;">
-        <div class="card-body" >
-          <h2 class="card-title">{{ r.username }} </h2>
-    <a href="/fooditems/delete_favourites/{{ r.username }}" class="btn btn-info">remove from Favourites</a>
+    {% for r in res %}
+    <div class="col mb-5" style="padding-right: 2rem;" >
+      <div class="card" >
+        <a href="/fooditems/display_fooditems/{{ r.username }}" class="card-block text-decoration-none" style="color:#ffffff;">
+          <img class="card-img-top" src="/media/gallery/idly.jpg" alt="Card image cap">
+          <div class="card-body text-center">
+            <h5 class="card-title" style="color:#ffffff;font-size:2.5rem;">{{r.username}}</h5>
+          </div>
+        </a>
+        <div class="card-footer text-center">
+          <a class="btn" href="/fooditems/delete_favourites/{{ r.username }}" role="button" >Remove from Favourites</a>
+        </div>
+      </div>
     </div>
-    </div>
+    {% endfor %}
+
   </div>
-</a>
-
-{% endfor %}
-
 {% else %}
 
-{% for f in res %}
-      {% if f.serviceable == "available" %}
-      <div class="col mb-4" >
-      <div class="card text-white mb-3" style="width: 17rem;">
-        <image src="{{ f.image.url }}" class="card-img-top" alt="{{ f.food_name }}" />
-        <div class="card-body" >
-          <h2 class="card-title">{{ f.food_name }}</h2>
-          <table class="card-table table table-sm text-white table-borderless">
-    <tbody>
-      <tr>
-        <td>&#8377; {{ f.price }}</td>
-        <td>{{ f.veg }}</td>
-      </tr>
-      <tr>
-        <td>{{ f.cuisine_type }}</td>
-        <td>{{ f.item_type }}</td>
-      </tr>
-      <tr>
-        <td>{{ f.avg_rating }}</td>
-        <td>
-          <!-- Button trigger modal -->
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalScrollable{{f.food_name}}">
-  reviews
-</button></td>
+<br/>
+  <h1 class="text-center " style="font-size: 40px;">Favourite Fooditems</h1>
+  <hr/>
+  <div class="row row-cols-1 row-cols-md-5" style="padding-left: 1rem;padding-top: 2rem;" >
 
-      </tr>
-    </tbody>
-  </table>
-  <form method ="post" action="/fooditems/input_ratings/{{ f.food_id }}">
-    {% csrf_token %}
-      <input type="text" name="rating" placeholder = "your rating" size=12/>
-      <input type="submit" class="btn btn-info btn-sm" name="Submit"/>
-  </form>
-
-  <a class="btn btn-info" href="/food/addToCart/{{ f.food_id }}" role="button">addToCart</a></td>
-  <a href="/fooditems/delete_favourites/{{ f.food_id|stringformat:"i" }}" class="btn btn-info">remove from Favourites</a>
-
+    {% for f in res %}
+    {% if f.serviceable == 'available'%}
+    <div class="col mb-5" style="padding-right: 1rem;" >
+      <div class="card" id="{{f.food_id}}">
+        <a class="card-block text-decoration-none" data-toggle="modal" href="#exampleModalScrollable{{f.food_id}}">
+          <img class="card-img-top" src="{{ f.image.url }}" alt="Card image cap">
+          <div class="card-body text-white">
+            <h5 class="card-title" style="color:#ffffff;font-size:2.5rem;">{{ f.food_name }}</h5>
+            <p style="float:left;">{{ f.veg }}</p>
+            <p style="float:right;font-size: 20px;"><b>&#x20B9;{{f.price}}</b></p>                        
+          </div>
+        </a>
+        <div class="card-footer text-center">
+          <a id = "{{ f.food_id }}" class="btn btn-info" href="#myModal" onclick="addCart(event);" class="trigger-btn" data-toggle="modal"> Add To Cart</a>
+        </div>
+      </div>
     </div>
+
+    <!-- Modal -->
+ <div class="modal fade food" id="exampleModalScrollable{{f.food_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalScrollableTitle">{{f.food_name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="float:left;">{{f.veg}}</p><p style="float:right;font-size: 40px;">&#8377;{{f.price}}</p><br/><br/>
+        <p>{{f.item_type}}</p>
+        <p>{{f.cuisine_type}}</p>
+        <p>rating : {{f.avg_rating}}</p>
+        <hr/> 
+        <h5 style="font-size: 2rem;">Reviews</h5><br/>
+        <div class="scroll">
+        <p style="font-size: 1.5rem;">
+          {% for r in f.rating_set.all %}
+            {{ r.user_id }} : {{ r.reviews }}<br/>
+          {% endfor %}
+
+        </p>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <a id = "{{ f.food_id }}" class="btn btn-info" href="#myModal" onclick="addCart(event);" class="trigger-btn" data-toggle="modal"> Add To Cart</a>
+        <a role="button" href="/fooditems/delete_favourites/{{ f.food_id }}" class="btn btn-primary">Remove from favorites</a>
+      </div>
     </div>
+  </div>
+</div>
+{% endif %}
+  {% endfor %}
+
+  </div>
+</div>
+
+<script>
+
+  function addCart(event)
+  {
+    var me = event.currentTarget
+    var food_id = me.getAttribute("id");
+    jQuery.get("/food/addToCart/"+food_id+"/",function(data, status){
+    });
+  }
+  </script>
+  
+  
+  <div id="myModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="icon-box">
+            <i class="material-icons">&#xE876;</i>
+          </div class="modal-title">
+          <h4>Awesome!</h4>
+          </div>
+        <div class="modal-body">
+          <p class="text-center">Your item is added to Cart.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 
   {% endif %}
 
-  <div class="modal fade" id="exampleModalScrollable{{f.food_name}}" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered-scrollable" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalScrollableTitle">Reviews</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-
-          <form method ='post' action='/fooditems/input_reviews/{{ f.food_id }}'>
-            {% csrf_token %}
-              <input type='text' name='reviews' placeholder = 'your reviews'/>
-              <input type='submit' class="btn btn-primary btn-sm" name='Submit'/>
-          </form>
-        </br>
-          {{ f.food_name }}
-          <p>
-          {% for r in f.rating_set.all %}
-            {{ user.username }} : {{ r.reviews }}<br/>
-          {% endfor %}
-        </p>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-{% endfor %}
-{% endif %}
-
 </div>
+<div class="container-fluid border" style="background-color:#232F3E;color:#ffffff;height:15%;width:100%;">  
+  <p class="text-center" style="font-size: 2rem;padding-top: 4rem;">AmazEats</p>
 </div>
 </body>
 </html>

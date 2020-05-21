@@ -1,7 +1,3 @@
-<!DOCTYPE html>
-
-
-
 {% block content %}
 <html lang="en">
 <head>
@@ -33,75 +29,105 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <script>
+
+          function toggleDiv(id) {
+              var div = document.getElementById(id);
+              div.style.display = div.style.display == "none" ? "block" : "none";
+          }
+
+        </script>
 </head>
 
 <style>
-
-
-            .ml-5,.mx-5{
-            margin-right : 2rem !important;
-            }
-
-            .jumbotron{
-                background-color:#232F3E;
-            }
-
-            
-
-            .fakeimg {
-                height: 200px;
-                background: #aaa;
-            }
-
-            .pagination{
-                text-align:center;
-                margin-top:1em;
-            }
-
-            .pagination-number{
-                background-color:#F7B529;
-                padding:0.5em 0.8em;
-                color:#fff;
-                border-radius:2px;
-            }
-
-            .pagination-action{
-                margin:0 0.1em;
-                display: inline-block;
-                padding: 0.5em;
-                color: #F7B529;
-                font-size: 1.3em;
-            }
-
-            pagination-action:hover{
-                color:#fff;
-                background-color:#FF9900;
-            }
-
-            .pagination-number:hover, .pagination-current{
-                background-color:#FF9900;
-            }
        
-.card-img-top {
-    width: 100%;
-    height: 15vw;
-    object-fit: cover;
-}
-.col-10 {
-height: 90vh;
-overflow-y: scroll;
-}
-.btn{
-  background-color:#FF9900;
-  border: 0px #FF9900;
-}
-.card{
-  background-color: #232F3E;
-}
-.navbar{
-  background-color: #232F3E;
-  color: white;
-}
+       .card-img-top {
+          width: 100%;
+          height: 12vw;
+          object-fit: cover;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+        }
+
+        .myfilter{
+          display:inline;
+        }
+
+        .btn, .btn:hover{
+          background-color:#FF9900;
+          border: 0px #FF9900;
+          color:#ffffff;
+          font-size: 1.5rem;
+        }
+
+        .card{
+          background-color: #232F3E;
+          color:#ffffff;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          font-size:1.5rem;
+        }
+
+        .container-fluid .jumbotron{
+          background-color: #232F3E;
+          color:#ffffff;
+          height:38%;
+          border:0px;
+          border-radius: 0px;
+        }
+
+        .modal-open .modal {
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+       
+        .food{
+          position:absolute;
+          top:2%;
+          left:40%;
+          width:100%;
+          font-size: 1.5rem;
+        }
+
+        .food .modal-title
+        {
+          font-size: 3.5rem;
+        }
+                
+        .food .modal-dialog{
+          position: relative;
+          margin: 0 auto;
+          top: 25%;
+          left:0%;
+        }
+
+        .active-item {
+        display:block;
+        }
+
+        .inactive {
+          display:none;
+        }
+
+        .scroll{
+          overflow-y:auto; max-height: 100px;
+        }
+
+        .opt a
+        {
+          font-size: 2rem;
+          color:#FF9900;
+        }
+
+        .opt a.active{
+          border-bottom: 2px solid #FF9900;
+        }
+
+        .opt a:hover{
+
+        }
 
 .modal-confirm {
 		color: #636363;
@@ -182,7 +208,7 @@ overflow-y: scroll;
   {
     background-color: #232F3E;
     border-color: #232F3E;
-   
+    margin-bottom: 0px;
   }
 
   .navbar-inverse .navbar-brand
@@ -220,8 +246,6 @@ overflow-y: scroll;
     font-size: 15px;
   }
 
-
-
   @media only screen and (min-width: 768px) and (max-width: 991px)
   {
 
@@ -230,7 +254,7 @@ overflow-y: scroll;
   @media only screen and (max-width: 767px)
   {
     .navbar-inverse .navbar-brand{
-      font-size: 30px
+      font-size: 30px;
       padding:20px 15px;
     }
 
@@ -254,8 +278,9 @@ overflow-y: scroll;
 </style>
 
 <!-- for customer display -->
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<body style="background-color: #E8E8E8">
+  <div class="container-fluid" style="padding-left: 0rem; padding-right: 0rem;">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
 
   <div class="container">
 
@@ -263,18 +288,12 @@ overflow-y: scroll;
 
     <div class="navbar-header" style="float: left;">
 
-      
-
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navCollapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
     </div>
-  
-
-  
-  
 
   <div class="collapse navbar-collapse" id="navCollapse" >
    <ul class="nav navbar-nav navbar-left" style="display: inline-block;">
@@ -286,168 +305,197 @@ overflow-y: scroll;
           Favourites
         </a>
         <div style="background: #FFFFFF40;" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="/fooditems/favourites/ {{ type|default:'restaurants' }}" style="background: transparent;color: white;font-size: 12px;"><b>Restaurants</b></a>
-          <a class="dropdown-item" href="/fooditems/favourites/ {{ type|default:'fooditems' }}" style="background: transparent;color: white;font-size: 12px;"><b>Food Items</b></a>
+          <a class="dropdown-item" href="/fooditems/favourites/{{ type|default:'restaurants' }}" style="background: transparent;color: white;font-size: 12px;"><b>Restaurants</b></a>
+          <a class="dropdown-item" href="/fooditems/favourites/{{ type|default:'fooditems' }}" style="background: transparent;color: white;font-size: 12px;"><b>Food Items</b></a>
         </div>
       </li>
     <li ><a href="/logout/">LogOut</a></li>
 
     <li>  
-    <form class="form-inline" action='/fooditems/res_search' method = 'get' style="margin-top: 12px;">
+    <form class="form-inline" action='/fooditems/display_fooditems/search/{{ res.username }}' method = 'get' style="margin-top: 12px;">
       <input style="height:30px;font-size: 15px;" class="form-control mr-sm-2" type="search" name='q'  placeholder="Search" aria-label="Search">
       <button size="10px"class="btn btn-info" type="submit"><i class="fa fa-search fa-2x"></i></button>
     </form>
   </li>
   </ul>
 
- 
-   
    </div>
   </div>
 </nav>
 
-<div class="jumbotron jumbotron-fluid" style = "background-color : #232F3E;color:#ffffff;padding-bottom : 10px; height:300px ;padding-top:30px;" >
+
+<div class="jumbotron jumbotron-fluid" style="margin-right: 10rem; margin-left: 10rem;margin-bottom: 0rem;">
   <div class="container">
-    <div class='row'>
+    <div class="row">
       <div class="col-3">
-    <image src="/media/rest.jpg" class="card-img-left" alt="{{ res.username }}" style="max-width: 100%; height :250px; border: 10px solid #ddd;; "/></div>
-    <div class="col-9" style = "margin-top:100px;">
-    <h1 class="display-4 ">{{ res.username }}</h1>
-    <p class="lead">{{ res.address }}</p></div>
-  </div>
+        <img class="card-img-top" src="/media/rest.jpg" alt="Card image cap">
+      </div>
+      <div class="col-9">
+        <h1 class="display-4">{{res.username}}</h1>
+        <p class="lead">{{res.address}}</p>
+      </div>
+    </div>
   </div>
 </div>
-</br>
-<div class = "row">
 
-<div class = "col-10" style="padding-left: 40px;">
 
-<div class="row row-cols-1 row-cols-md-4" >
-{% for f in food %}
+<div class="container-fluid border opt"  style="width:87%; margin-bottom: 2rem; background-color: #232F3E; border:1px #232F3E; ">
+  <ul class="nav justify-content-center" id="links">
+    <li class="nav-item">
+      <a class="nav-link active" href="#id1">Menu</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#id2">Rating&Reviews</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#id3">About</a>
+    </li>
+  </ul>
+</div>
 
-      <div class="col mb-4" >
-      <div class="card text-white mb-3" style="width: 17rem;">
-        <image src="{{ f.image.url }}" class="card-img-top" alt="{{ f.food_name }}" />
-        <div class="card-body" >
-          <h2 class="card-title">{{ f.food_name }}</h2>
-          <table class="card-table table table-sm text-white table-borderless">
-    <tbody>
-      <tr>
-        <td>&#8377; {{ f.price }}</td>
-        <td>{{ f.veg }}</td>
-      </tr>
-      <tr>
-        <td>{{ f.cuisine_type }}</td>
-        <td>{{ f.item_type }}</td>
-      </tr>
-      {% if f.serviceable == "not available" %}
-      <tr>
-        <td colspan="2">{{ f.serviceable }}</td>
-      </tr>
-      {% endif %}
-      <tr>
-        <td>{{ f.avg_rating }}</td>
-        <td>
-          <!-- Button trigger modal -->
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalScrollable{{f.food_name}}">
-  reviews
-</button></td>
+<script> 
+  $('#links li a').click(function(e){
+    e.preventDefault();
+    $('.active-item').addClass('inactive').removeClass('active-item');
+    var str = $(this).attr('href');
+    var target = str.substring(1, str.length);
+    $('#'+target).addClass('active-item').removeClass('inactive');
+    $('#links li a').removeClass('active');
+    $(this).addClass('active');
+    });
+</script> 
 
-      </tr>
-    </tbody>
-  </table>
-  <form method ="post" action="/fooditems/input_ratings/{{ f.food_id }}">
-    {% csrf_token %}
-      <input type="text" name="rating" placeholder = "your rating" size=12/>
-      <input type="submit" class="btn btn-info btn-sm" name="Submit"/>
-  </form>
+<div class="active-item" id="id1">
 
-  <a id = "{{ f.food_id }}" class="btn btn-info" href="#myModal" onclick="addCart(event);" class="trigger-btn" data-toggle="modal"> Add To Cart</a>
-             <a href="/fooditems/food_favourites/{{ f.food_id }}" class="btn btn-info">Add to Favourites</a>
+  <div id="myfilter"class="container-fluid " style="width:87%;margin-bottom: 2rem;">
+    <a id = "filters" class="btn " href="#" onclick="toggleDiv('filter')">Filters</a>
+    <div id="filter" style="display: none;">
+      <form method="post">
+        {% csrf_token %}
 
-    </div>
+        {{ pFilter.form }}
+        <button class = "btn " type="submit">search</button>
+      </form>
     </div>
   </div>
 
-  <div class="modal fade" id="exampleModalScrollable{{f.food_name}}" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered-scrollable" role="document">
+  <div class="container-fluid border" style="background-color:#ffffff;width:87%;margin-bottom: 20px;">
+    <br/>
+  <h1 class="text-center " style="font-size: 40px;">Menu</h1>
+  <hr/>
+    <div class="row row-cols-1 row-cols-md-5" style="padding-left: 1rem;padding-top: 2rem; max-width:100%;" >
+      {% for f in food %}
+      {% if f.serviceable == 'available'%}
+      <div class="col mb-5" style="padding-right: 1rem;" >
+        <div class="card" id="{{f.food_id}}">
+          <a class="card-block text-decoration-none" data-toggle="modal" href="#exampleModalScrollable{{f.food_id}}">
+            <img class="card-img-top" src="{{ f.image.url }}" alt="Card image cap">
+            <div class="card-body text-white">
+              <h5 class="card-title" style="color:#ffffff;font-size:2.5rem;">{{ f.food_name }}</h5>
+              <p style="float:left;">{{ f.veg }}</p>
+              <p style="float:right;font-size: 20px;"><b>&#x20B9;{{f.price}}</b></p>                        
+            </div>
+          </a>
+          <div class="card-footer text-center">
+            <a id = "{{ f.food_id }}" class="btn btn-info" href="#myModal" onclick="addCart(event);" class="trigger-btn" data-toggle="modal"> Add To Cart</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+   <div class="modal fade food" id="exampleModalScrollable{{f.food_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalScrollableTitle">Reviews</h5>
+          <h5 class="modal-title text-center" id="exampleModalScrollableTitle">{{f.food_name}}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
+          <p style="float:left;">{{f.veg}}</p><p style="float:right;font-size: 40px;">&#8377;{{f.price}}</p><br/><br/>
+          <p>{{f.item_type}}</p>
+          <p>{{f.cuisine_type}}</p>
+          <p>rating : {{f.avg_rating}}</p>
+          <hr/> 
+          <h5 style="font-size: 2rem;">Reviews</h5><br/>
+          <div class="scroll">
+          <p style="font-size: 1.5rem;">
+            {% for r in f.rating_set.all %}
+              {{ r.user_id }} : {{ r.reviews }}<br/>
+            {% endfor %}
 
-          <form method ='post' action='/fooditems/input_reviews/{{ f.food_id }}'>
-            {% csrf_token %}
-              <input type='text' name='reviews' placeholder = 'your reviews'/>
-              <input type='submit' class="btn btn-primary btn-sm" name='Submit'/>
-          </form>
-        </br>
-          {{ f.food_name }}
-          <p>
-          {% for r in f.rating_set.all %}
-            {{ user.username }} : {{ r.reviews }}<br/>
-          {% endfor %}
-        </p>
+          </p>
         </div>
-
+        </div>
+        <div class="modal-footer">
+          <a id = "{{ f.food_id }}" class="btn btn-info" href="#myModal" onclick="addCart(event);" class="trigger-btn" data-toggle="modal"> Add To Cart</a>
+          <a role="button" href="/fooditems/food_favourites/{{ f.food_id }}" class="btn btn-primary">Add to favorites</a>
+        </div>
       </div>
     </div>
   </div>
+  {% endif %}
+    {% endfor %}
 
-
-{% endfor %}
-
-</div>
-</div>
-
-<div class="col-2">
-  <div class="row">
-    <div class="col">
-      <h3>Filters</h3></br>
-      <form method="post">
-        {% csrf_token %}
-
-        {{ pFilter.form.as_p }}
-        <button class = "btn btn-info" type="submit">search</button>
-      </form>
     </div>
   </div>
-</div>
 
-<script>
+  <script>
 
 
-function addCart(event)
-{
-  var me = event.currentTarget
-  var food_id = me.getAttribute("id");
-  jQuery.get("/food/addToCart/"+food_id+"/",function(data, status){
-  });
-}
-</script>
+    function addCart(event)
+    {
+      var me = event.currentTarget
+      var food_id = me.getAttribute("id");
+      jQuery.get("/food/addToCart/"+food_id+"/",function(data, status){
+      });
+    }
+    </script>
+    
+    
+    <div id="myModal" class="modal fade">
+      <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="icon-box">
+              <i class="material-icons">&#xE876;</i>
+            </div class="modal-title">
+            <h4>Awesome!</h4>
+            </div>
+          <div class="modal-body">
+            <p class="text-center">Your item is added to Cart.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
 
-<!-- Modal HTML -->
-<div id="myModal" class="modal fade">
-	<div class="modal-dialog modal-confirm">
-		<div class="modal-content">
-			<div class="modal-header">
-				<div class="icon-box">
-					<i class="material-icons">&#xE876;</i>
-				</div class="modal-title">
-				<h4>Awesome!</h4>
-			  </div>
-			<div class="modal-body">
-				<p class="text-center">Your item is added to Cart.</p>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
-			</div>
-		</div>
-	</div>
+  </div>
+
+  <div class="inactive" id="id2">
+    <div class="container-fluid border text-center" style="background-color:#ffffff; height:20%; width:87%;margin-bottom: 20px;">
+      <br/>
+      <h1 style="font-size: 40px;">Rating and Reviews </h1>
+    <hr/>
+  </div>
+  </div>
+
+  <div class="inactive" id="id3">
+    <div class="container-fluid border text-center" style="background-color:#ffffff; height:20%; width:87%;margin-bottom: 20px;">
+      <br/>
+      <h1 style="font-size: 40px;">{{ res.username }} </h1>
+    <hr/>
+  </div>
+  </div>
+
+
+    <div class="container-fluid border" style="background-color:#232F3E;color:#ffffff;height:15%;width:100%;">  
+      <p class="text-center" style="font-size: 2rem;padding-top: 3rem;">AmazEats</p>
+    </div>
 </div>
 
 </body>

@@ -13,7 +13,6 @@ urlpatterns = [
     path('update_acceptable/<int:id>', views.update_acceptable),
     path('update_price/<int:id>', views.update_price),
     path('delete_fooditem/<int:id>', views.delete_fooditems),
-    # path('reviews_fooditem/<int:id>', views.reviews_fooditems),
     path('input_reviews/<int:id>', views.input_reviews),
     path('input_ratings/<int:id>', views.input_ratings),
     # path('add_restaurant', views.create_restaurant, name='create_restaurants'),
