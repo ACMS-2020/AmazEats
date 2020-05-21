@@ -258,7 +258,7 @@ def alter_cart_items(request,food_id,quantity):
     food_item.save()
     return HttpResponse('ok')
 
-
+@only_customer
 def cartalter(request,food_id,quantity):
     print(food_id)
     food_item = Cart.objects.get(user_id=request.user.username,food_id=food_id)

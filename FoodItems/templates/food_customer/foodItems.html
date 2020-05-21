@@ -35,7 +35,7 @@
 
           function toggleDiv(id) {
               var div = document.getElementById(id);
-              div.style.display = div.style.display == "none" ? "block" : "none";
+              div.style.display = div.style.display == "none" ? "inline-block" : "none";
           }
 
         </script>
@@ -49,10 +49,6 @@
           object-fit: cover;
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
-        }
-
-        .myfilter{
-          display:inline;
         }
 
         .btn, .btn:hover{
@@ -82,7 +78,14 @@
             overflow-y: hidden;
         }
 
-       
+        input
+        {
+          width:auto;
+          max-width:40%;
+
+        }
+
+               
         .food{
           position:absolute;
           top:2%;
@@ -382,8 +385,14 @@
       <form method="post">
         {% csrf_token %}
 
-        {{ pFilter.form }}
-        <button class = "btn " type="submit">search</button>
+        <!-- {{ pFilter.form }} -->
+        <div class="text-justify" style="display:inline-block; font-size: medium; padding-left:10rem; ">
+
+        {% for field in pFilter.form%}
+        <label style="padding-right: 1rem;padding-left: 2rem;">  {{field.html_name}}: </label>{{field}}
+        {% endfor %}
+      </div>
+        <button class = "btn " type="submit" style="margin-bottom: 1rem;">search</button>
       </form>
     </div>
   </div>

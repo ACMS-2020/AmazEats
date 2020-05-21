@@ -13,11 +13,9 @@ from django.contrib.auth.decorators import login_required
 @login_required
 @only_customer
 def display_fooditems(request,username):
-    print(username)
+    print(request.POST)
     res = Restaurant.objects.get(pk = username)
-    print(res)
     food = FoodItem.objects.filter(restaurant = res)
-    print(food)
     pFilter = ProductFilter(request.POST , queryset = food)
     food = pFilter.qs
     return render(request,'food_customer/foodItems.html',{'food':food , 'pFilter' : pFilter, 'res':res })
@@ -40,6 +38,31 @@ def search(request, username):
     pFilter = ProductFilter(request.POST , queryset = food)
     food = pFilter.qs
     return render(request,'food_customer/foodItems.html',{'food':food , 'res':res , 'pFilter' : pFilter })
+
+def fav_search(request, typ):
+    query_string = ''
+    user = Customer.objects.get(username=request.user.username)
+    if 'q' in request.GET:
+        if typ == 'fooditems':
+            query_string = request.GET['q']
+            res = set()
+            food = FoodItem.objects.filter(food_name__icontains = query_string)
+            for f in food:
+                x= str(f.food_id)
+                fav = Favourite.objects.filter(user_id = request.user.username , category_id=x)
+                if(fav.exists()):
+                    for y in fav:
+                        id = int(y.category_id)
+                        res.add(FoodItem.objects.get(pk=id))
+        else:
+            query_string = request.GET['q']
+            res = user.favourite_set.filter(category_id__icontains = query_string,type='restaurants')
+            
+            for r in res:
+                print(r.category_id)
+    else:
+        res = user.favourite_set.filter(type = typ)
+    return render(request,'food_customer/favorites.html',{'res': res , 'type':typ })
 
 def res_search(request):
     query_string = ''

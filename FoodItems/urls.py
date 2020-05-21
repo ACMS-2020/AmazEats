@@ -7,6 +7,7 @@ app_name="FoodItems"
 urlpatterns = [
     path('restaurant_fooditems',views.display),
     path('res_search',views.res_search, name = 'res_search'),
+    path('fav_search/<str:typ>', views.fav_search ,name = 'fav_search'),
     path('display_fooditems/<str:username>',views.display_fooditems , name='display_fooditems'),
     path('display_fooditems/search/<str:username>',views.search, name = 'search'),
     path('add_fooditem', views.add_fooditems),

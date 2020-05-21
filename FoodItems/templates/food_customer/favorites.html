@@ -36,10 +36,6 @@
 
         }
 
-        .myfilter{
-          display:inline;
-        }
-
         .btn, .btn:hover{
           background-color:#FF9900;
           border: 0px #FF9900;
@@ -210,7 +206,7 @@
     <li ><a href="/logout/">LogOut</a></li>
 
     <li>  
-    <form class="form-inline" action='/fooditems/res_search' method = 'get' style="margin-top: 12px;">
+    <form class="form-inline" action='/fooditems/fav_search/{{ type }}' method = 'get' style="margin-top: 12px;">
       <input style="height:30px;font-size: 15px;" class="form-control mr-sm-2" type="search" name='q'  placeholder="Search" aria-label="Search">
       <button size="10px" style=" background-color: #FF9900;border: #FF9900;"class="btn btn-info" type="submit"><i class="fa fa-search fa-2x"></i></button>
     </form>
@@ -222,7 +218,7 @@
 </nav>
 
 
-<div class="container-fluid border" style="background-color:#ffffff;width:88%;margin-bottom: 2%;">
+<div class="container-fluid border" style="background-color:#ffffff;width:88%;margin-bottom: 2%;min-height:60%">
   {% if type == "restaurants" %}
   <br/>
   <h1 class="text-center " style="font-size: 40px;">Favourite Restaurants</h1>
@@ -232,10 +228,10 @@
     {% for r in res %}
     <div class="col mb-5" style="padding-right: 2rem;" >
       <div class="card" >
-        <a href="/fooditems/display_fooditems/{{ r.username }}" class="card-block text-decoration-none" style="color:#ffffff;">
+        <a href="/fooditems/display_fooditems/{{r.category_id}}" class="card-block text-decoration-none" style="color:#ffffff;">
           <img class="card-img-top" src="/media/gallery/idly.jpg" alt="Card image cap">
           <div class="card-body text-center">
-            <h5 class="card-title" style="color:#ffffff;font-size:2.5rem;">{{r.username}}</h5>
+            <h5 class="card-title" style="color:#ffffff;font-size:2.5rem;">{{ r.category_id }}</h5>
           </div>
         </a>
         <div class="card-footer text-center">
@@ -261,6 +257,7 @@
           <img class="card-img-top" src="{{ f.image.url }}" alt="Card image cap">
           <div class="card-body text-white">
             <h5 class="card-title" style="color:#ffffff;font-size:2.5rem;">{{ f.food_name }}</h5>
+            <p>{{ f.restaurant.username.username }}</p>
             <p style="float:left;">{{ f.veg }}</p>
             <p style="float:right;font-size: 20px;"><b>&#x20B9;{{f.price}}</b></p>                        
           </div>
