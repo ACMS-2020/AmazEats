@@ -8,6 +8,7 @@ from FoodItems.models import *
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+
 #changes
 from django.template.defaulttags import register
 
@@ -215,12 +216,13 @@ def order_delivered(request,order_id):
 def cart(request):
     obj =  Cart.objects.filter(user_id=request.user.username)
     food_images=dict()
+    total=0
     for i in obj:
+        total+=i.price*i.quantity
         food = FoodItem.objects.get(food_id=i.food_id)
         if food_images.get(i.food_id)==None:
             food_images[i.food_id]=food.image.url
-    print(food_images)
-    return render(request,"cart.html",{'cart_items':obj,'food_images':food_images})
+    return render(request,"cart.html",{'cart_items':obj,'food_images':food_images,'total':total})
 
 
 @only_customer
@@ -246,15 +248,26 @@ def order_history(request):
     return render(request, 'order_history.html', {'obj': obj, 'values': values, 'not_needed':not_needed})
 
 
-@only_customer
+
 @csrf_exempt
-def alter_cart_items(request):
-    if request.method == "POST":
-        print("came here in alter")
-        food_id = request.POST.get('food_id')
-        food_item = Cart.objects.get(food_id=food_id)
-        food_item.quantity = 0
-        food_id.save()
-    return JsonResponse({'data':'ok'})
+def alter_cart_items(request,food_id,quantity):
+    print("hi")
+    print("came here in alter")
+    food_item = Cart.objects.get(food_id=food_id)
+    food_item.quantity = request.POST.get('quantity')
+    food_item.save()
+    return HttpResponse('ok')
+
+
+def cartalter(request,food_id,quantity):
+    print(food_id)
+    food_item = Cart.objects.get(user_id=request.user.username,food_id=food_id)
+    food_item.quantity = quantity
+    food_item.save()
+    total=0
+    cart = Cart.objects.filter(user_id=request.user.username)
+    for i in cart:
+        total+=i.quantity*i.price
+    return HttpResponse(total)
 
 
