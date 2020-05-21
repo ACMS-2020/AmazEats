@@ -24,14 +24,7 @@ class UserEditForm(forms.ModelForm):
 		fields=('Location',)
 
 class RestaurantEditForm(forms.ModelForm):
-	name=forms.CharField(max_length=20,required=False)
-	Location=forms.CharField(max_length=100,required=False,label='Location')
-	startTime=forms.TimeField(required=False)
-	closeTime=forms.TimeField(required=False)
-	cuisine=forms.CharField(max_length=20,required=False)
-	pricePerHead=forms.IntegerField(required=False)
-	contactNumber=forms.CharField(max_length=10,required=False)
-	review=forms.CharField(max_length=20,required=False)
+
 	class Meta:
 		model = Restaurant
 		fields=('name','Location','startTime','closeTime','cuisine','pricePerHead','contactNumber','review')
