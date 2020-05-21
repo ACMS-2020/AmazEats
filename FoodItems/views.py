@@ -175,6 +175,7 @@ def delete_fooditems(request,id):
 def update_price(request,id):
     food = FoodItem.objects.get(pk=id)
     form = PriceForm(instance = food)
+    print(food,form)
     if request.method == "POST":
         form =PriceForm(request.POST , instance = food)
         if form.is_valid():

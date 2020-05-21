@@ -91,6 +91,11 @@
           overflow-y:auto; max-height: 100px;
         }
 
+        .navbar-inverse .navbar-nav > li > a:hover {
+       background-color: #FFFFFF40;
+  }
+
+
   .navbar-inverse
   {
     background-color: #232F3E;
@@ -161,6 +166,11 @@
     
     padding-right: 10px;
     }
+
+    .navbar-inverse .navbar-nav > li > a:hover {
+       background-color: #FFFFFF40;
+  }
+
   }
 
 
@@ -189,12 +199,12 @@
     <li ><a href="/food/user_orders/" >Profile</a></li>
     <li ><a href="/food/cart/">Cart</a></li>
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background: transparent;color: white;">
+        <a class="nav-link dropdown-toggle" onmouseout="this.style.backgroundColor='#232F3E'"; onmouseover="this.style.backgroundColor='#FFFFFF40'"href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background: transparent;color: white;">
           Favourites
         </a>
         <div style="background: #FFFFFF40;" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="/fooditems/favourites/{{ types|default:'restaurants' }}" style="background: transparent;color: white;font-size: 12px;"><b>Restaurants</b></a>
-          <a class="dropdown-item" href="/fooditems/favourites/{{ types|default:'fooditems' }}" style="background: transparent;color: white;font-size: 12px;"><b>Food Items</b></a>
+          <a class="dropdown-item" href="/fooditems/favourites/{{ types|default:'restaurants' }}" style="background: transparent;color: white;font-size: 12px;" onmouseover="this.style.backgroundColor='#232F3E'"; onmouseout="this.style.backgroundColor='transparent'"><b>Restaurants</b></a>
+          <a class="dropdown-item" href="/fooditems/favourites/{{ types|default:'fooditems' }}" style="background: transparent;color: white;font-size: 12px;"  onmouseover="this.style.backgroundColor='#232F3E'"; onmouseout="this.style.backgroundColor='transparent'"><b>Food Items</b></a>
         </div>
       </li>
     <li ><a href="/logout/">LogOut</a></li>

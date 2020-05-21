@@ -98,9 +98,10 @@ def EditProfileView(request):
 
 	type1=User.objects.get(username=request.user.username).type1
 	if type1=='restaurant':
-		form=RestaurantEditForm(request.POST)
-		
-		res=Restaurant.objects.get(username=User(username=request.user.username))
+
+		res=Restaurant.objects.get(pk=request.user.username)
+		form = RestaurantEditForm(request.POST,instance=res)
+		print(res,form)
 		if form.is_valid():
 			print('Form Valid')
 			r=Restaurant(username=User(username=request.user.username))
