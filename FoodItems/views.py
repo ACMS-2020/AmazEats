@@ -24,7 +24,10 @@ def display_fooditems(request,username):
 def list_restaurants(request):
     restaurants = Restaurant.objects.all()
     pFilter = ProductFilter(request.POST , queryset = restaurants)
+
     restaurants = pFilter.qs
+    for r in restaurants:
+        print(r.profile_pic)
     return render(request, 'food_customer/restaurants.html', {'restaurants': restaurants , 'pFilter':pFilter})
 
 def search(request, username):

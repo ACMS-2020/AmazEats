@@ -229,7 +229,7 @@
     <div class="col mb-5" style="padding-right: 2rem;" >
       <div class="card" >
         <a href="/fooditems/display_fooditems/{{r.category_id}}" class="card-block text-decoration-none" style="color:#ffffff;">
-          <img class="card-img-top" src="/media/gallery/idly.jpg" alt="Card image cap">
+          <img class="card-img-top" onerror="this.src='/media/rest.jpg'" src="/media/{{ r.profile_pic }}" alt="Card image cap">
           <div class="card-body text-center">
             <h5 class="card-title" style="color:#ffffff;font-size:2.5rem;">{{ r.category_id }}</h5>
           </div>

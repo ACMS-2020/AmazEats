@@ -10,7 +10,7 @@
                     <div class="col-sm-4">
                         <div class="card text-center mb-5">
                             <div class="card-body">
-                                <img class="border border-warning" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" style="height:150;width:150;border-radius:50%;margin:10"/>
+                                <img class="border border-warning" onerror="this.src='/media/rest.jpg'" src="/media/{{ reso.profile_pic }}" style="height:150;width:150;border-radius:50%;margin:10"/>
                                 <h5 class="card-title">{{ request.user.username }}</h5>
                                 <p class="card-text">Hyderabad</p>
                                 <a href="/EditProfile" style="background-color:#ffa000;color:#ffffff;" class="btn">Edit Profile</a>

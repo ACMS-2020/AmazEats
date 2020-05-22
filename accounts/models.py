@@ -22,7 +22,7 @@ class Restaurant(models.Model):
 	pricePerHead=models.IntegerField(default=0)
 	contactNumber=models.CharField(max_length=10,default="")
 	review=models.CharField(max_length=20,default="")
-	image = models.ImageField()
+	profile_pic = models.ImageField(upload_to='res_pics/',default="",blank=True,null=True)
 
 class DeliveryAgent(models.Model):
 	username=models.OneToOneField(User,editable=False,on_delete=models.CASCADE,primary_key=True)

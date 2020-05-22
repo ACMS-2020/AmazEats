@@ -79,31 +79,35 @@ def checkOut(request):
 def res_pending_order(request):
     obj = Order.objects.filter(restaurant_id=request.user.username,status="Placed")
     paginator = Paginator(obj,items_per_page)
+    print(request.user.username)
+    reso = Restaurant.objects.get(username=User(username=request.user.username))
     page = request.GET.get('page')
     if page==None:
         page = 1
     ind = int(page)-1
     obj = obj[ind*items_per_page:ind*items_per_page+items_per_page]
     values = paginator.get_page(page)
-    context = {'obj':obj,'rest_id':request.user.username,'values':values}
+    context = {'obj':obj,'rest_id':request.user.username,'values':values,'reso': reso}
     return render(request,'order_pending.html',context)
 
 @only_restaurant
 def res_processing_order(request):
     obj = Order.objects.filter(restaurant_id=request.user.username,status="Processing").order_by("-order_id")
     paginator = Paginator(obj,items_per_page)
+    reso = Restaurant.objects.get(username=User(username=request.user.username))
     page = request.GET.get('page')
     if page==None:
         page = 1
     ind = int(page)-1
     obj = obj[ind*items_per_page:ind*items_per_page+items_per_page]
     values = paginator.get_page(page)
-    context = {'obj':obj,'rest_id':request.user.username,'values':values}
+    context = {'obj':obj,'rest_id':request.user.username,'values':values,'reso': reso}
     return render(request,'order_processed.html',context)
 
 @only_restaurant
 def res_dispatched_order(request):
     obj = Order.objects.filter(restaurant_id=request.user.username).exclude(status__in=['Processing','Placed','Rejected','Cancelled']).order_by("-order_date")
+    reso = Restaurant.objects.get(username=User(username=request.user.username))
     paginator = Paginator(obj,items_per_page)
     page = request.GET.get('page')
     if page==None:
@@ -111,7 +115,7 @@ def res_dispatched_order(request):
     ind = int(page)-1
     obj = obj[ind*items_per_page:ind*items_per_page+items_per_page]
     values = paginator.get_page(page)
-    context = {'obj':obj,'rest_id':request.user.username,'values':values}
+    context = {'obj':obj,'rest_id':request.user.username,'values':values,'reso': reso}
     return render(request,'order_dispatched.html',context)
 
 @only_restaurant

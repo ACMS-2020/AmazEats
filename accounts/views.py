@@ -98,44 +98,51 @@ def EditProfileView(request):
 
 	type1=User.objects.get(username=request.user.username).type1
 	if type1=='restaurant':
+		res = Restaurant.objects.get(pk=request.user.username)
 
-		res=Restaurant.objects.get(pk=request.user.username)
-		form = RestaurantEditForm(request.POST,instance=res)
-		print(res,form)
-		if form.is_valid():
-			print('Form Valid')
-			r=Restaurant(username=User(username=request.user.username))
-			if request.POST.get('name')!= '':
-				res.name=request.POST.get('name')
-			if request.POST.get('Location')!='':
-				res.Location=request.POST.get('Location')
+		if request.method=='POST':
+			form = RestaurantEditForm(request.POST,request.FILES)
+			print(res.name)
+			if form.is_valid():
+				form.save(commit=False)
+				print('Form Valid')
+				if request.POST.get('name')!= '' and request.POST.get('name')!=None:
+					res.name=request.POST.get('name')
 
-			if request.POST.get('startTime')!='':
-				res.startTime=request.POST.get('startTime')
+				if request.POST.get('Location')!='' and request.POST.get('Location')!=None:
+					res.Location=request.POST.get('Location')
 
-			if request.POST.get('closeTime')!='':
-				res.closeTime=request.POST.get('closeTime')
+				if request.POST.get('startTime')!='' and request.POST.get('startTime')!=None:
+					res.startTime=request.POST.get('startTime')
 
-			if request.POST.get('cuisine')!='':
-				res.cuisine=request.POST.get('cuisine')
+				if request.POST.get('closeTime')!='' and request.POST.get('closeTime')!=None:
+					res.closeTime=request.POST.get('closeTime')
 
-			if request.POST.get('pricePerHead')!='':
-				res.pricePerHead=request.POST.get('pricePerHead')
+				if request.POST.get('cuisine')!='' and request.POST.get('cuisine')!=None:
+					res.cuisine=request.POST.get('cuisine')
 
-			if request.POST.get('contactNumber')!='':
-				res.contactNumber=request.POST.get('contactNumber')
+				if request.POST.get('pricePerHead')!='' and request.POST.get('pricePerHead')!=None:
+					res.pricePerHead=request.POST.get('pricePerHead')
 
-			if request.POST.get('review')!='':
-				res.review=request.POST.get('review')
+				if request.POST.get('contactNumber')!='' and request.POST.get('contactNumber')!=None:
+					res.contactNumber=request.POST.get('contactNumber')
 
-			try:
-				res.save()
-				print('Saved')
-				message={'message':"Update Successful"}
-				return HttpResponseRedirect(reverse('dashboard'))
-			except:
-				pass
+				if request.FILES.get('profile_pic') != '' and request.FILES.get('profile_pic') != None:
+					name1,ext= request.FILES['profile_pic'].name.split('.')
+					request.FILES['profile_pic'].name = str(request.user.username)+'.'+str(ext)
+					print(request.FILES['profile_pic'].name)
+					res.profile_pic = request.FILES.get('profile_pic')
 
+				try:
+					res.save()
+					print('Saved')
+					message={'message':"Update Successful"}
+					return HttpResponseRedirect(reverse('dashboard'))
+				except:
+					pass
+
+		else:
+			form=RestaurantEditForm()
 
 		return render(request,'profile.html',{'form':form,'type':type1})
 
