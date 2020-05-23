@@ -6,6 +6,7 @@ from .forms import FoodItemsForm,PriceForm,AcceptableForm,RestaurantForm
 from .filters import ProductFilter
 from .decorators import only_customer,only_restaurant
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 #VIEWS FOR CUSTOMER ACCOUNT
@@ -24,10 +25,7 @@ def display_fooditems(request,username):
 def list_restaurants(request):
     restaurants = Restaurant.objects.all()
     pFilter = ProductFilter(request.POST , queryset = restaurants)
-
     restaurants = pFilter.qs
-    for r in restaurants:
-        print(r.profile_pic)
     return render(request, 'food_customer/restaurants.html', {'restaurants': restaurants , 'pFilter':pFilter})
 
 def search(request, username):
@@ -45,26 +43,33 @@ def search(request, username):
 def fav_search(request, typ):
     query_string = ''
     user = Customer.objects.get(username=request.user.username)
+    res = set()
     if 'q' in request.GET:
         if typ == 'fooditems':
             query_string = request.GET['q']
-            res = set()
             food = FoodItem.objects.filter(food_name__icontains = query_string)
             for f in food:
                 x= str(f.food_id)
-                fav = Favourite.objects.filter(user_id = request.user.username , category_id=x)
+                fav = Favourite.objects.filter(user_id = user , category_id=x ,type=typ)
                 if(fav.exists()):
                     for y in fav:
                         id = int(y.category_id)
                         res.add(FoodItem.objects.get(pk=id))
         else:
             query_string = request.GET['q']
-            res = user.favourite_set.filter(category_id__icontains = query_string,type='restaurants')
+            fav = user.favourite_set.filter(category_id__icontains = query_string,type='restaurants')
             
-            for r in res:
-                print(r.category_id)
+            for r in fav:
+                res.add(Restaurant.objects.get(username = r.category_id))
+                
     else:
-        res = user.favourite_set.filter(type = typ)
+        fav = user.favourite_set.filter(type = typ)
+        for r in fav:
+            if typ=='restaurants':
+                res.add(Restaurant.objects.get(username = r.category_id))
+            else:
+                id = int(r.category_id)
+                res.add(FoodItem.objects.get(pk=id))
     return render(request,'food_customer/favorites.html',{'res': res , 'type':typ })
 
 def res_search(request):
@@ -94,6 +99,7 @@ def res_favourites(request,username):
 
 @only_customer
 def food_favourites(request,id):
+    print(type(id))
     user = Customer.objects.get(username=request.user.username)
     if (Favourite.objects.filter(category_id = str(id) , user_id = user).exists()):
         pass
@@ -103,27 +109,29 @@ def food_favourites(request,id):
         fav.category_id = str(id)
         fav.type = "fooditems"
         fav.save()
+        print(fav)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @only_customer
-def favourites(request,type):
+def favourites(request,typ):
     print("favourites")
     user = Customer.objects.get(username=request.user.username)
     print(user)
     res = set()
-    if(type == 'restaurants'):
-        fav = user.favourite_set.filter(type = "restaurants")
-        print(fav)
+    fav = user.favourite_set.filter(type = typ)
+    print(fav)
+    if(typ == 'restaurants'):
         for f in fav:
             r = Restaurant.objects.get(pk = f.category_id)
             res.add(r)
     else:
-        fav = user.favourite_set.filter(type = "fooditems")
         for f in fav:
-            category_id = int(f.category_id)
-            r = FoodItem.objects.get(pk = category_id)
+            print(fav)
+            c = int(f.category_id)
+            print(type(c))
+            r = FoodItem.objects.get(pk = c)
             res.add(r)
-    return render(request, "food_customer/favorites.html" , { 'res' : res , 'type':type })
+    return render(request, "food_customer/favorites.html" , { 'res' : res , 'type':typ})
 
 @only_customer
 def input_reviews(request , id):

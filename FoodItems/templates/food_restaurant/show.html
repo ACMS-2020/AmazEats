@@ -141,7 +141,7 @@
     <li ><a href="/logout/">LogOut</a></li>
 
     <li>
-    <form class="form-inline" action='/fooditems/res_search' method = 'get' style="margin-top: 12px;">
+    <form class="form-inline" action='/fooditems/search/{{ request.user.username }}' method = 'get' style="margin-top: 12px;">
       <input style="height:30px;font-size: 15px;" class="form-control mr-sm-2" type="search" name='q'  placeholder="Search" aria-label="Search">
       <button size="10px"class="btn btn-info" type="submit"><i class="fa fa-search"></i></button>
     </form>
