@@ -25,6 +25,7 @@ urlpatterns=[
     url('order_delivered/(?P<order_id>\d+)/$',views.order_delivered,name="order_delivered"),
     url('reject/(?P<order_id>\d+)/$',views.reject_order,name="reject"),
     url('cart/',views.cart,name="cart"),
+    url('clear/',views.clear,name="clear"),
     url('cancelorder/(?P<order_id>\d+)/$',views.cancel_order,name="cancel"),
     url('cartalter/(?P<food_id>\d+)/(?P<quantity>\d+)/$',views.cartalter,name="cartalter"),
     url('order_history/',views.order_history,name="order_history"),

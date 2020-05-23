@@ -29,17 +29,32 @@ def display_items(request,res_id):
 @csrf_exempt
 @only_customer
 def addToCart(request,item_id):
+    val="True"
     try:
         cartTrail = Cart.objects.get(user_id=request.user.username,food_id=str(item_id))
         cartTrail.quantity += 1
         cartTrail.save()
+        print("hrllooo")
     except Cart.DoesNotExist:
+        print("hii")
         items = FoodItem.objects.filter(food_id=item_id)[0]
-        #cart_obj = Cart.objects.filter(user_id=request.user.username)[0]
         cartItem = Cart.objects.create(user_id=request.user.username, res_id=items.restaurant.username.username, food_id=item_id,food_name=items.food_name,price=items.price)
         cartItem.save()
-    print("added")
-    return JsonResponse({'data':'Added'})
+        cart_obj = Cart.objects.filter(user_id=request.user.username)[0]
+        if cart_obj.res_id == items.restaurant.username.username:
+            pass
+        else :
+            cartItem.delete()
+            val = "False"
+    return HttpResponse(val)
+
+
+@only_customer
+def clear(request):
+    cart = Cart.objects.filter(user_id=request.user.username)
+    cart.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 '''
 @only_customer
 def addToCart(request,item_id):
@@ -79,35 +94,31 @@ def checkOut(request):
 def res_pending_order(request):
     obj = Order.objects.filter(restaurant_id=request.user.username,status="Placed")
     paginator = Paginator(obj,items_per_page)
-    print(request.user.username)
-    reso = Restaurant.objects.get(username=User(username=request.user.username))
     page = request.GET.get('page')
     if page==None:
         page = 1
     ind = int(page)-1
     obj = obj[ind*items_per_page:ind*items_per_page+items_per_page]
     values = paginator.get_page(page)
-    context = {'obj':obj,'rest_id':request.user.username,'values':values,'reso': reso}
+    context = {'obj':obj,'rest_id':request.user.username,'values':values}
     return render(request,'order_pending.html',context)
 
 @only_restaurant
 def res_processing_order(request):
     obj = Order.objects.filter(restaurant_id=request.user.username,status="Processing").order_by("-order_id")
     paginator = Paginator(obj,items_per_page)
-    reso = Restaurant.objects.get(username=User(username=request.user.username))
     page = request.GET.get('page')
     if page==None:
         page = 1
     ind = int(page)-1
     obj = obj[ind*items_per_page:ind*items_per_page+items_per_page]
     values = paginator.get_page(page)
-    context = {'obj':obj,'rest_id':request.user.username,'values':values,'reso': reso}
+    context = {'obj':obj,'rest_id':request.user.username,'values':values}
     return render(request,'order_processed.html',context)
 
 @only_restaurant
 def res_dispatched_order(request):
     obj = Order.objects.filter(restaurant_id=request.user.username).exclude(status__in=['Processing','Placed','Rejected','Cancelled']).order_by("-order_date")
-    reso = Restaurant.objects.get(username=User(username=request.user.username))
     paginator = Paginator(obj,items_per_page)
     page = request.GET.get('page')
     if page==None:
@@ -115,7 +126,7 @@ def res_dispatched_order(request):
     ind = int(page)-1
     obj = obj[ind*items_per_page:ind*items_per_page+items_per_page]
     values = paginator.get_page(page)
-    context = {'obj':obj,'rest_id':request.user.username,'values':values,'reso': reso}
+    context = {'obj':obj,'rest_id':request.user.username,'values':values}
     return render(request,'order_dispatched.html',context)
 
 @only_restaurant
@@ -143,9 +154,6 @@ def processed_order(request,order_id):
 def user_order_details(request):
     obj = Order.objects.filter(user_id=request.user.username).exclude(status="Delivered").exclude(status="Rejected").order_by('-order_id')
     print("user orders",len(obj))
-    for item in obj:
-        print(item.order_id,item.status)
-
     paginator = Paginator(obj, items_per_page)
     page = request.GET.get('page')
     if page == None:
@@ -276,5 +284,3 @@ def cartalter(request,food_id,quantity):
     for i in cart:
         total+=i.quantity*i.price
     return HttpResponse(total)
-
-

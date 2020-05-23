@@ -525,19 +525,66 @@
     </div>
     {% endif %}
 
+<div class="modal fade in" id="myModaln" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" style="color:#FF9900"><center>Food added to your cart !!</center></h4>
+           <button type="button" class="close" onclick="sus()" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <center> <img class="img-responsive" src="https://i.pinimg.com/originals/77/9b/9d/779b9dc3928c2dbc304bcf6702bef6df.gif" style="height:50%px;width:100%"/>
+           <a  href= "/food/cart" type="button" class="btn btn-info btn-lg">Go To Cart</a></center>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="modal fade in" id="myModals" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" style="color:#FF9900"><center>Your cart is filled</center></h4>
+           <button type="button" class="close" onclick="sus()" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+           <h4 style="color:#232F3E;margin:20px;"><center>Hey {{request.user.username}} !! Clear your cart to add items from this restaurant.</center></h4>
+        <center> <img class="img-responsive" src="https://cdn.dribbble.com/users/1708878/screenshots/4294624/comp-1.gif" style="height:50%px;width:100%"/>
+           <center><a  href= "/food/clear/" type="button" class="btn btn-info btn-lg">Clear the Cart</a></center></center>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
   </div>
 
   <script>
+         function addCart(event)
+         {
+           var me = event.currentTarget
+           var food_id = me.getAttribute("id");
+           jQuery.get("/food/addToCart/"+food_id+"/",function(data, status){
+              if(data=="True"){
+             $("#myModaln").modal();
+
+             }
+             else{
+            $("#myModals").modal();
+             }
+           });
+         }
+      </script>
 
 
-    function addCart(event)
-    {
-      var me = event.currentTarget
-      var food_id = me.getAttribute("id");
-      jQuery.get("/food/addToCart/"+food_id+"/",function(data, status){
-      });
-    }
-    </script>
+<script>
     
     
     <div id="myModal" class="modal fade">
