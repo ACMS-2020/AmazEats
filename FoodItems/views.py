@@ -19,6 +19,15 @@ def display_fooditems(request,username):
     food = FoodItem.objects.filter(restaurant = res)
     pFilter = ProductFilter(request.POST , queryset = food)
     food = pFilter.qs
+
+    paginator = Paginator(food,15)
+    page = request.GET.get('page')
+    try:
+        food= paginator.page(page)
+    except PageNotAnInteger:
+        food = paginator.page(1)
+    except EmptyPage:
+        food = paginator.page(paginator.num_pages)
     return render(request,'food_customer/foodItems.html',{'food':food , 'pFilter' : pFilter, 'res':res })
 
 @only_customer
@@ -26,6 +35,15 @@ def list_restaurants(request):
     restaurants = Restaurant.objects.all()
     pFilter = ProductFilter(request.POST , queryset = restaurants)
     restaurants = pFilter.qs
+
+    paginator = Paginator(restaurants,15)
+    page = request.GET.get('page')
+    try:
+        restaurants= paginator.page(page)
+    except PageNotAnInteger:
+        restaurants = paginator.page(1)
+    except EmptyPage:
+        restaurants = paginator.page(paginator.num_pages)
     return render(request, 'food_customer/restaurants.html', {'restaurants': restaurants , 'pFilter':pFilter})
 
 def search(request, username):
@@ -38,12 +56,21 @@ def search(request, username):
         food = FoodItem.objects.filter(restaurant = res)
     pFilter = ProductFilter(request.POST , queryset = food)
     food = pFilter.qs
+
+    paginator = Paginator(food,15)
+    page = request.GET.get('page')
+    try:
+        food= paginator.page(page)
+    except PageNotAnInteger:
+        food = paginator.page(1)
+    except EmptyPage:
+        food = paginator.page(paginator.num_pages)
     return render(request,'food_customer/foodItems.html',{'food':food , 'res':res , 'pFilter' : pFilter })
 
 def fav_search(request, typ):
     query_string = ''
     user = Customer.objects.get(username=request.user.username)
-    res = set()
+    res = []
     if 'q' in request.GET:
         if typ == 'fooditems':
             query_string = request.GET['q']
@@ -54,22 +81,31 @@ def fav_search(request, typ):
                 if(fav.exists()):
                     for y in fav:
                         id = int(y.category_id)
-                        res.add(FoodItem.objects.get(pk=id))
+                        res.append(FoodItem.objects.get(pk=id))
         else:
             query_string = request.GET['q']
             fav = user.favourite_set.filter(category_id__icontains = query_string,type='restaurants')
             
             for r in fav:
-                res.add(Restaurant.objects.get(username = r.category_id))
+                res.append(Restaurant.objects.get(username = r.category_id))
                 
     else:
         fav = user.favourite_set.filter(type = typ)
         for r in fav:
             if typ=='restaurants':
-                res.add(Restaurant.objects.get(username = r.category_id))
+                res.append(Restaurant.objects.get(username = r.category_id))
             else:
                 id = int(r.category_id)
-                res.add(FoodItem.objects.get(pk=id))
+                res.append(FoodItem.objects.get(pk=id))
+    
+    paginator = Paginator(res,15)
+    page = request.GET.get('page')
+    try:
+        res= paginator.page(page)
+    except PageNotAnInteger:
+        res = paginator.page(1)
+    except EmptyPage:
+        res = paginator.page(paginator.num_pages)
     return render(request,'food_customer/favorites.html',{'res': res , 'type':typ })
 
 def res_search(request):
@@ -82,6 +118,15 @@ def res_search(request):
         res = Restaurant.objects.all()
     pFilter = ProductFilter(request.POST , queryset = res)
     res = pFilter.qs
+
+    paginator = Paginator(res,15)
+    page = request.GET.get('page')
+    try:
+        res= paginator.page(page)
+    except PageNotAnInteger:
+        res = paginator.page(1)
+    except EmptyPage:
+        res = paginator.page(paginator.num_pages)
     return render(request,'food_customer/restaurants.html',{'restaurants': res , 'pFilter' : pFilter })
 
 @only_customer
@@ -117,20 +162,29 @@ def favourites(request,typ):
     print("favourites")
     user = Customer.objects.get(username=request.user.username)
     print(user)
-    res = set()
+    res = []
     fav = user.favourite_set.filter(type = typ)
     print(fav)
     if(typ == 'restaurants'):
         for f in fav:
             r = Restaurant.objects.get(pk = f.category_id)
-            res.add(r)
+            res.append(r)
     else:
         for f in fav:
             print(fav)
             c = int(f.category_id)
             print(type(c))
             r = FoodItem.objects.get(pk = c)
-            res.add(r)
+            res.append(r)
+
+    paginator = Paginator(res,15)
+    page = request.GET.get('page')
+    try:
+        res= paginator.page(page)
+    except PageNotAnInteger:
+        res = paginator.page(1)
+    except EmptyPage:
+        res = paginator.page(paginator.num_pages)
     return render(request, "food_customer/favorites.html" , { 'res' : res , 'type':typ})
 
 @only_customer
@@ -194,6 +248,15 @@ def display(request):
     food = FoodItem.objects.filter(restaurant = res)
     pFilter = ProductFilter(request.POST , queryset = food)
     food = pFilter.qs
+
+    paginator = Paginator(food,15)
+    page = request.GET.get('page')
+    try:
+        food= paginator.page(page)
+    except PageNotAnInteger:
+        food = paginator.page(1)
+    except EmptyPage:
+        food = paginator.page(paginator.num_pages)
     return render(request,'food_restaurant/show.html',{'food':food , 'pFilter' : pFilter})
 
 @only_restaurant

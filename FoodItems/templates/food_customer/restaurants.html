@@ -145,6 +145,35 @@
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
 
+        .pagination{
+          text-align: center;
+          margin-top: 1em;
+          font-size: 1.3rem;
+        }
+
+        .page-action{
+          margin: 0 0.1em;
+          display:inline-block;
+          padding: 0.5em;
+          color: #FF9900;
+          font-size:2rem;
+        }
+
+        .pagination-number{
+          background-color: #FF9900;
+          padding : 0.5em 0.9em;
+          color:#ffffff;
+          margin:0.2em;
+          border-radius: 2px;
+        }
+
+        .pagination-number:hover , .pagination-current{
+          background-color:#FF9900 ;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          font-size: 1.5rem;
+        }
+
+
         </style>
         
 
@@ -198,7 +227,7 @@
 
 
 
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="height: 45%; margin-bottom: 3rem; margin-right: 18rem; margin-left: 18rem; ">
+<div id="carouselExampleIndicators" class="carousel slide center-block" data-ride="carousel" style="height: 45%; margin-bottom: 3rem; width: 79%; ">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -214,7 +243,7 @@
     <div class="carousel-item">
       <img src="/media/c2.jpg" class="d-block w-100" alt="...">
       <div class="carousel-caption d-block">
-        <h5 class="text-left" style="font-size: 4rem; font-family: cursive; margin-bottom: 26rem;">Give your hunger a new option !!!</h5>
+        <h5 class="text-left" style="font-size: 4rem; font-family: cursive; margin-bottom: 22rem;">Give your hunger a new option !!!</h5>
 
         </div>
     </div>
@@ -262,9 +291,40 @@
         </div>
       </div>
     </div>
+
+    {% empty %}
+
+    <div class="center-block" style="margin-left:40% ; margin-top: 5%;margin-bottom: 10%; margin-right: 30%; text-align:center;">
+      <img src="https://cdn0.iconfinder.com/data/icons/30-hardware-line-icons/64/Search-512.png" height=170rem width=170rem/>
+      <h2 class="text-center">No Results Found </h2>
+    </div>
     {% endfor %}
 
   </div>
+
+  {% if restaurants %}
+    <div class="pagination justify-content-center">
+
+      {% if restaurants.has_previous %}
+        <a class="page-action" href="?page=1"><i class="fa fa-angle-double-left"></i></a>
+        <a class="page-action" href="?page={{ restaurants.previous_page_number }}"><i class="fa fa-angle-left"></i></a>
+      {% endif %}
+
+      {% for n in restaurants.paginator.page_range %}
+        {% if restaurants.number == n %}
+          <span class="pagination-number pagination-current">{{ n }}</span>
+          {% elif n > restaurants.number|add:'-2' and n < restaurants.number|add:'2' %}
+            <a class="pagination-number" href="?page={{ n }}">{{ n }}</a>
+          {% endif %}
+      {% endfor %}
+
+      {% if restaurants.has_next %}
+        <a class="page-action" href="?page={{ restaurants.next_page_number }}"><i class="fa fa-angle-right"></i></a>
+        <a class="page-action" href="?page={{ restaurants.paginator.num_pages }}"><i class="fa fa-angle-double-right"></i></a>
+      {% endif %}
+      
+    </div>
+    {% endif %}
 </div>
 
 <div class="container-fluid border" style="background-color:#232F3E;color:#ffffff;height:15%;width:100%;">  
