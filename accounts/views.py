@@ -48,11 +48,11 @@ def registerView(request):
 			login(request, user)
 			sendDetails(request)
 			if type1=='restaurant':
-				initial=Restaurant(username=User(username=username))
+				initial=Restaurant.objects.create(username_id=User(username=username))
 			elif type1=='user':
-				initial=Customer(username=User(username=username))
+				initial=Customer.objects.create(username_id=User(username=username))
 			else:
-				initial=DeliveryAgent(username=User(username=username))
+				initial=DeliveryAgent.objects.create(username_id=User(username=username))
 			initial.save()
 
 
