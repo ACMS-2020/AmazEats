@@ -25,7 +25,8 @@ def dashboardView(request):
 		return redirect('/food/orders_available/')
 
 	if type1=='restaurant':
-		return render(request,'rdashboard.html',{'message':None})
+		restaurant = Restaurant.objects.get(username_id=request.user.username)
+		return render(request,'rdashboard.html',{'message':None,'restaurant':restaurant})
 
 	else:
 		return redirect('/fooditems/')
@@ -99,7 +100,6 @@ def EditProfileView(request):
 	type1=User.objects.get(username=request.user.username).type1
 	if type1=='restaurant':
 		res = Restaurant.objects.get(pk=request.user.username)
-
 		if request.method=='POST':
 			form = RestaurantEditForm(request.POST,request.FILES)
 			print(res.name)

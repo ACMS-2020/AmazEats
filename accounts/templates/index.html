@@ -7,8 +7,8 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="animate.css">
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script>
@@ -95,6 +95,8 @@
 	{
 		background-image: none;
 	}
+
+
 	.carousel-control.left
 	{
 		background-image: ;
@@ -105,9 +107,7 @@
 		background-color: #FF9900;
 		border-color: #FF9900;
 	}
-	 .navbar-inverse .navbar-nav > li > a:hover {
-       background-color: #FFFFFF40;
-  }
+
 
 	@media only screen and (min-width: 768px) and (max-width: 991px)
 	{
@@ -150,13 +150,9 @@
 			list-style-type: square;
 		}
 
-         .navbar-inverse .navbar-nav > li > a:hover {
-       background-color: #FFFFFF40;
-  }
-
 
 	}
-	
+
 </style>
 <body>
 	<nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
@@ -171,14 +167,14 @@
         <span class="icon-bar"></span>
       </button>
 
-  </button>	
-  
+  </button>
+
   <a class="navbar-brand " style="font-size: 27px; color: #FF9900;"><span><img src="media/amazon-icon-1.webp" height="32px" width="32px"; ></span> AmazEats </a>
 	</div>
 
   <div class="collapse navbar-collapse" id="navCollapse">
    <ul class="nav navbar-nav navbar-right">
-   	<li ><a href="/" >Home</a></li>	
+   	<li ><a href="/" >Home</a></li>
    	<li ><a href="{% url 'login_url' %} " >Login</a></li>
    	<li ><a href="{% url 'register_url' %}">Register</a></li>
    </ul>
@@ -192,31 +188,31 @@
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
   </ul>
-  
+
   <div class="carousel-inner" role="listbox">
     <div class="item active">
      	<div class="banner" style="background-image: url('media/user.jpg');"></div>
      	<div class="carousel-caption">
-     		<h2 class="animated bounceInRight" style="animation-delay: 1s;">Order your <span>favourite</span> food from home</h2>
-     		<h3 class="animated bounceInLeft" style="animation-delay: 2s;">We have many options</h3>
-     		<p class="animated bounceInRight" style="animation-delay: 1s;text-transform:none;"><a href="/">Know more</a></p>
+     		<h2 class="animate__animated animate__bounceInRight" >Order your <span>favourite</span> food from home</h2>
+     		<h3 class="animate__animated animate__bounceInLeft" style="animation-delay: 1s;">We have many options</h3>
+     		<p class="animate__animated animate__bounceInRight" style="animation-delay: 1s;text-transform:none;"><a href="/">Know more</a></p>
 
      	</div>
     </div>
     <div class="item">
       <div class="banner" style="background-image: url('media/restaurant2.jpg'); "></div>
       <div class="carousel-caption">
-     		<h2 ><span>Connecting</span> various restaurants and people</h2>
-     		<h3 class="animated bounceInLeft" style="animation-delay: 2s;">Delicious food at Doorstep</h3>
-     		<p class="animated bounceInRight" style="animation-delay: 1s;text-transform:none;" ><a href="/">Know more</a></p>
+     		<h2 class="animate__animated animate__bounceInRight" ><span>Connecting</span> various restaurants and people</h2>
+     		<h3 class="animate__animated animate__bounceInLeft" style="animation-delay: 1.5s;">Delicious food at Doorstep</h3>
+     		<p class="animate__animated animate__bounceInRight" style="animation-delay: 1.5s;text-transform:none;" ><a href="/">Know more</a></p>
      	</div>
      </div>
     <div class="item">
       <div class="banner" style="background-image: url('media/delivery.jpg'); "></div>
       <div class="carousel-caption">
-     		<h2>Get your food delivered <span>on time</span></h2>
-     		<h3 class="animated bounceInLeft" style="animation-delay: 2s;">We won't keep you waiting</h3>
-     		<p class="animated bounceInRight" style="animation-delay: 1s;text-transform:lowercase;"><a href="/">Know more</a></p>
+     		<h2 class="animate__animated animate__bounceInRight" >Get your food delivered <span>on time</span></h2>
+     		<h3 class="animate__animated animate__bounceInLeft" style="animation-delay: 1.5s;">We won't keep you waiting</h3>
+     		<p class="animate__animated animate__bounceInRight" style="animation-delay: 1.5s;text-transform:lowercase;"><a href="/">Know more</a></p>
      	</div>
     </div>
   </div>

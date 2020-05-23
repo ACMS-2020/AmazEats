@@ -53,6 +53,9 @@
     font-size: 15px;
   }
 
+  .navbar-inverse .navbar-nav > li > a:hover {
+       background-color: #FFFFFF40;
+
 	@media only screen and (min-width: 768px) and (max-width: 991px)
 	{
 
@@ -73,6 +76,8 @@
 			list-style-type: square;
 		}
 
+        .navbar-inverse .navbar-nav > li > a:hover {
+       background-color: #FFFFFF40;
 
 	}
 </style>
@@ -109,6 +114,8 @@
   </ul>
    </div>
   </div>
+
+
 </nav>
 
 
@@ -117,6 +124,21 @@
 <br>
 {% block content %}
 	{% csrf_token %}
-	<h1>Welcome, {{user.username}}</h1>
-	<p>Now get to deliver your favourite food </p>
+	<center><h1>Welcome!!</h1></center>
+<div class="jumbotron jumbotron-fluid" style="margin-right: 20rem; margin-left: 20rem;margin-bottom: 20rem;">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <img class="card-img-top" onerror="this.src='/media/rest.jpg'" src="/media/{{ restaurant.profile_pic }}" alt="Card image cap" style="height:30vw;">
+      </div>
+      <div class="col-9">
+        <h1 class="display-4">{{restaurant.username}}</h1>
+        <p class="lead">{{restaurant.Location}}</p>
+        <p class="lead">{{restaurant.cuisine}}</p>
+        <p class="lead">Contact-{{restaurant.contactNumber}}</p>
+
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content%}

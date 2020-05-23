@@ -1,19 +1,24 @@
 {% extends "base_delivery.html" %}
 {% block content %}
-    <style>
-    .track
-    {
-        height: 125px;
-        width: 200px;
+
+    <script>
+    function trackopen(clicked_id) {
+        var id="card"+clicked_id;
+        var card=document.getElementById(id)
+        document.getElementById("button"+clicked_id).style.display="inline"
+        card.style.display="flex";
     }
 
-    .modal-ku
-    {
-        height: 500px;
-        width: 1000px;
+     function trackclose(clicked_id) {
+        document.getElementById(clicked_id).style.display="none"
+        clicked_id= clicked_id.substr(6,)
+        var id="card"+clicked_id;
+        var card=document.getElementById(id)
+         card.style.display= "none";
+
     }
 
-</style>
+    </script>
 
     <body>
 
@@ -59,9 +64,8 @@
                             <div class="card m-5 text-white mx-auto" style="width: 800px;background-color:#232F3E"  >
                                 <div class="card-header">
                                     <span><h3> Order Number : {{ item.order_id }} </h3></span>
-                                     <span><a href="#" style="background-color:#FF9900" class="btn btn-info float-right ml-2"
-                                       data-toggle="modal" data-target="#trackOrder">Track Order</a></span>
-                                  <!--  {% if item.status == "Delivered" %}
+                                   <span><a id="{{ item.order_id }}" onclick="trackopen(this.id);" style="background-color:#FF9900" class="btn btn-info float-right ml-2">Track Order</a></span>
+                                    <!--  {% if item.status == "Delivered" %}
                                          <span><a href="#" style="background-color:#FF9900" class="btn btn-info float-right ml-2">Rate</a></span>
                                     {% else %}
                                         <span class="float-right">{{item.status}}</span>
@@ -83,38 +87,22 @@
                                     {% endif %}
                                 </div>
                             </div>
-                        <div class="modal fade" id="trackOrder" tabindex="-1" role="dialog" aria-labelledby="trackOrderLabel" aria-hidden="true">
-                                          <div class="modal-dialog modal-dialog-lg modal-dialog-centered" style="width: 1000px;height: 700px;">
-                                            <div class="modal-content" align="center">
-                                              <div class="modal-header">
-                                                <h5 class="modal-title" id="trackOrderLabel">
-                                                    Check your order progress
-                                                </h5>
-                                                &nbsp;&nbsp;&nbsp;
-                                                 <div class="spinner-grow" role="status" style="height: 30px;width: 30px;">
-                                                          <span class="sr-only">Loading...</span>
-                                                </div>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span>
-                                                </button>
-                                              </div>
-                                              <div class="modal-body">
+                              <a id="button{{ item.order_id }}" onclick="trackclose(this.id)" style="margin-left: 750px;display: none;" class="btn btn-info "><i class="fa fa-close"></i></a>
+                            <div style="border: #232F3E;width: 800px;display: none;"  id="card{{item.order_id}}">
 
+                                                    <div style="padding-left: 40px;margin-left: 30px;">
                                                     {% if item.status == "Processing" %}
-                                                    <p style="color :#FF9900"><b>Restaurant Accepted</b></p>
+                                                        <span style="color :#FF9900;"><b>Restaurant Accepted</b></span><br/>
 
-                                                    <svg id="Слой_2" class="track" style="fill :#FF9900;" data-name="Слой 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101">
+                                                    <svg id="Слой_2" class="track" style="fill :#FF9900;margin-top: 10px;" data-name="Слой 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101">
 
                                                     {% else %}
-                                                    {% if item.status == "Order Picked" or item.status == "Delivery Boy Assigned" or item.status == "In Delivery"%}
+                                                    {% if item.status == "In Delivery" or item.status == "Order Picked" or item.status == "Delivery Boy Assigned"  %}
 
-                                                        <p style="color :#FF9900"><b>Restaurant Accepted</b></p>
-                                                        <svg id="Слой_2" class="track" style="fill :#FF9900;" data-name="Слой 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101">
+                                                        <span style="color :#FF9900"><b>Restaurant Accepted</b></span><br/>
+                                                        <svg id="Слой_2" class="track" style="fill :#FF9900;margin-top: 10px;" data-name="Слой 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101">
                                                     {% else %}
-
-
-
-                                                        <small style="font-size: 15px;"><b>Waiting for Restaurant Confirmation</b></small><br/>
+                                                        <small style="color:#232F3E;font-size: 15px;"><b>Waiting for <br/>Restaurant Confirmation</b></small><br/>
 
                                                         <svg id="Слой_2" class="track" data-name="Слой 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101">
 
@@ -123,24 +111,26 @@
 
                                                      {% endif %}
                                                         <path d="M87.56,64,67.66,75.79,60.08,71h9.53a5.5,5.5,0,0,0,0-11H53.24a15.19,15.19,0,0,0-5.51,1L35,66.78V65.5A1.5,1.5,0,0,0,33.5,64h-11A1.5,1.5,0,0,0,21,65.5v25A1.5,1.5,0,0,0,22.5,92h11A1.5,1.5,0,0,0,35,90.5V89H66.09a9.32,9.32,0,0,0,5.48-1.77L92.83,72A4.83,4.83,0,0,0,87.56,64ZM32,89H24V67h8ZM91.09,69.61,69.82,84.8A6.35,6.35,0,0,1,66.09,86H35V70.07l13.88-6.27A12.13,12.13,0,0,1,53.24,63H69.61a2.5,2.5,0,0,1,0,5H54.9a1.5,1.5,0,0,0-.8,2.77l12.73,8a1.5,1.5,0,0,0,1.57,0l20.7-12.29a1.83,1.83,0,0,1,2,3.06Z"/><path d="M94.5,52H91A38.55,38.55,0,0,0,57.35,14.82a6.5,6.5,0,1,0-9.69,0A38.54,38.54,0,0,0,14,52H9.5a1.5,1.5,0,0,0,0,3h85a1.5,1.5,0,0,0,0-3ZM52.5,7A3.5,3.5,0,1,1,49,10.5,3.5,3.5,0,0,1,52.5,7Zm0,10.5A35.53,35.53,0,0,1,88,52H17A35.53,35.53,0,0,1,52.5,17.5Z"/><path d="M44.44,24.61a29.46,29.46,0,0,0-18.8,16.17A1.5,1.5,0,1,0,28.37,42,26.47,26.47,0,0,1,45.26,27.5a1.5,1.5,0,1,0-.82-2.89Z"/></svg>
+                                                </div>
                                                 <br/>
-                                                <i class="fas fa-angle-double-down fa-2x" style="padding-bottom:10px;"></i>
+                                                <div style="margin-top: 70px;margin-left: 15px;"><i class="fas fa-angle-double-right fa-2x" style="padding-bottom:10px;"></i></div>
                                                 <br/>
 
 
+                                                <div style="padding-left: 40px;">
                                                 {% if item.status == "Delivery Boy Assigned" %}
-                                                     <p style="color :#FF9900"><b>Deliveryboy Assigned</b></p>
+                                                     <span style="color :#FF9900;margin-top: 10px;" ><b>Deliveryboy Assigned</b></span><br/>
 
                                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" class="track" fill="#FF9900" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" stroke-width="0.75"
-                                                     viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;height: 110px;" xml:space="preserve" >
+                                                     viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;height: 110px;margin-top: 10px;" xml:space="preserve" >
                                                      {% else %}
                                                      {% if item.status == "Order Picked" %}
                                                      <p style="color :#FF9900"><b>DeliveryAgent Assigned</b></p>
 
                                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" class="track" fill="#FF9900" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" stroke-width="0.75"
-                                                     viewBox="0 0 60 60" style="height:110px;enable-background:new 0 0 60 60;" xml:space="preserve">
+                                                     viewBox="0 0 60 60" style="color:#232F3E;height:110px;enable-background:new 0 0 60 60;" xml:space="preserve">
                                                      {% else %}
-                                                     <p><b>DeliveryAgent yet to be Assigned</b></p>
+                                                     <p style="color:#232F3E;padding-left: 15px;"><b>DeliveryAgent <br/>to be Assigned</b></p>
                                                     <svg version="1.1" id="Capa_1" class="track" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" stroke-width="0.75"
                                                      viewBox="0 0 60 60" style="height:110px;enable-background:new 0 0 60 60;" xml:space="preserve">
                                                      {% endif %}
@@ -196,20 +186,21 @@
                                                     c-6.148,0-11.387,4.02-13.099,9.694C3.309,39.642,2,34.972,2,30C2,18.09,9.477,7.9,19.982,3.86z"/>
                                                 <g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
                                                 </svg>
+                                                </div>
                                                 <br/>
                                                 <br/>
-                                                <i class="fas fa-angle-double-down fa-2x" style="padding-bottom:10px;"></i>
+                                                <div style="margin-top: 70px;margin-left: 15px;"><i class="fas fa-angle-double-right fa-2x" style="padding-bottom:10px;"></i></div>
 
-
+                                                <div style="padding-left: 40px;">
                                                 {% if item.status == "Order Picked" %}
 
                                                     <p style="color: #FF9900"><b>Order on the way </b></p>
-                                                    <svg version="1.1" class="track" style="fill:#FF9900;" id="Layer_1_1_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                    <svg version="1.1" class="track" style="fill:#FF9900" id="Layer_1_1_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                      viewBox="0 0 64 64" style="height:110px;enable-background:new 0 0 64 64;" xml:space="preserve">
                                                 <g id="Guide">
 
                                                 {% else %}
-                                                 <p ><b>Order not yet Picked </b></p>
+                                                 <p style="color:#232F3E;"><b>Order not yet Picked </b></p>
 
                                                     <svg version="1.1" class="track" id="Layer_1_1_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                      viewBox="0 0 64 64" style="height:110px;enable-background:new 0 0 64 64;" xml:space="preserve">
@@ -217,7 +208,7 @@
                                                 {% endif %}
                                                 <g id="Guide">
                                                     <g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></g>
-                                                  <path d="M53,42c-0.654,0-1.292,0.068-1.915,0.178l-0.529-1.94C51.349,40.087,52.164,40,53,40v-2c-1.018,0-2.012,0.104-2.973,0.298
+                                                <path d="M53,42c-0.654,0-1.292,0.068-1.915,0.178l-0.529-1.94C51.349,40.087,52.164,40,53,40v-2c-1.018,0-2.012,0.104-2.973,0.298
                                                     L48,30.866V25c0.552,0,1-0.448,1-1v-1h3v-2h-3v-1c0-0.552-0.448-1-1-1h-7.819l0.806-4.835C40.996,14.11,41,14.055,41,14v-2.35
                                                     c2.327-0.826,4-3.043,4-5.65c0-3.309-2.691-6-6-6s-6,2.691-6,6c0,1.44,0.51,2.762,1.359,3.797c-3.396,2.15-5.699,5.687-6.237,9.72
                                                     l-1.113,8.351c-0.019,0.145-0.007,0.292,0.037,0.431l2.946,9.428l-4.824,7.719l-4,6c-0.265,0.396-0.212,0.925,0.125,1.262l3,3
@@ -240,7 +231,7 @@
                                                     l3.971,13.9L37.926,56H34.612z M39.285,46.951l-0.287-4.022c-0.005-0.069-0.017-0.137-0.036-0.204l-1.035-3.622l0.067,0.007l1-9
                                                     C38.998,30.074,39,30.037,39,30v-5h7v6c0,0.089,0.012,0.177,0.035,0.263l2.066,7.575C44.16,40.206,40.962,43.164,39.285,46.951z
                                                      M53,62c-4.962,0-9-4.038-9-9c0-3.791,2.359-7.035,5.684-8.359l2.351,8.622l1.93-0.526l-2.351-8.619C52.067,44.048,52.528,44,53,44
-                                                    c4.962,0,9,4.038,9,9S57.962,62,53,62z"></path>
+                                                    c4.962,0,9,4.038,9,9S57.962,62,53,62z"/>
                                                 <path d="M11,64c3.86,0,7-3.14,7-7s-3.14-7-7-7s-7,3.14-7,7S7.14,64,11,64z M11,52c2.757,0,5,2.243,5,5s-2.243,5-5,5s-5-2.243-5-5
                                                     S8.243,52,11,52z"/>
                                                 <rect x="7" y="38" width="2" height="2"/>
@@ -253,15 +244,11 @@
                                                 <rect x="11" y="14" width="2" height="2"/>
                                                 <rect x="3" y="14" width="2" height="2"/>
                                                 </svg>
+                                                </div>
 
-                                              </div>
-                                              <div class="modal-footer" align="center">
+                        </div>
 
-                                                <button type="button" class="btn btn-primary">Ok</button>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
+
 
                         <!--{% endif %}-->
                         {% endfor %}
