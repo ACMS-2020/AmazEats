@@ -461,7 +461,7 @@
             </div>
           </a>
           <div class="card-footer text-center">
-            <a id = "{{ f.food_id }}" class="btn btn-info" href="#myModal" onclick="addCart(event);" class="trigger-btn" data-toggle="modal"> Add To Cart</a>
+            <a id = "{{ f.food_id }}" class="btn btn-info" onclick="addCart(event);" > Add To Cart</a>
           </div>
         </div>
       </div>
@@ -501,7 +501,7 @@
         </div>
         </div>
         <div class="modal-footer">
-          <a id = "{{ f.food_id }}" class="btn btn-info" href="#myModal" onclick="addCart(event);" class="trigger-btn" data-toggle="modal"> Add To Cart</a>
+          <a id = "{{ f.food_id }}" class="btn btn-info" onclick="addCart(event);"> Add To Cart</a>
           <a role="button" href="/fooditems/food_favourites/{{ f.food_id }}" class="btn btn-primary">Add to favorites</a>
         </div>
       </div>
