@@ -2,7 +2,113 @@
 {% block content %}
 <head>
     <style>
-        .modal-confirm {
+
+    .rating{
+    position:absolute;
+    top:23%;
+    left:50%;
+        transform: translate(-50%,-50%) rotateY(180deg);
+        display:flex;
+
+    }
+
+    .rating input{
+       display:none;
+    }
+
+    .rating label{
+    display:block;
+    cursor:pointer;
+    width:50px;
+    background:#fff;
+    }
+
+    .rating label:before{
+        content:'\f005';
+        font-family : fontAwesome;
+        position:relative;
+        display:block;
+        font-size:20px;
+        color:#101010;
+    }
+
+     .rating label:after{
+        content:'\f005';
+        font-family : fontAwesome;
+        position:absolute;
+        display:block;
+        font-size:20px;
+        color:#ffae42;
+        top:0;
+        opacity:0;
+        transition:.5s;
+        text-shadow : 0 2px 5px rgba(0,0,0,.5);
+    }
+
+    .rating label:hover:before,
+    .rating label:hover ~ label:before,
+    .rating input:checked ~ label:before
+    {
+    opacity:1;
+    color:#ffae42;
+    }
+
+
+
+ .rating1{
+    position:absolute;
+    top:45%;
+    left:50%;
+        transform: translate(-50%,-50%) rotateY(180deg);
+        display:flex;
+
+    }
+
+    .rating1 input{
+       display:none;
+    }
+
+    .rating1 label{
+    display:block;
+    cursor:pointer;
+    width:50px;
+    background:#fff;
+    }
+
+    .rating1 label:before{
+        content:'\f005';
+        font-family : fontAwesome;
+        position:relative;
+        display:block;
+        font-size:20px;
+        color:#101010;
+    }
+
+     .rating1 label:after{
+        content:'\f005';
+        font-family : fontAwesome;
+        position:absolute;
+        display:block;
+        font-size:20px;
+        color:#ffae42;
+        top:0;
+        opacity:0;
+        transition:.5s;
+        text-shadow : 0 2px 5px rgba(0,0,0,.5);
+    }
+
+    .rating1 label:hover:before,
+    .rating1 label:hover ~ label:before,
+    .rating1 input:checked ~ label:before
+    {
+    opacity:1;
+    color:#ffae42;
+    }
+
+
+
+
+    .modal-confirm {
 		color: #636363;
 		width: 325px;
 	}
@@ -193,7 +299,7 @@
                                 <div class="card-header">
                                     <span><h3> Order Number : {{ item.order_id }} </h3></span>
                                     {% if item.status == "Delivered" %}
-                                         <span><button type="button" style="background-color:#FF9900" class="btn btn-info float-right ml-2" data-toggle="modal" data-target="#rating" >Rate</button></span>
+                                         <span><button type="button" style="background-color:#FF9900" class="btn btn-info float-right ml-2" data-toggle="modal" data-target="#rating{{item.order_id}}" >Rate</button></span>
 
                                     {% elif item.status == "Rejected" %}
                                         <span class="float-right">{{item.status}}</span>
@@ -217,6 +323,74 @@
                                     {% endif %}
                                 </div>
                             </div>
+
+
+                        <!--Modal for rating -->
+
+                        <div class="modal fade in" id="rating{{item.order_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel" style="color:#FF9900">Rate your recent meal</h5>
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+
+                            </button>
+                        </div>
+                            {% if item.delivery_rating == "None" or item.restaurant_rating == "None" or item.rating_description == "None" %}
+                    <div class="modal-body">
+                    <form action="/food/ratings/{{item.order_id}}/" method="post">
+                    {% csrf_token %}
+          <div class="form-group">
+              <center><h5><small>Rate your meal from</small></h5><h5>{{item.restaurant_id}}</h5></center>
+<center>
+              <div class="rating">
+                  <input type="radio" name="star" id="{{item.order_id}}star1" value="5"><label for="{{item.order_id}}star1"></label>
+                  <input type="radio" name="star" id="{{item.order_id}}star2" value="4"><label for="{{item.order_id}}star2"></label>
+                  <input type="radio" name="star" id="{{item.order_id}}star3" value="3"><label for="{{item.order_id}}star3"></label>
+                  <input type="radio" name="star" id="{{item.order_id}}star4" value="2"><label for="{{item.order_id}}star4"></label>
+                  <input type="radio" name="star" id="{{item.order_id}}star5" value="1"><label for="{{item.order_id}}star5"></label>
+              </div>
+</center>
+
+                       <center><h5 style="margin-top:50px;"><small>How was the delivery by</small></h5><h5>{{item.delivery_boy_id}}</h5></center>
+<center>
+              <div class="rating1">
+                  <input type="radio" name="stard" id="{{item.order_id}}stard1" value="5"><label for="{{item.order_id}}stard1"></label>
+                  <input type="radio" name="stard" id="{{item.order_id}}stard2" value="4"><label for="{{item.order_id}}stard2"></label>
+                  <input type="radio" name="stard" id="{{item.order_id}}stard3" value="3"><label for="{{item.order_id}}stard3"></label>
+                  <input type="radio" name="stard" id="{{item.order_id}}stard4" value="2"><label for="{{item.order_id}}stard4"></label>
+                  <input type="radio" name="stard" id="{{item.order_id}}stard5" value="1"><label for="{{item.order_id}}stard5"></label>
+              </div>
+</center>
+
+            <label for="{{item.order_id}}message-text" class="col-form-label" style="margin-top:30px;">Your Feedback</label>
+            <textarea name="feedback" class="form-control" id="{{item.order_id}}message-text"></textarea>
+
+             <center><h5 style="color:#232F3E;margin-top:30px;"><small>Your word makes AmazEats a better place</small></h5>
+                 <h6><small>You are the influencer !!</small></h6></center>
+
+              <center><button type="submit" class="btn btn-primary" style="background-color:#FF9900">Send Rating</button></center>
+
+          </div>
+        </form>
+      </div>
+                            {% else %}
+                           <div class="modal-body">
+                          <center>
+		                    <img src="https://i.pinimg.com/originals/f0/ca/90/f0ca90dd6924e009d86f4421cf2032b5.gif" style="height:300;" class="mt-4 align-bottom rounded mx-auto d-block" alt="order processing">
+		                    <h5 class="card-title">Your Ratings</h5>
+                            <p><small>Restaurant Ratings : {{item.restaurant_rating}} </small></p>
+                              <p><small>Delivery Ratings : {{item.delivery_rating}}</small></p>
+                              <p><small>Feedback : {{item.rating_description}}</small></p>
+	                        </center>
+                           </div>
+                            {% endif %}
+    </div>
+  </div>
+</div>
+
                         {% endif %}
                         {% endfor %}
                         <div class="pagination justify-content-center mb-5">

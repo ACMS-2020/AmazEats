@@ -195,6 +195,8 @@ def orders_available(request):
 @only_delivery
 def your_delivery(request):
     obj = Order.objects.filter(delivery_boy_id=request.user.username).order_by('-order_date')
+    #user = Customer.objects.get(username=obj.user_id)
+    #res = Restaurant.objects.get(username=obj.restaurant_id)
     paginator = Paginator(obj, items_per_page)
     page = request.GET.get('page')
     if page == None:
@@ -284,3 +286,13 @@ def cartalter(request,food_id,quantity):
     for i in cart:
         total+=i.quantity*i.price
     return HttpResponse(total)
+
+@only_customer
+def ratings(request,order_id):
+    order = Order.objects.get(order_id=order_id)
+    order.restaurant_rating = request.POST.get('star')
+    order.delivery_rating = request.POST.get('stard')
+    order.rating_description = request.POST.get('feedback')
+    order.save()
+    print("came here rate")
+    return redirect('/food/order_history/')

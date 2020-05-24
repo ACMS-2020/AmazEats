@@ -45,6 +45,9 @@ class Order(models.Model):
     order_date = models.DateTimeField(default=datetime.now())
     delivery_boy_id = models.CharField(max_length=200,default="not_assigned")
     delivered_date = models.DateTimeField(blank=True, null=True)
+    delivery_rating = models.CharField(max_length=6,default='None')
+    restaurant_rating = models.CharField(max_length=6,default='None')
+    rating_description = models.CharField(max_length=300,default='None')
 
     def order_accepted(self):
         if(self.status=="Placed"):
@@ -118,3 +121,4 @@ class OrderedItems(models.Model):
 
     def __str__(self):
         return self.item_id
+

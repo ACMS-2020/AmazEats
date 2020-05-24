@@ -29,5 +29,6 @@ urlpatterns=[
     url('cancelorder/(?P<order_id>\d+)/$',views.cancel_order,name="cancel"),
     url('cartalter/(?P<food_id>\d+)/(?P<quantity>\d+)/$',views.cartalter,name="cartalter"),
     url('order_history/',views.order_history,name="order_history"),
+    url('ratings/(?P<order_id>\d+)/$',views.ratings,name="ratings"),
     url('alter_cart/(?P<food_id>\d+)/(?P<quantity>\d+)/$',views.alter_cart_items,name="alter_cart"),
 ]
