@@ -187,18 +187,6 @@ def favourites(request,typ):
         res = paginator.page(paginator.num_pages)
     return render(request, "food_customer/favorites.html" , { 'res' : res , 'type':typ})
 
-@only_customer
-def input_reviews(request , id):
-    food = FoodItem.objects.get(pk = id)
-    if (Rating.objects.filter(food_id = food , user_id = request.user.username).exists()):
-        r = Rating.objects.get(food_id = food , user_id = request.user.username)
-        r.reviews = request.POST['reviews']
-        r.save()
-    else:
-        reviews = request.POST['reviews']
-        r = Rating(user_id = request.user.username,food_id = food, reviews = reviews)
-        r.save()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 # @login_required
@@ -207,11 +195,14 @@ def input_ratings(request , id):
     food = FoodItem.objects.get(pk = id)
     if (Rating.objects.filter(food_id = food , user_id = request.user.username).exists()):
         r = Rating.objects.get(food_id = food , user_id = request.user.username)
-        r.rating = request.POST['rating']
+        r.rating = request.POST.get('rating')
+        print(request.POST.get('reviews'))
+        r.reviews = request.POST.get('reviews')
         r.save()
     else:
-        rating = request.POST['rating']
-        r = Rating( user_id = request.user.username,food_id = food, rating = rating)
+        rating = request.POST.get('rating')
+        reviews = request.POST.get('reviews')
+        r = Rating( user_id = request.user.username,food_id = food, rating = rating, reviews=reviews)
         r.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -268,35 +259,51 @@ def delete_fooditems(request,id):
     food.delete()
     return redirect("/fooditems/restaurant_fooditems")
 
+def restaurant_search(request):
+    query_string = ''
+    res = Restaurant.objects.get(pk = request.user.username )
+    if 'q' in request.GET:
+        query_string = request.GET['q']
+        food = FoodItem.objects.filter(restaurant = res ,food_name__icontains = query_string)
+    else:
+        food = FoodItem.objects.filter(restaurant = res)
+    pFilter = ProductFilter(request.POST , queryset = food)
+    food = pFilter.qs
+
+    paginator = Paginator(food,15)
+    page = request.GET.get('page')
+    try:
+        food= paginator.page(page)
+    except PageNotAnInteger:
+        food = paginator.page(1)
+    except EmptyPage:
+        food = paginator.page(paginator.num_pages)
+    return render(request,'food_restaurant/show.html',{'food':food  , 'pFilter' : pFilter })
+
 @only_restaurant
 def update_price(request,id):
-    food = FoodItem.objects.get(pk=id)
-    form = PriceForm(instance = food)
-    print(food,form)
-    if request.method == "POST":
-        form =PriceForm(request.POST , instance = food)
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('/fooditems/restaurant_fooditems')
-            except:
-                pass
-    return render(request,'food_restaurant/index.html',{'form':form})
+    food = FoodItem.objects.get(pk=id) 
+    if request.method == 'POST' and request.POST:
+        food.price = request.POST['p']
+        food.save()
+    else:
+        pass
+    return redirect("/fooditems/restaurant_fooditems")
 
 @only_restaurant
 def update_acceptable(request,id):
     food = FoodItem.objects.get(pk=id)
-    if request.method == "POST":
-        form = AcceptableForm(request.POST , instance = food)
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('/fooditems/restaurant_fooditems')
-            except:
-                pass
+    print(food.serviceable)
+    if food.serviceable == "service available":
+        food.serviceable = "service not available"
+        print("made not available")
     else:
-        form = AcceptableForm(instance = food)
-    return render(request,'food_restaurant/index.html',{'form':form})
+        food.serviceable = "service available"
+        print("made available")
+    food.save()
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 @only_restaurant
 def create_restaurant(request):

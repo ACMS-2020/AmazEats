@@ -66,20 +66,20 @@
         .food{
           position:absolute;
           top:2%;
-          left:40%;
+          left:35%;
           width:100%;
           font-size: 1.5rem;
         }
 
         .food .modal-title
         {
-          font-size: 3.5rem;
+          font-size: 3rem;
         }
                 
         .food .modal-dialog{
           position: relative;
           margin: 0 auto;
-          top: 25%;
+          top: 20%;
           left:0%;
         }
 
@@ -238,6 +238,14 @@
     color: #fff;
     display: inline-block;
     font-size: 15px;
+  }
+
+  @media (min-width: 768px){
+  .row-cols-md-5>* {
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    max-width: 25%;
+}
   }
 
   @media only screen and (min-width: 768px) and (max-width: 991px)
