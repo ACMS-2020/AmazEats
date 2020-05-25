@@ -6,8 +6,6 @@ from . views import *
 app_name = "food"
 
 urlpatterns=[
-
-    #
     url(r'^addToCart/(?P<item_id>\d+)/$',views.addToCart,name="addToCart"),
     url(r'^removeFromCart/(?P<item_id>\d+)/$',views.removeFromCart,name="removeFromCart"),
     url('checkOut/',views.checkOut,name="checkOut"),

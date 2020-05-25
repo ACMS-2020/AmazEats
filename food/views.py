@@ -9,22 +9,16 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
-#changes
 from django.template.defaulttags import register
 
 @register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)
-#changes
+
 
 from datetime import datetime
 items_per_page = 8
-# Create your views here.
-'''
-def display_items(request,res_id):
-    items = FoodItem.objects.filter(restaurant_id=res_id)
-    context = {'items':items}
-    return render(request,'items.html',context)'''
+
 
 @csrf_exempt
 @only_customer
@@ -34,9 +28,7 @@ def addToCart(request,item_id):
         cartTrail = Cart.objects.get(user_id=request.user.username,food_id=str(item_id))
         cartTrail.quantity += 1
         cartTrail.save()
-        print("hrllooo")
     except Cart.DoesNotExist:
-        print("hii")
         items = FoodItem.objects.filter(food_id=item_id)[0]
         cartItem = Cart.objects.create(user_id=request.user.username, res_id=items.restaurant.username.username, food_id=item_id,food_name=items.food_name,price=items.price)
         cartItem.save()
@@ -55,21 +47,6 @@ def clear(request):
     cart.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-'''
-@only_customer
-def addToCart(request,item_id):
-    try:
-        cartTrail = Cart.objects.get(food_id=item_id)
-        cartTrail.quantity += 1
-        cartTrail.save()
-    except Cart.DoesNotExist:
-        items = FoodItem.objects.filter(food_id=item_id)[0]
-        cartItem = Cart.objects.create(user_id=request.user.username, res_id=items.restaurant_id, food_id=item_id,food_name=items.food_name,price=items.price)
-        cartItem.save()
-
-    return HttpResponse("Added")
-
-'''
 @only_customer
 def removeFromCart(request,item_id):
     cartTrail = Cart.objects.get(user_id=request.user.username,food_id=item_id)
@@ -195,8 +172,6 @@ def orders_available(request):
 @only_delivery
 def your_delivery(request):
     obj = Order.objects.filter(delivery_boy_id=request.user.username).order_by('-order_date')
-    #user = Customer.objects.get(username=obj.user_id)
-    #res = Restaurant.objects.get(username=obj.restaurant_id)
     paginator = Paginator(obj, items_per_page)
     page = request.GET.get('page')
     if page == None:
@@ -231,7 +206,7 @@ def order_delivered(request,order_id):
 
 @only_customer
 def cart(request):
-    obj =  Cart.objects.filter(user_id=request.user.username)
+    obj = Cart.objects.filter(user_id=request.user.username)
     food_images=dict()
     total=0
     for i in obj:
@@ -263,8 +238,6 @@ def order_history(request):
     obj = obj[ind * items_per_page:ind * items_per_page + items_per_page]
     values = paginator.get_page(page)
     return render(request, 'order_history.html', {'obj': obj, 'values': values, 'not_needed':not_needed})
-
-
 
 @csrf_exempt
 def alter_cart_items(request,food_id,quantity):

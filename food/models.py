@@ -4,23 +4,6 @@ from django.shortcuts import reverse
 
 # Orders Databases
 
-'''class FoodItem(models.Model):
-    food_id = models.AutoField(primary_key=True)
-    food_name = models.CharField(max_length=100)
-    restaurant_id = models.CharField(max_length=100)
-    price = models.IntegerField()
-    v_choice = [('veg' , 'veg'),('non-veg' , 'non-veg')]
-    item_choice = [('Main Courses', 'Main Course'), ('Desserts', 'Desserts'), ('Beverages', 'Beverages')]
-    item_type = models.CharField(choices=item_choice,max_length=50)
-    s_choice = [('available', 'service available'),('not available', 'service not available')]
-    serviceable = models.CharField(max_length=30, choices=s_choice, default='service available')
-    image = models.ImageField(blank=True, null=True)
-    veg = models.CharField(max_length = 30 , choices=v_choice , default='veg')
-    cuisine_type = models.CharField(max_length=100)
-
-    #def get_absolute_url(self):
-    #    return reverse("hello",kwargs={})'''
-
 class Cart(models.Model):
     user_id = models.CharField(max_length=100)
     res_id = models.CharField(max_length=100)
