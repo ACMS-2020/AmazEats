@@ -1,0 +1,38 @@
+{% url 'home1' as path_home %}
+{% url 'food:my-skills' as path_my_skills %}
+{% url 'food:all-skills' as path_all_skills %}
+{% url 'food:allfood-skills' as path_allfood_skills %}
+{% url 'food:money-skills' as path_money_skills %}
+{% url 'profiles:user-list' as path_users %}
+{% url 'food:month-skills' as path_month_skills %}
+{% url 'food:food-skills' as path_food_skills %}
+
+
+
+<div class="ui inverted segment">
+  <div class="ui inverted secondary pointing menu">
+    
+    <a href={{ path_my_skills }} class="item {% if request.path == path_my_skills %}active{% endif %}">
+      My Restaurant Favourites
+    </a>
+    <a href={{ path_all_skills }} class="item {% if request.path == path_all_skills %}active{% endif %}">
+      People's Restaurant Favourites
+    </a>
+    <a href={{ path_food_skills }} class="item {% if request.path == path_food_skills %}active{% endif %}">
+      My Food Favourites
+    </a>
+    <a href={{ path_allfood_skills }} class="item {% if request.path == path_allfood_skills %}active{% endif %}">
+      People's Food Favourites
+    </a>
+    
+    <a href={{ path_month_skills }} class="item {% if request.path == path_month_skills %}active{% endif %}">
+      Monthly Statistics
+    </a>
+    <a href={{ path_money_skills }} class="item {% if request.path == path_money_skills %}active{% endif %}">
+      Money spent
+    </a>
+
+
+    
+  </div>
+</div>

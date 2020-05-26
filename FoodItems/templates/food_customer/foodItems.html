@@ -1,0 +1,683 @@
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FoodItems</title>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+ -->
+
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+       <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        --><script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/yourcode.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <script>
+
+          function toggleDiv(id) {
+              var div = document.getElementById(id);
+              div.style.display = div.style.display == "none" ? "inline-block" : "none";
+          }
+
+        </script>
+</head>
+
+<style>
+       
+       .card-img-top {
+          width: 100%;
+          height: 8vw;
+          object-fit: cover;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+        }
+
+        .btn, .btn:hover{
+          background-color:#FF9900;
+          border: 0px #FF9900;
+          color:#ffffff;
+          font-size: 1.5rem;
+        }
+
+        .card{
+          background-color: #232F3E;
+          color:#ffffff;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          font-size:1.5rem;
+        }
+
+        .container-fluid .jumbotron{
+          background-color: #232F3E;
+          color:#ffffff;
+          height:38%;
+          border:0px;
+          border-radius: 0px;
+        }
+
+        .modal-open .modal {
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        .pagination{
+          text-align: center;
+          margin-top: 1em;
+          font-size: 1.3rem;
+        }
+
+        .page-action{
+          margin: 0 0.1em;
+          display:inline-block;
+          padding: 0.5em;
+          color: #FF9900;
+          font-size:2rem;
+        }
+
+        .pagination-number{
+          background-color: #FF9900;
+          padding : 0.5em 0.9em;
+          color:#ffffff;
+          margin:0.2em;
+          border-radius: 2px;
+        }
+
+        .pagination-number:hover , .pagination-current{
+          background-color:#FF9900 ;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          font-size: 1.5rem;
+        }
+
+
+        input
+        {
+          width:auto;
+          max-width:40%;
+
+        }
+
+        table{
+          width: 50%;
+          margin-left: 35%;
+          margin-right:20% ;
+          margin-bottom: 4rem;
+        }
+
+        table th , td{
+          padding-top: 2rem;
+          text-align: left;
+          border:none;
+          width:70%;
+        }
+
+               
+        .food{
+          position:absolute;
+          top:2%;
+          left:35%;
+          width:100%;
+          font-size: 1.5rem;
+        }
+
+        .food .modal-title
+        {
+          font-size: 3rem;
+        }
+                
+        .food .modal-dialog{
+          position: relative;
+          margin: 0 auto;
+          top: 20%;
+          left:0%;
+        }
+
+        .active-item {
+        display:block;
+        }
+
+        .inactive {
+          display:none;
+        }
+
+        .scroll{
+          overflow-y:auto; max-height: 100px;
+        }
+
+        .opt a
+        {
+          font-size: 2rem;
+          color:#FF9900;
+        }
+
+        .opt a.active{
+          border-bottom: 2px solid #FF9900;
+        }
+
+.modal-confirm {
+		color: #636363;
+		width: 325px;
+	}
+	.modal-confirm .modal-content {
+		padding: 20px;
+		border-radius: 5px;
+		border: none;
+	}
+	.modal-confirm .modal-header {
+		border-bottom: none;
+        position: relative;
+	}
+	.modal-confirm h4 {
+		text-align: center;
+		font-size: 26px;
+		margin: 30px 0 -15px;
+	}
+	.modal-confirm .form-control, .modal-confirm .btn {
+		min-height: 40px;
+		border-radius: 3px;
+	}
+	.modal-confirm .close {
+        position: absolute;
+		top: -5px;
+		right: -5px;
+	}
+	.modal-confirm .modal-footer {
+		border: none;
+		text-align: center;
+		border-radius: 5px;
+		font-size: 13px;
+	}
+	.modal-confirm .icon-box {
+		color: #fff;
+		position: absolute;
+		margin: 0 auto;
+		left: 0;
+		right: 0;
+		top: -70px;
+		width: 95px;
+		height: 95px;
+		border-radius: 50%;
+		z-index: 9;
+		background: #82ce34;
+		padding: 15px;
+		text-align: center;
+		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+	}
+	.modal-confirm .icon-box i {
+		font-size: 58px;
+		position: relative;
+		top: 3px;
+	}
+	.modal-confirm.modal-dialog {
+		margin-top: 80px;
+	}
+    .modal-confirm .btn {
+        color: #fff;
+        border-radius: 4px;
+		background: #82ce34;
+		text-decoration: none;
+		transition: all 0.4s;
+        line-height: normal;
+        border: none;
+    }
+	.modal-confirm .btn:hover, .modal-confirm .btn:focus {
+		background: #6fb32b;
+		outline: none;
+	}
+	.trigger-btn {
+		display: inline-block;
+		margin: 100px auto;
+	}
+
+  .navbar-inverse
+  {
+    background-color: #232F3E;
+    border-color: #232F3E;
+    margin-bottom: 0px;
+  }
+
+  .navbar-inverse .navbar-brand
+  {
+    color: #fff;
+    font-size: 40px;
+    padding: 40px 15px;
+    font-weight: 900;
+  }
+
+  .nav.navbar-nav.navbar-right
+  {
+    margin: 5px 0px;
+    font-weight: bold;
+    display: inline-block;
+  }
+  
+  .nav.navbar-nav.navbar-left
+  {
+    margin: 5px 0;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  .navbar-inverse .navbar-nav > li
+  {
+    display: inline-block;
+    padding-right: 20px;
+  }
+
+  .navbar-inverse .navbar-nav > li > a
+  {
+    color: #fff;
+    display: inline-block;
+    font-size: 15px;
+  }
+
+   .navbar-inverse .navbar-nav > li > a:hover {
+       background-color: #FFFFFF40;
+  }
+
+  @media (min-width: 768px){
+  .row-cols-md-5>* {
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    max-width: 25%;
+}
+  }
+
+
+  @media only screen and (min-width: 768px) and (max-width: 991px)
+  {
+
+  }
+
+  @media only screen and (max-width: 767px)
+  {
+    .navbar-inverse .navbar-brand{
+      font-size: 30px;
+      padding:20px 15px;
+    }
+
+    .navbar-collapse
+    {
+      background: #232F3E;
+    }
+     .navbar-inverse .navbar-nav > li > a:hover {
+       background-color: #FFFFFF40;
+  }
+
+
+    .indicate
+    {
+      list-style-type: square;
+    }
+
+    .navbar-inverse .navbar-nav > li
+    {
+    
+    padding-right: 10px;
+    }
+  }
+
+</style>
+
+<!-- for customer display -->
+<body style="background-color: #E8E8E8">
+  <div class="container-fluid" style="padding-left: 0rem; padding-right: 0rem;">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+
+  <div class="container">
+
+    <a class="nav navbar-nav navbar-left" style="font-size: 27px; color: #FF9900;float: left;"><span><img src="/media/amazon-icon-1.webp" height="32px" width="32px"; ></span> AmazEats </a>
+
+    <div class="navbar-header" style="float: left;">
+
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navCollapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+  <div class="collapse navbar-collapse" id="navCollapse" >
+   <ul class="nav navbar-nav navbar-left" style="display: inline-block;">
+    <li ><a href="/fooditems/" >Home</a></li>
+    <li ><a href="/food/user_orders/" >Profile</a></li>
+    <li ><a href="/food/cart/">Cart</a></li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle"  onmouseout="this.style.backgroundColor='#232F3E'"; onmouseover="this.style.backgroundColor='#FFFFFF40'" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background: transparent;color: white;">
+          Favourites
+        </a>
+        <div style="background: #FFFFFF40;" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/fooditems/favourites/{{ type|default:'restaurants' }}" style="background: transparent;color: white;font-size: 12px;" onmouseover="this.style.backgroundColor='#232F3E'"; onmouseout="this.style.backgroundColor='transparent'"><b>Restaurants</b></a>
+          <a class="dropdown-item" href="/fooditems/favourites/{{ type|default:'fooditems' }}" style="background: transparent;color: white;font-size: 12px;" onmouseover="this.style.backgroundColor='#232F3E'"; onmouseout="this.style.backgroundColor='transparent'"><b>Food Items</b></a>
+        </div>
+      </li>
+    <li ><a href="/logout/">LogOut</a></li>
+
+    <li>  
+    <form class="form-inline" action='/fooditems/display_fooditems/search/{{ res.username }}' method = 'get' style="margin-top: 12px;">
+      <input style="height:30px;font-size: 15px;" class="form-control mr-sm-2" type="search" name='q'  placeholder="Search" aria-label="Search">
+      <button size="10px"class="btn btn-info" type="submit"><i class="fa fa-search fa-2x"></i></button>
+    </form>
+  </li>
+  </ul>
+
+   </div>
+  </div>
+</nav>
+
+
+<div class="jumbotron jumbotron-fluid center-block" style="width: 78.8%;margin-bottom: 0rem;">
+  <div class="container">
+    <div class="row">
+      <div class="col-3">
+        <img class="card-img-top" onerror="this.src='/media/rest.jpg'" src="/media/{{ res.profile_pic }}" alt="Card image cap" style="height:12vw;">
+      </div>
+      <div class="col-9">
+        <h1 class="display-4">{{res.username}}</h1>
+        <p class="lead">{{res.Location}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid border opt"  style="width:78.8%; margin-bottom: 3rem; background-color: #232F3E; border:1px #232F3E; ">
+  <ul class="nav justify-content-center" id="links">
+    <li class="nav-item">
+      <a class="nav-link active" href="#id1">Menu</a>
+    </li>
+<!--    <li class="nav-item">-->
+<!--      <a class="nav-link" href="#id2">Rating&Reviews</a>-->
+<!--    </li>-->
+    <li class="nav-item">
+      <a class="nav-link" href="#id3">About</a>
+    </li>
+  </ul>
+</div>
+
+<script> 
+  $('#links li a').click(function(e){
+    e.preventDefault();
+    $('.active-item').addClass('inactive').removeClass('active-item');
+    var str = $(this).attr('href');
+    var target = str.substring(1, str.length);
+    $('#'+target).addClass('active-item').removeClass('inactive');
+    $('#links li a').removeClass('active');
+    $(this).addClass('active');
+    });
+</script> 
+
+<div class="active-item" id="id1">
+
+  <div id="myfilter"class="container-fluid " style="width:78.8%;margin-bottom: 2rem;">
+    <a id = "filters" class="btn btn-lg " href="#" onclick="toggleDiv('filter')">Filters</a>
+    <div id="filter" style="display: none;">
+      <form method="post">
+        {% csrf_token %}
+
+        <!-- {{ pFilter.form }} -->
+        <div class="text-justify" style="display:inline-block; font-size: medium; padding-left:10rem; ">
+
+        {% for field in pFilter.form%}
+        <label style="padding-right: 1rem;padding-left: 2rem;">  {{field.html_name}}: </label>{{field}}
+        {% endfor %}
+      </div>
+        <button class = "btn btn-lg" type="submit" style="margin-bottom: 1rem;">search</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="container-fluid border" style="background-color:#ffffff;width:78.8%;margin-bottom: 20px;">
+    <br/>
+  <h1 class="text-center " style="font-size: 40px;">Menu</h1>
+  <hr/>
+    <div class="row row-cols-1 row-cols-md-5" style="padding-left: 1rem;padding-top: 2rem; max-width:100%;" >
+      {% for f in food %}
+      {% if f.serviceable == 'available'%}
+      <div class="col mb-5" style="padding-right: 1rem;" >
+        <div class="card" id="{{f.food_id}}">
+          <a class="card-block text-decoration-none" data-toggle="modal" href="#exampleModalScrollable{{f.food_id}}">
+            <img class="card-img-top" src="{{ f.image.url }}" alt="Card image cap">
+            <div class="card-body text-white">
+              <h5 class="card-title" style="color:#ffffff;font-size:2.5rem;">{{ f.food_name }}</h5>
+              <p style="float:left;">{{ f.veg }}</p>
+              <p style="float:right;font-size: 20px;"><b>&#x20B9;{{f.price}}</b></p>                        
+            </div>
+          </a>
+          <div class="card-footer text-center">
+            <a id = "{{ f.food_id }}" class="btn btn-info" onclick="addCart(event);" > Add To Cart</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+   <div class="modal fade food" id="exampleModalScrollable{{f.food_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="exampleModalScrollableTitle">{{f.food_name}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="font-size: 1.8rem;">
+          <p style="float:left;">{{f.veg}}</p><p style="float:right;font-size: 40px;">&#8377;{{f.price}}</p><br/><br/>
+          <p>{{f.item_type}}</p>
+          <p>{{f.cuisine_type}}</p>
+          <p>rating : {{f.avg_rating}}</p>
+          <hr/>
+          <h5 style="font-size: 2rem;">Your Rating&Reviews</h5><br/>
+          <form method ="post" action="/fooditems/input_ratings/{{ f.food_id }}">
+            {% csrf_token %}
+              <input type="text" name="rating" placeholder = "your rating" size=12/>
+              <input type="text" name="reviews" placeholder = "your review" size=12/>
+              <input type="submit" class="btn btn-info btn-sm" name="Submit"/>
+          </form>
+          <hr/>
+          <h5 style="font-size: 2rem;">Reviews</h5><br/>
+          <div class="scroll">
+          <p style="font-size: 1.8rem;">
+            {% for r in f.rating_set.all %}
+              {{ r.user_id }} : {{ r.reviews }}<br/>
+            {% endfor %}
+
+          </p>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <a id = "{{ f.food_id }}" class="btn btn-info" onclick="addCart(event);"> Add To Cart</a>
+          <a role="button" href="/fooditems/food_favourites/{{ f.food_id }}" class="btn btn-primary">Add to favorites</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% empty %}
+
+    <div class="center-block" style="margin-left:40% ; margin-top: 5%;margin-bottom: 10%; margin-right: 30%; text-align:center;">
+      <img src="https://cdn0.iconfinder.com/data/icons/30-hardware-line-icons/64/Search-512.png" height=170rem width=170rem/>
+      <h2 class="text-center">No Results Found </h2>
+    </div>
+    {% endfor %}
+
+    </div>
+    {% if food %}
+    <div class="pagination justify-content-center">
+
+      {% if food.has_previous %}
+        <a class="page-action" href="?page=1"><i class="fa fa-angle-double-left"></i></a>
+        <a class="page-action" href="?page={{ food.previous_page_number }}"><i class="fa fa-angle-left"></i></a>
+      {% endif %}
+
+      {% for n in food.paginator.page_range %}
+        {% if food.number == n %}
+          <span class="pagination-number pagination-current">{{ n }}</span>
+          {% elif n > food.number|add:'-2' and n < food.number|add:'2' %}
+            <a class="pagination-number" href="?page={{ n }}">{{ n }}</a>
+          {% endif %}
+      {% endfor %}
+
+      {% if food.has_next %}
+        <a class="page-action" href="?page={{ food.next_page_number }}"><i class="fa fa-angle-right"></i></a>
+        <a class="page-action" href="?page={{ food.paginator.num_pages }}"><i class="fa fa-angle-double-right"></i></a>
+      {% endif %}
+      
+    </div>
+    {% endif %}
+
+<div class="modal fade in" id="myModaln" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" style="color:#FF9900"><center>Food added to your cart !!</center></h4>
+           <button type="button" class="close" onclick="sus()" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <center> <img class="img-responsive" src="https://i.pinimg.com/originals/77/9b/9d/779b9dc3928c2dbc304bcf6702bef6df.gif" style="height:50%px;width:100%"/>
+           <a  href= "/food/cart" type="button" class="btn btn-info btn-lg">Go To Cart</a></center>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="modal fade in" id="myModals" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" style="color:#FF9900"><center>Your cart is filled</center></h4>
+           <button type="button" class="close" onclick="sus()" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+           <h4 style="color:#232F3E;margin:20px;"><center>Hey {{request.user.username}} !! Clear your cart to add items from this restaurant.</center></h4>
+        <center> <img class="img-responsive" src="https://cdn.dribbble.com/users/1708878/screenshots/4294624/comp-1.gif" style="height:50%px;width:100%"/>
+           <center><a  href= "/food/clear/" type="button" class="btn btn-info btn-lg">Clear the Cart</a></center></center>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  </div>
+
+  <script>
+         function addCart(event)
+         {
+           var me = event.currentTarget
+           var food_id = me.getAttribute("id");
+           jQuery.get("/food/addToCart/"+food_id+"/",function(data, status){
+              if(data=="True"){
+             $("#myModaln").modal();
+
+             }
+             else{
+            $("#myModals").modal();
+             }
+           });
+         }
+      </script>
+
+
+  
+    
+    <div id="myModal" class="modal fade">
+      <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="icon-box">
+              <i class="material-icons">&#xE876;</i>
+            <div class="modal-title">
+            <h4>Awesome!</h4>
+            </div>
+          <div class="modal-body">
+            <p class="text-center">Your item is added to Cart.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!--  <div class="inactive" id="id2">-->
+<!--    <div class="container-fluid border text-center" style="background-color:#ffffff; height:20%; width:78.8%;margin-bottom: 20px;">-->
+<!--      <br/>-->
+<!--      <h1 style="font-size: 30px;">Rating and Reviews </h1>-->
+<!--    <hr/>-->
+<!--  </div>-->
+<!--  </div>-->
+
+  <div class="inactive" id="id3">
+    <div class="container-fluid border text-center" style="background-color:#ffffff; height:auto; width:78.8%;margin-bottom: 20px;">
+      <br/>
+      <h1 style="font-size: 40px;">{{ res.username }} </h1>
+      <hr/>
+      <br/>
+      <br/>
+      <table>
+        <tr>
+          <th style="width:40%"><h3>Location</h3></th>
+          <td><p>{{ res.Location }}</p></td>
+        </tr>
+        <tr>
+          <th style="width:40%"><h3>StartTime</h3></th>
+          <td><p>{{ res.startTime }}</p></td>
+        </tr>
+        <tr>
+          <th style="width:40%"><h3>CloseTime</h3></th>
+          <td><p>{{ res.closeTime }}</p></td>
+        </tr>
+        <tr>
+          <th style="width:40%"><h3>Contact</h3></th>
+          <td><p>{{ res.contactNumber }}</p></td>
+        </tr>
+        <tr>
+          <th style="width:40%"><h3>PriceperHead</h3></th>
+          <td><p>{{ res.pricePerHead }}</p></td>
+        </tr>
+        <tr>
+          <th style="width:40%"><h3>Cuisines</h3></th>
+          <td><p>{{ res.cuisine }}</p></td>
+        </tr>
+      </table>
+  </div>
+  </div>
+
+
+    <div class="container-fluid border" style="background-color:#232F3E;color:#ffffff;height:15%;width:100%;">  
+      <p class="text-center" style="font-size: 2rem;padding-top: 3rem;">AmazEats</p>
+    </div>
+</div>
+
+</body>
+</html>
+
+{% endblock %}
+

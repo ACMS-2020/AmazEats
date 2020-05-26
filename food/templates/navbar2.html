@@ -1,0 +1,27 @@
+{% url 'food:home2' as path_home %}
+{% url 'food:my1-skills' as path_my1_skills %}
+{% url 'food:all-skills' as path_all_skills %}
+{% url 'accounts:user-list' as path_users %}
+{% url 'food:month-skills' as path_month_skills %}
+{% url 'food:gain1-skills' as path_gain1_skills %}
+
+
+
+<div class="ui inverted segment">
+  <div class="ui inverted secondary pointing menu">
+    
+    <a href={{ path_my1_skills }} class="item {% if request.path == path_my1_skills %}active{% endif %}">
+      My Restaurant
+    </a>
+    
+    <a href={{ path_month_skills }} class="item {% if request.path == path_month_skills %}active{% endif %}">
+      Monthly Statistics
+    </a>
+    <a href={{ path_gain1_skills }} class="item {% if request.path == path_gain1_skills %}active{% endif %}">
+      Income
+    </a>
+
+
+    
+  </div>
+</div>

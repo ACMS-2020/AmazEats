@@ -1,0 +1,459 @@
+{% extends "base_delivery.html" %}
+{% block content %}
+<head>
+    <style>
+
+    .rating{
+    position:absolute;
+    top:23%;
+    left:50%;
+        transform: translate(-50%,-50%) rotateY(180deg);
+        display:flex;
+
+    }
+
+    .rating input{
+       display:none;
+    }
+
+    .rating label{
+    display:block;
+    cursor:pointer;
+    width:50px;
+    background:#fff;
+    }
+
+    .rating label:before{
+        content:'\f005';
+        font-family : fontAwesome;
+        position:relative;
+        display:block;
+        font-size:20px;
+        color:#101010;
+    }
+
+     .rating label:after{
+        content:'\f005';
+        font-family : fontAwesome;
+        position:absolute;
+        display:block;
+        font-size:20px;
+        color:#ffae42;
+        top:0;
+        opacity:0;
+        transition:.5s;
+        text-shadow : 0 2px 5px rgba(0,0,0,.5);
+    }
+
+    .rating label:hover:before,
+    .rating label:hover ~ label:before,
+    .rating input:checked ~ label:before
+    {
+    opacity:1;
+    color:#ffae42;
+    }
+
+
+
+ .rating1{
+    position:absolute;
+    top:45%;
+    left:50%;
+        transform: translate(-50%,-50%) rotateY(180deg);
+        display:flex;
+
+    }
+
+    .rating1 input{
+       display:none;
+    }
+
+    .rating1 label{
+    display:block;
+    cursor:pointer;
+    width:50px;
+    background:#fff;
+    }
+
+    .rating1 label:before{
+        content:'\f005';
+        font-family : fontAwesome;
+        position:relative;
+        display:block;
+        font-size:20px;
+        color:#101010;
+    }
+
+     .rating1 label:after{
+        content:'\f005';
+        font-family : fontAwesome;
+        position:absolute;
+        display:block;
+        font-size:20px;
+        color:#ffae42;
+        top:0;
+        opacity:0;
+        transition:.5s;
+        text-shadow : 0 2px 5px rgba(0,0,0,.5);
+    }
+
+    .rating1 label:hover:before,
+    .rating1 label:hover ~ label:before,
+    .rating1 input:checked ~ label:before
+    {
+    opacity:1;
+    color:#ffae42;
+    }
+
+
+
+
+    .modal-confirm {
+		color: #636363;
+		width: 325px;
+	}
+	.modal-confirm .modal-content {
+		padding: 20px;
+		border-radius: 5px;
+		border: none;
+	}
+	.modal-confirm .modal-header {
+		border-bottom: none;
+        position: relative;
+	}
+	.modal-confirm h4 {
+		text-align: center;
+		font-size: 26px;
+		margin: 30px 0 -15px;
+	}
+	.modal-confirm .form-control, .modal-confirm .btn {
+		min-height: 40px;
+		border-radius: 3px;
+	}
+	.modal-confirm .close {
+        position: absolute;
+		top: -5px;
+		right: -5px;
+	}
+	.modal-confirm .modal-footer {
+		border: none;
+		text-align: center;
+		border-radius: 5px;
+		font-size: 13px;
+	}
+	.modal-confirm .icon-box {
+		color: #fff;
+		position: absolute;
+		margin: 0 auto;
+		left: 0;
+		right: 0;
+		top: -70px;
+		width: 95px;
+		height: 95px;
+		border-radius: 50%;
+		z-index: 9;
+		background: #82ce34;
+		padding: 15px;
+		text-align: center;
+		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+	}
+	.modal-confirm .icon-box i {
+		font-size: 58px;
+		position: relative;
+		top: 3px;
+	}
+	.modal-confirm.modal-dialog {
+		margin-top: 80px;
+	}
+    .modal-confirm .btn {
+        color: #fff;
+        border-radius: 4px;
+		background: #82ce34;
+		text-decoration: none;
+		transition: all 0.4s;
+        line-height: normal;
+        border: none;
+    }
+	.modal-confirm .btn:hover, .modal-confirm .btn:focus {
+		background: #6fb32b;
+		outline: none;
+	}
+	.trigger-btn {
+		display: inline-block;
+		margin: 100px auto;
+	}
+
+  .navbar-inverse
+  {
+    background-color: #232F3E;
+    border-color: #232F3E;
+
+  }
+
+  .navbar-inverse .navbar-brand
+  {
+    color: #fff;
+    font-size: 40px;
+    padding: 40px 15px;
+    font-weight: 900;
+  }
+
+  .nav.navbar-nav.navbar-right
+  {
+    margin: 5px 0px;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  .nav.navbar-nav.navbar-left
+  {
+    margin: 5px 0;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  .navbar-inverse .navbar-nav > li
+  {
+    display: inline-block;
+    padding-right: 20px;
+  }
+
+  .navbar-inverse .navbar-nav > li > a
+  {
+    color: #fff;
+    display: inline-block;
+    font-size: 15px;
+  }
+
+    </style>
+</head>
+    <body>
+
+      <!-- <nav class="navbar navbar-expand-lg " style="background-color: #232F3E;color: white;" >
+      <a class="navbar-brand" href="#">AmazEats</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/food/user_orders">Profile</a>
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Favourites
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href= "/fooditems/favourites/{{ type|default:'restaurants' }}">Restaurants</a>
+          <a class="dropdown-item" href="/fooditems/favourites/{{ type|default:'fooditems' }}">FoodItems</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/food/cart">cart</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">logout</a>
+      </li>
+    </ul>
+    <form class="form-inline" action='/fooditems/res_search' method = 'get'>
+      <input class="form-control mr-sm-2" type="search" name='q'  placeholder="Search" aria-label="Search">
+      <button class="btn my-2 my-sm-0" type="submit" style=" background-color:#FF9900;">Search</button>
+    </form>  </div>
+</nav>-->
+
+        <div class="jumbotron text-center" style="margin-bottom:0;background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQTKPmO0QsWFsyN2Qk4JLGKpoRQRvXj5JtIFsL1T9V-Aeu-PACh&usqp=CAU');background-size:cover;color:#ffffff;">
+            <h1>AmazEats</h1>
+            <p style="color:#ffa000;">The Food You Like !!</p>
+        </div>
+            <div class="container" style="margin-top:30px">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="card text-center mb-5">
+                            <div class="card-body">
+                                <img class="border border-warning" src="https://getdrawings.com/free-icon/facebook-female-profile-icon-56.png" style="height:150;width:150;border-radius:50%;margin:10"/>
+                                <h5 class="card-title">{{ request.user.username }}</h5>
+                                <p class="card-text">Hyderabad</p>
+                                <a href="/EditProfile" style="background-color:#ffa000;color:#ffffff;" class="btn">Edit Profile</a>
+                            </div>
+                        </div>
+
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="text-color:#131A22">
+
+                            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Orders</a>
+                            <a class="nav-link" style="color:#232F3E" href="{% url 'dashboard' %}">Home</a>
+                            <!-- <a class="nav-link" id="v-pills-profile-tab" style="color:#232F3E" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Your Favourites</a> -->
+                           <a class="nav-link" style="color:#0d98ba" href="/logout">Logout</a>
+                        </div>
+                        <hr class="d-sm-none">
+                    </div>
+                    <div class="col-sm-8">`
+                        <nav class="nav nav-pills nav-fill p-0 ml-5">
+                            <a class="nav-item nav-link" href="/food/user_orders">Current Orders</a>
+                            <a class="nav-item nav-link active" href="/food/order_history">Order History</a>
+                        </nav>
+                        {% if obj %}
+                        {% for item in obj %}
+                        {% if item.status in not_needed %}
+                            <div class="card m-5 text-white mx-auto" style="width: 800px;background-color:#232F3E"  >
+                                <div class="card-header">
+                                    <span><h3> Order Number : {{ item.order_id }} </h3></span>
+                                    {% if item.status == "Delivered" %}
+                                         <span><button type="button" style="background-color:#FF9900" class="btn btn-info float-right ml-2" data-toggle="modal" data-target="#rating{{item.order_id}}" >Rate</button></span>
+
+                                    {% elif item.status == "Rejected" %}
+                                        <span class="float-right">{{item.status}}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="card-body" style="background-color:#ffffff;color:#131A22;">
+                                    <h6>Restaurant : {{ item.restaurant_id}}</h6>
+                                    <h6>Address : </h6>
+                                    <h6>Total Amount : {{item.amount}}</h6>
+                                    <h5 class="card-title">Items Ordered </h5>
+                                    <ul>
+                                        {% for m_obj in item.order_set.all %}
+                                            <li> {{m_obj.quantity}} x {{m_obj.item_name}} </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <span class="card-text">Ordered On : {{ item.order_date }} </span>
+                                    {% if item.status == "Delivered" %}
+                                    <!--<span><a href="/food/reorder/{{ item.order_id }}"  class="btn btn-info float-right">Reorder</a>-->
+                                    <a id = "{{ item.order_id }}" class="btn btn-info float-right" href="#reorder" style="background-color:#FF9900" onclick="reOrder(event);" data-toggle="modal"> Reorder </a>
+                                    </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+
+                        <!--Modal for rating -->
+
+                        <div class="modal fade in" id="rating{{item.order_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel" style="color:#FF9900">Rate your recent meal</h5>
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+
+                            </button>
+                        </div>
+                            {% if item.delivery_rating == "None" or item.restaurant_rating == "None" or item.rating_description == "None" %}
+                    <div class="modal-body">
+                    <form action="/food/ratings/{{item.order_id}}/" method="post">
+                    {% csrf_token %}
+          <div class="form-group">
+              <center><h5><small>Rate your meal from</small></h5><h5>{{item.restaurant_id}}</h5></center>
+<center>
+              <div class="rating">
+                  <input type="radio" name="star" id="{{item.order_id}}star1" value="5"><label for="{{item.order_id}}star1"></label>
+                  <input type="radio" name="star" id="{{item.order_id}}star2" value="4"><label for="{{item.order_id}}star2"></label>
+                  <input type="radio" name="star" id="{{item.order_id}}star3" value="3"><label for="{{item.order_id}}star3"></label>
+                  <input type="radio" name="star" id="{{item.order_id}}star4" value="2"><label for="{{item.order_id}}star4"></label>
+                  <input type="radio" name="star" id="{{item.order_id}}star5" value="1"><label for="{{item.order_id}}star5"></label>
+              </div>
+</center>
+
+                       <center><h5 style="margin-top:50px;"><small>How was the delivery by</small></h5><h5>{{item.delivery_boy_id}}</h5></center>
+<center>
+              <div class="rating1">
+                  <input type="radio" name="stard" id="{{item.order_id}}stard1" value="5"><label for="{{item.order_id}}stard1"></label>
+                  <input type="radio" name="stard" id="{{item.order_id}}stard2" value="4"><label for="{{item.order_id}}stard2"></label>
+                  <input type="radio" name="stard" id="{{item.order_id}}stard3" value="3"><label for="{{item.order_id}}stard3"></label>
+                  <input type="radio" name="stard" id="{{item.order_id}}stard4" value="2"><label for="{{item.order_id}}stard4"></label>
+                  <input type="radio" name="stard" id="{{item.order_id}}stard5" value="1"><label for="{{item.order_id}}stard5"></label>
+              </div>
+</center>
+
+            <label for="{{item.order_id}}message-text" class="col-form-label" style="margin-top:30px;">Your Feedback</label>
+            <textarea name="feedback" class="form-control" id="{{item.order_id}}message-text"></textarea>
+
+             <center><h5 style="color:#232F3E;margin-top:30px;"><small>Your word makes AmazEats a better place</small></h5>
+                 <h6><small>You are the influencer !!</small></h6></center>
+
+              <center><button type="submit" class="btn btn-primary" style="background-color:#FF9900">Send Rating</button></center>
+
+          </div>
+        </form>
+      </div>
+                            {% else %}
+                           <div class="modal-body">
+                          <center>
+		                    <img src="https://i.pinimg.com/originals/f0/ca/90/f0ca90dd6924e009d86f4421cf2032b5.gif" style="height:300;" class="mt-4 align-bottom rounded mx-auto d-block" alt="order processing">
+		                    <h5 class="card-title">Your Ratings</h5>
+                            <p><small>Restaurant Ratings : {{item.restaurant_rating}} </small></p>
+                              <p><small>Delivery Ratings : {{item.delivery_rating}}</small></p>
+                              <p><small>Feedback : {{item.rating_description}}</small></p>
+	                        </center>
+                           </div>
+                            {% endif %}
+    </div>
+  </div>
+</div>
+
+                        {% endif %}
+                        {% endfor %}
+                        <div class="pagination justify-content-center mb-5">
+                            {% if values.has_previous %}
+                                <a class="pagination-action" href="?page=1"><i class="fas fa-angle-double-left"></i></a>
+                                <a class="pagination-action" href="?page={{ values.previous_page_number }}"><i class="fas fa-angle-left"></i></a>
+                            {% endif %}
+
+                            {% for num in values.paginator.page_range %}
+                                {% if values.number == num %}
+                                    <span class="pagination-number pagination-current">{{ num }}</span>&nbsp;
+                                {% elif num > values.number|add:'-3' and num < values.number|add:'3' %}
+                                    <a class="pagination-number" href="?page={{ num }}">{{ num }}</a>&nbsp;
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if values.has_next %}
+                            <a class="pagination-action" href="?page={{ values.next_page_number }}"><i class="fas fa-angle-double-right"></i></a>
+                            <a class="pagination-action" href="?page={{ values.paginator.num_pages }}"><i class=""fas fa-angle-right></i></a>
+                        {% endif %}
+                    </div>
+                        {% else %}
+                             <center>
+		                    <img src="https://cdn.dribbble.com/users/1168645/screenshots/3152485/no-orders_2x.png" style="height:300;" class="mt-4 align-bottom rounded mx-auto d-block" alt="order processing">
+		                    <h5 class="card-title">You have no orders yet</h5>
+                            <p><small>Explore the delicious menu </small></p>
+	                        </center>
+                        {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid" style="background-color:#232F3E;color:#ffffff;height:15%;width:100%;top-margin:10px;">
+      <p class="text-center" style="font-size: 1rem;padding-top: 3rem;">AmazEats</p>
+    </div>
+
+    <script>
+function reOrder(event)
+{
+  var me = event.currentTarget
+  var order_id = me.getAttribute("id");
+  jQuery.get("/food/reorder/"+order_id+"/",function(data, status){
+  });
+}
+</script>
+
+    <!-- Modal HTML -->
+<div id="reorder" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="icon-box">
+					<i class="material-icons">&#xE876;</i>
+				</div class="modal-title">
+				<h4>Awesome!</h4>
+			  </div>
+			<div class="modal-body">
+				<p class="text-center">Yay !! Order placed</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+			</div>
+		</div>
+	</div>
+</div>
+    </body>
+{% endblock content %}

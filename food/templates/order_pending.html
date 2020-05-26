@@ -1,0 +1,93 @@
+{% extends "base_delivery.html" %}
+{% block content %}
+    <body>
+        <div class="jumbotron text-center" style="margin-bottom:0;background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQTKPmO0QsWFsyN2Qk4JLGKpoRQRvXj5JtIFsL1T9V-Aeu-PACh&usqp=CAU');background-size:cover;color:#ffffff;">
+            <h1>AmazEats</h1>
+            <p style="color:#ffa000;">The Food You Like !!</p>
+        </div>
+            <div class="container" style="margin-top:30px">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="card text-center mb-5">
+                            <div class="card-body">
+                                <img class="border border-warning" onerror="this.src='/media/rest.jpg'" src="/media/{{ reso.profile_pic }}" style="height:150;width:150;border-radius:50%;margin:10"/>
+                                <h5 class="card-title">{{ request.user.username }}</h5>
+                                <p class="card-text">Hyderabad</p>
+                                <a href="/EditProfile" style="background-color:#ffa000;color:#ffffff;" class="btn">Edit Profile</a>
+                            </div>
+                        </div>
+
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="text-color:#131A22">
+                            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Orders</a>
+                            <a class="nav-link" href="{% url 'dashboard' %}">Home</a>
+                            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Statistics</a>
+                            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Ratings and reviews</a>
+                        <a class="nav-link" href="/logout">Logout</a>
+                        </div>
+                        <hr class="d-sm-none">
+                    </div>
+                    <div class="col-sm-8">
+                        <nav class="nav nav-pills nav-fill p-0 ml-5">
+                            <a class="nav-item nav-link active" href="/food/res_pending_order/">Pending</a>
+                            <a class="nav-item nav-link" href="/food/res_processing_order/">Processing</a>
+                            <a class="nav-item nav-link" href="/food/res_dispatched_order/">Dispatched</a>
+                        </nav>
+                        {% if obj %}
+                        {% for item in obj %}
+                            <div class="card m-5 text-white mx-auto" style="width: 800px;background-color:#232F3E"  >
+                                <div class="card-header">
+                                    <h3> Order Number : {{ item.order_id }} </h3>
+                                </div>
+                                <div class="card-body" style="background-color:#ffffff;color:#131A22;">
+                                <!--<h5 class="card-title">Order Number : {{ item.order_id }}</h5>-->
+                                    <h6>Restaurant name : {{ item.restaurant_id }}</h6>
+                                    <h6>Drop Address : </h6>
+                                    <p class="card-text">Total Amount : {{item.amount}}</p>
+                                    <h5 class="card-title">Items Ordered </h5>
+                                    <ul>
+                                        {% for m_obj in item.order_set.all %}
+                                            <li> {{m_obj.quantity}} x {{m_obj.item_name}} </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <span class="card-text">Ordered On : {{ item.order_date }} </span>
+                                    <span><a href="/food/reject/{{ item.order_id }}" style="background-color:#FF9900;margin-right:2rem !important;" class="btn btn-info float-right mr-4">Reject the Order</a>
+                                    <a href="/food/accept_order/{{ item.order_id }}" style="background-color:#FF9900" class="btn btn-info float-right ml-5">Accept the Order</a></span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="pagination justify-content-center mb-5">
+                            {% if values.has_previous %}
+                                <a class="pagination-action" href="?page=1"><i class="fas fa-angle-double-left"></i></a>
+                                <a class="pagination-action" href="?page={{ values.previous_page_number }}"><i class="fas fa-angle-left"></i></a>
+                            {% endif %}
+
+                            {% for num in values.paginator.page_range %}
+                                {% if values.number == num %}
+                                    <span class="pagination-number pagination-current">{{ num }}</span>&nbsp;
+                                {% elif num > values.number|add:'-3' and num < values.number|add:'3' %}
+                                    <a class="pagination-number" href="?page={{ num }}">{{ num }}</a>&nbsp;
+                                {% endif %}
+                            {% endfor %}
+                            {% if values.has_next %}
+                            <a class="pagination-action" href="?page={{ values.next_page_number }}"><i class="fas fa-angle-double-right"></i></a>
+                            <a class="pagination-action" href="?page={{ values.paginator.num_pages }}"><i class=""fas fa-angle-right></i></a>
+                        {% endif %}
+                    </div>
+                        {% else %}
+                             <center>
+		<img src="https://i.pinimg.com/originals/4b/5b/98/4b5b984999cdd2c9eac2195570d85df5.gif" style="height:300;" class="m-4 align-bottom rounded mx-auto d-block" alt="order processing">
+		<h5 class="card-title">Searching for your orders !! </h5>
+                            <p><small>Great day ahead .. Let's wait </small></p>
+	</center>
+
+                        {% endif %}
+
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="container-fluid" style="background-color:#232F3E;color:#ffffff;height:15%;width:100%;top-margin:10px;">
+      <p class="text-center" style="font-size: 1rem;padding-top: 3rem;">AmazEats</p>
+    </div>
+    </body>
+{% endblock content %}
