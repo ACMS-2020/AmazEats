@@ -1,475 +1,568 @@
 {% block content %}
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Favorites</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
- -->
+  <meta charset="UTF-8">
+  <title>Favorites</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-   --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  
-  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        <script src="https://kit.fontawesome.com/yourcode.js"></script>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/yourcode.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
+
 <body style="background-color: #E8E8E8">
-<style>
-  .card-img-top {
-          width: 100%;
-          height: 8vw;
-          object-fit: cover;
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  <style>
+    .card-img-top {
+      width: 100%;
+      height: 8vw;
+      object-fit: cover;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
-        }
+    }
 
-        .btn, .btn:hover{
-          background-color:#FF9900;
-          border: 0px #FF9900;
-          color:#ffffff;
-          font-size: 1.5rem;
-        }
+    .btn,
+    .btn:hover {
+      background-color: #FF9900;
+      border: 0px #FF9900;
+      color: #ffffff;
+      font-size: 1.5rem;
+    }
 
-        .card{
-          background-color: #232F3E;
-          color:#ffffff;
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-          font-size:1.5rem;
-        }
+    .card {
+      background-color: #232F3E;
+      color: #ffffff;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      font-size: 1.5rem;
+    }
 
-        .container-fluid .jumbotron{
-          background-color: #232F3E;
-          color:#ffffff;
-          border:0px;
-          border-radius: 0px;
-        }
+    .container-fluid .jumbotron {
+      background-color: #232F3E;
+      color: #ffffff;
+      border: 0px;
+      border-radius: 0px;
+    }
 
-        .modal-open .modal {
-            overflow-x: hidden;
-            overflow-y: hidden;
-        }
-
-       
-        .food{
-          position:absolute;
-          top:2%;
-          left:35%;
-          width:100%;
-          font-size: 1.5rem;
-        }
-
-        .food .modal-title
-        {
-          font-size: 3rem;
-        }
-                
-        .food .modal-dialog{
-          position: relative;
-          margin: 0 auto;
-          top: 20%;
-          left:0%;
-        }
-
-        .scroll{
-          overflow-y:auto; max-height: 100px;
-        }
-
-        .pagination{
-          text-align: center;
-          margin-top: 1em;
-          font-size: 1.3rem;
-        }
-
-        .page-action{
-          margin: 0 0.1em;
-          display:inline-block;
-          padding: 0.5em;
-          color: #FF9900;
-          font-size:2rem;
-        }
-
-        .pagination-number{
-          background-color: #FF9900;
-          padding : 0.5em 0.9em;
-          color:#ffffff;
-          margin:0.2em;
-          border-radius: 2px;
-        }
-
-        .pagination-number:hover , .pagination-current{
-          background-color:#FF9900 ;
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-          font-size: 1.5rem;
-        }
+    .modal-open .modal {
+      overflow-x: hidden;
+      overflow-y: hidden;
+    }
 
 
+    .food {
+      position: absolute;
+      top: 2%;
+      left: 35%;
+      width: 100%;
+      font-size: 1.5rem;
+    }
 
-        
-.modal-confirm {
-		color: #636363;
-		width: 325px;
-	}
-	.modal-confirm .modal-content {
-		padding: 20px;
-		border-radius: 5px;
-		border: none;
-	}
-	.modal-confirm .modal-header {
-		border-bottom: none;
-        position: relative;
-	}
-	.modal-confirm h4 {
-		text-align: center;
-		font-size: 26px;
-		margin: 30px 0 -15px;
-	}
-	.modal-confirm .form-control, .modal-confirm .btn {
-		min-height: 40px;
-		border-radius: 3px;
-	}
-	.modal-confirm .close {
-        position: absolute;
-		top: -5px;
-		right: -5px;
-	}
-	.modal-confirm .modal-footer {
-		border: none;
-		text-align: center;
-		border-radius: 5px;
-		font-size: 13px;
-	}
-	.modal-confirm .icon-box {
-		color: #fff;
-		position: absolute;
-		margin: 0 auto;
-		left: 0;
-		right: 0;
-		top: -70px;
-		width: 95px;
-		height: 95px;
-		border-radius: 50%;
-		z-index: 9;
-		background: #82ce34;
-		padding: 15px;
-		text-align: center;
-		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-	}
-	.modal-confirm .icon-box i {
-		font-size: 58px;
-		position: relative;
-		top: 3px;
-	}
-	.modal-confirm.modal-dialog {
-		margin-top: 80px;
-	}
+    .food .modal-title {
+      font-size: 3rem;
+    }
+
+    .food .modal-dialog {
+      position: relative;
+      margin: 0 auto;
+      top: 20%;
+      left: 0%;
+    }
+
+    .scroll {
+      overflow-y: auto;
+      max-height: 100px;
+    }
+
+    .pagination {
+      text-align: center;
+      margin-top: 1em;
+      font-size: 1.3rem;
+    }
+
+    .page-action {
+      margin: 0 0.1em;
+      display: inline-block;
+      padding: 0.5em;
+      color: #FF9900;
+      font-size: 2rem;
+    }
+
+    .pagination-number {
+      background-color: #FF9900;
+      padding: 0.5em 0.9em;
+      color: #ffffff;
+      margin: 0.2em;
+      border-radius: 2px;
+    }
+
+    .pagination-number:hover,
+    .pagination-current {
+      background-color: #FF9900;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      font-size: 1.5rem;
+    }
+
+
+
+
+    .modal-confirm {
+      color: #636363;
+      width: 325px;
+    }
+
+    .modal-confirm .modal-content {
+      padding: 20px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .modal-confirm .modal-header {
+      border-bottom: none;
+      position: relative;
+    }
+
+    .modal-confirm h4 {
+      text-align: center;
+      font-size: 26px;
+      margin: 30px 0 -15px;
+    }
+
+    .modal-confirm .form-control,
     .modal-confirm .btn {
-        color: #fff;
-        border-radius: 4px;
-		background: #82ce34;
-		text-decoration: none;
-		transition: all 0.4s;
-        line-height: normal;
-        border: none;
-    }
-	.modal-confirm .btn:hover, .modal-confirm .btn:focus {
-		background: #6fb32b;
-		outline: none;
-	}
-	.trigger-btn {
-		display: inline-block;
-		margin: 100px auto;
-	}
-
-        .navbar-inverse .navbar-nav > li > a:hover {
-       background-color: #FFFFFF40;
-  }
-
-
-  .navbar-inverse
-  {
-    background-color: #232F3E;
-    border-color: #232F3E;
-   
-  }
-
-  .navbar-inverse .navbar-brand
-  {
-    color: #fff;
-    font-size: 40px;
-    padding: 40px 15px;
-    font-weight: 900;
-  }
-
-  .nav.navbar-nav.navbar-right
-  {
-    margin: 5px 0px;
-    font-weight: bold;
-    display: inline-block;
-  }
-  
-  .nav.navbar-nav.navbar-left
-  {
-    margin: 5px 0;
-    font-weight: bold;
-    display: inline-block;
-  }
-
-  .navbar-inverse .navbar-nav > li
-  {
-    display: inline-block;
-    padding-right: 20px;
-  }
-
-  .navbar-inverse .navbar-nav > li > a
-  {
-    color: #fff;
-    display: inline-block;
-    font-size: 15px;
-  }
-
-  @media (min-width: 768px){
-  .row-cols-md-5>* {
-    -ms-flex: 0 0 20%;
-    flex: 0 0 20%;
-    max-width: 25%;
-}
-  }
-
-  @media only screen and (min-width: 768px) and (max-width: 991px)
-  {
-
-  }
-
-  @media only screen and (max-width: 767px)
-  {
-    .navbar-inverse .navbar-brand{
-      font-size: 30px
-      padding:20px 15px;
+      min-height: 40px;
+      border-radius: 3px;
     }
 
-    .navbar-collapse
-    {
-      background: #232F3E;
+    .modal-confirm .close {
+      position: absolute;
+      top: -5px;
+      right: -5px;
     }
 
-    
-    .indicate
-    {
-      list-style-type: square;
+    .modal-confirm .modal-footer {
+      border: none;
+      text-align: center;
+      border-radius: 5px;
+      font-size: 13px;
     }
 
-    .navbar-inverse .navbar-nav > li
-    {
-    
-    padding-right: 10px;
+    .modal-confirm .icon-box {
+      color: #fff;
+      position: absolute;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      top: -70px;
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      z-index: 9;
+      background: #82ce34;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
     }
 
-    .navbar-inverse .navbar-nav > li > a:hover {
-       background-color: #FFFFFF40;
-  }
+    .modal-confirm .icon-box i {
+      font-size: 58px;
+      position: relative;
+      top: 3px;
+    }
 
-  }
+    .modal-confirm.modal-dialog {
+      margin-top: 80px;
+    }
+
+    .modal-confirm .btn {
+      color: #fff;
+      border-radius: 4px;
+      background: #82ce34;
+      text-decoration: none;
+      transition: all 0.4s;
+      line-height: normal;
+      border: none;
+    }
+
+    .modal-confirm .btn:hover,
+    .modal-confirm .btn:focus {
+      background: #6fb32b;
+      outline: none;
+    }
+
+    .trigger-btn {
+      display: inline-block;
+      margin: 100px auto;
+    }
+
+    .navbar-inverse .navbar-nav>li>a:hover {
+      background-color: #FFFFFF40;
+    }
 
 
-</style>
+    .navbar-inverse {
+      background-color: #232F3E;
+      border-color: #232F3E;
 
-<!-- for customer display -->
-<div class="container-fluid" style="padding-left: 0rem; padding-right: 0rem;">
-<nav class="navbar navbar-inverse navbar-fixed-top">
+    }
 
-  <div class="container">
+    .navbar-inverse .navbar-brand {
+      color: #fff;
+      font-size: 40px;
+      padding: 40px 15px;
+      font-weight: 900;
+    }
 
-    <a class="nav navbar-nav navbar-left" style="font-size: 27px; color: #FF9900;float: left;"><span><img src="/media/amazon-icon-1.webp" height="32px" width="32px"; ></span> AmazEats </a>
+    .nav.navbar-nav.navbar-right {
+      margin: 5px 0px;
+      font-weight: bold;
+      display: inline-block;
+    }
 
-    <div class="navbar-header" style="float: left;">
+    .nav.navbar-nav.navbar-left {
+      margin: 5px 0;
+      font-weight: bold;
+      display: inline-block;
+    }
 
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navCollapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
+    .navbar-inverse .navbar-nav>li {
+      display: inline-block;
+      padding-right: 20px;
+    }
 
-  <div class="collapse navbar-collapse" id="navCollapse" >
-   <ul class="nav navbar-nav navbar-left" style="display: inline-block;">
-    <li ><a href="/fooditems/" >Home</a></li>
-    <li ><a href="/food/user_orders/" >Profile</a></li>
-    <li ><a href="/food/cart/">Cart</a></li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" onmouseout="this.style.backgroundColor='#232F3E'"; onmouseover="this.style.backgroundColor='#FFFFFF40'"href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background: transparent;color: white;">
-          Favourites
-        </a>
-        <div style="background: #FFFFFF40;" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="/fooditems/favourites/restaurants" style="background: transparent;color: white;font-size: 12px;" onmouseover="this.style.backgroundColor='#232F3E'"; onmouseout="this.style.backgroundColor='transparent'"><b>Restaurants</b></a>
-          <a class="dropdown-item" href="/fooditems/favourites/fooditems" style="background: transparent;color: white;font-size: 12px;"  onmouseover="this.style.backgroundColor='#232F3E'"; onmouseout="this.style.backgroundColor='transparent'"><b>Food Items</b></a>
+    .navbar-inverse .navbar-nav>li>a {
+      color: #fff;
+      display: inline-block;
+      font-size: 15px;
+    }
+
+    @media (min-width: 768px) {
+      .row-cols-md-5>* {
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20%;
+        max-width: 25%;
+      }
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 991px) {}
+
+    @media only screen and (max-width: 767px) {
+      .navbar-inverse .navbar-brand {
+        font-size: 30px padding:20px 15px;
+      }
+
+      .navbar-collapse {
+        background: #232F3E;
+      }
+
+
+      .indicate {
+        list-style-type: square;
+      }
+
+      .navbar-inverse .navbar-nav>li {
+
+        padding-right: 10px;
+      }
+
+      .navbar-inverse .navbar-nav>li>a:hover {
+        background-color: #FFFFFF40;
+      }
+
+    }
+  </style>
+
+  <!-- for customer display -->
+  <div class="container-fluid" style="padding-left: 0rem; padding-right: 0rem;">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+
+      <div class="container">
+
+        <a class="nav navbar-nav navbar-left" style="font-size: 27px; color: #FF9900;float: left;"><span><img
+              src="/media/amazon-icon-1.webp" height="32px" width="32px" ;></span> AmazEats </a>
+
+        <div class="navbar-header" style="float: left;">
+
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navCollapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
         </div>
-      </li>
-    <li ><a href="/logout/">LogOut</a></li>
 
-    <li>  
-    <form class="form-inline" action='/fooditems/fav_search/{{ type }}' method = 'get' style="margin-top: 12px;">
-      <input style="height:30px;font-size: 15px;" class="form-control mr-sm-2" type="search" name='q'  placeholder="Search" aria-label="Search">
-      <button size="10px" style=" background-color: #FF9900;border: #FF9900;"class="btn btn-info" type="submit"><i class="fa fa-search fa-2x"></i></button>
-    </form>
-  </li>
-  </ul>
- 
-   </div>
-  </div>
-</nav>
+        <div class="collapse navbar-collapse" id="navCollapse">
+          <ul class="nav navbar-nav navbar-left" style="display: inline-block;">
+            <li><a href="/fooditems/">Home</a></li>
+            <li><a href="/food/user_orders/">Profile</a></li>
+            <li><a href="/food/cart/">Cart</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" onmouseout="this.style.backgroundColor='#232F3E'" ;
+                onmouseover="this.style.backgroundColor='#FFFFFF40'" href="#" id="navbarDropdownMenuLink" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                style="background: transparent;color: white;">
+                Favourites
+              </a>
+              <div style="background: #FFFFFF40;" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/fooditems/favourites/restaurants"
+                  style="background: transparent;color: white;font-size: 12px;"
+                  onmouseover="this.style.backgroundColor='#232F3E'" ;
+                  onmouseout="this.style.backgroundColor='transparent'"><b>Restaurants</b></a>
+                <a class="dropdown-item" href="/fooditems/favourites/fooditems"
+                  style="background: transparent;color: white;font-size: 12px;"
+                  onmouseover="this.style.backgroundColor='#232F3E'" ;
+                  onmouseout="this.style.backgroundColor='transparent'"><b>Food Items</b></a>
+              </div>
+            </li>
+            <li><a href="/logout/">LogOut</a></li>
+
+            <li>
+              <form class="form-inline" action='/fooditems/fav_search/{{ type }}' method='get'
+                style="margin-top: 12px;">
+                <input style="height:30px;font-size: 15px;" class="form-control mr-sm-2" type="search" name='q'
+                  placeholder="Search" aria-label="Search">
+                <button size="10px" style=" background-color: #FF9900;border: #FF9900;" class="btn btn-info"
+                  type="submit"><i class="fa fa-search fa-2x"></i></button>
+              </form>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </nav>
 
 
-<div class="container-fluid border" style="background-color:#ffffff;width:78.8%;margin-bottom: 2%;min-height:60%">
-  {% if type == "restaurants" %}
-  <br/>
-  <h1 class="text-center " style="font-size: 30px;">Favourite Restaurants</h1>
-  <hr/>
-  <div class="row row-cols-1 row-cols-md-5" style="padding-left: 1rem;padding-top: 2rem;" >
+    <div class="container-fluid border" style="background-color:#ffffff;width:78.8%;margin-bottom: 2%;min-height:60%">
+      {% if type == "restaurants" %}
+      <br />
+      <h1 class="text-center " style="font-size: 30px;">Favourite Restaurants</h1>
+      <hr />
+      <div class="row row-cols-1 row-cols-md-5" style="padding-left: 1rem;padding-top: 2rem;">
 
-    {% for r in res %}
-    <div class="col mb-5" style="padding-right: 2rem;" >
-      <div class="card" >
-        <a href="/fooditems/display_fooditems/{{r.username}}" class="card-block text-decoration-none" style="color:#ffffff;">
-          <img class="card-img-top" onerror="this.src='/media/rest.jpg'" src="/media/{{ r.profile_pic }}" alt="Card image cap">
-          <div class="card-body text-center">
-            <h5 class="card-title" style="color:#ffffff;font-size:2.5rem;">{{ r.username }}</h5>
+        {% for r in res %}
+        <div class="col mb-5" style="padding-right: 2rem;">
+          <div class="card">
+            <a href="/fooditems/display_fooditems/{{r.username}}" class="card-block text-decoration-none"
+              style="color:#ffffff;">
+              <img class="card-img-top" onerror="this.src='/media/rest.jpg'" src="/media/{{ r.profile_pic }}"
+                alt="Card image cap">
+              <div class="card-body text-center">
+                <h5 class="card-title" style="color:#ffffff;font-size:2.5rem;">{{ r.username | title }}</h5>
+              </div>
+            </a>
+            <div class="card-footer text-center">
+              <a class="btn" href="/fooditems/delete_favourites/{{ r.username }}" role="button">Remove from
+                Favourites</a>
+            </div>
           </div>
-        </a>
-        <div class="card-footer text-center">
-          <a class="btn" href="/fooditems/delete_favourites/{{ r.username }}" role="button" >Remove from Favourites</a>
         </div>
+        {% empty %}
+
+        <div class="center-block"
+          style="margin-left:40% ; margin-top: 5%;margin-bottom: 10%; margin-right: 30%; text-align:center;">
+          <img src="https://cdn0.iconfinder.com/data/icons/30-hardware-line-icons/64/Search-512.png" height=170rem
+            width=170rem />
+          <h2 class="text-center">No Results Found </h2>
+        </div>
+        {% endfor %}
+
       </div>
-    </div>
-    {% empty %}
+      {% else %}
 
-    <div class="center-block" style="margin-left:40% ; margin-top: 5%;margin-bottom: 10%; margin-right: 30%; text-align:center;">
-      <img src="https://cdn0.iconfinder.com/data/icons/30-hardware-line-icons/64/Search-512.png" height=170rem width=170rem/>
-      <h2 class="text-center">No Results Found </h2>
-    </div>
-    {% endfor %}
+      <br />
+      <h1 class="text-center " style="font-size: 30px;">Favourite Fooditems</h1>
+      <hr />
+      <div class="row row-cols-1 row-cols-md-5" style="padding-left: 1rem;padding-top: 2rem;">
 
-  </div>
-{% else %}
-
-<br/>
-  <h1 class="text-center " style="font-size: 30px;">Favourite Fooditems</h1>
-  <hr/>
-  <div class="row row-cols-1 row-cols-md-5" style="padding-left: 1rem;padding-top: 2rem;" >
-
-    {% for f in res %}
-    {% if f.serviceable == 'available'%}
-    <div class="col mb-5" style="padding-right: 1rem;" >
-      <div class="card" id="{{f.food_id}}">
-        <a class="card-block text-decoration-none" data-toggle="modal" href="#exampleModalScrollable{{f.food_id}}">
-          <img class="card-img-top" src="{{ f.image.url }}" alt="Card image cap">
-          <div class="card-body text-white">
-            <h5 class="card-title" style="color:#ffffff;font-size:2.5rem;">{{ f.food_name }}</h5>
-            <p>{{ f.restaurant.username.username }}</p>
-            <p style="float:left;">{{ f.veg }}</p>
-            <p style="float:right;font-size: 20px;"><b>&#x20B9;{{f.price}}</b></p>                        
+        {% for f in res %}
+        {% if f.serviceable == 'Available'%}
+        <div class="col mb-5" style="padding-right: 1rem;">
+          <div class="card" id="{{f.food_id}}">
+            <a class="card-block text-decoration-none" data-toggle="modal" href="#exampleModalScrollable{{f.food_id}}">
+              <img class="card-img-top"
+                onerror="this.src='https://mamadips.com/wp-content/uploads/2016/11/defimage.gif'"
+                src="/media/{{ f.image }}" alt="Card image cap">
+              <div class="card-body text-white">
+                <h5 class="card-title" style="color:#ffffff;font-size:2.5rem;">{{ f.food_name | title }}</h5>
+                <p>{{ f.restaurant.username.username | title }}</p>
+                <p style="float:left;">{{ f.veg }}</p>
+                <p style="float:right;font-size: 20px;"><b>&#x20B9;{{f.price}}</b></p>
+              </div>
+            </a>
+            <div class="card-footer text-center">
+              <a id="{{ f.food_id }}" class="btn btn-info" onclick="addCart(event);"> Add To Cart</a>
+            </div>
           </div>
-        </a>
-        <div class="card-footer text-center">
-          <a id = "{{ f.food_id }}" class="btn btn-info" href="#myModal" onclick="addCart(event);" class="trigger-btn" data-toggle="modal"> Add To Cart</a>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade food" id="exampleModalScrollable{{f.food_id}}" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalScrollableTitle">{{f.food_name | title }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p style="float:left;">{{f.veg}}</p>
+                <p style="float:right;font-size: 40px;">&#8377;{{f.price}}</p><br /><br />
+                {% if f.item_type %}
+                <p>{{ f.item_type | title }}</p>
+                {% endif %}
+                {% if f.cuisine_type %}
+                <p>{{ f.cuisine_type | title }}</p>
+                {% endif %}
+                <p>Rating : {{f.avg_rating}}</p>
+                <hr />
+                <h5 style="font-size: 2rem;">Reviews</h5><br />
+                <div class="scroll">
+                  <p style="font-size: 1.5rem;">
+                    {% for r in f.rating_set.all %}
+                    {{ r.user_id }} : {{ r.reviews }}<br />
+                    {% endfor %}
+
+                  </p>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <a id="{{ f.food_id }}" class="btn btn-info" onclick="addCart(event);"> Add To Cart</a>
+                <a role="button" href="/fooditems/delete_favourites/{{ f.food_id }}" class="btn btn-primary">Remove from
+                  favorites</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% empty %}
+
+        <div class="center-block"
+          style="margin-left:40% ; margin-top: 5%;margin-bottom: 10%; margin-right: 30%; text-align:center;">
+          <img src="https://cdn0.iconfinder.com/data/icons/30-hardware-line-icons/64/Search-512.png" height=170rem
+            width=170rem />
+          <h2 class="text-center">No Results Found </h2>
+        </div>
+        {% endfor %}
+
       </div>
-    </div>
+      {% endif %}
 
-    <!-- Modal -->
- <div class="modal fade food" id="exampleModalScrollable{{f.food_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" >
-  <div class="modal-dialog modal-dialog-scrollable" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title text-center" id="exampleModalScrollableTitle">{{f.food_name}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p style="float:left;">{{f.veg}}</p><p style="float:right;font-size: 40px;">&#8377;{{f.price}}</p><br/><br/>
-        <p>{{f.item_type}}</p>
-        <p>{{f.cuisine_type}}</p>
-        <p>rating : {{f.avg_rating}}</p>
-        <hr/> 
-        <h5 style="font-size: 2rem;">Reviews</h5><br/>
-        <div class="scroll">
-        <p style="font-size: 1.5rem;">
-          {% for r in f.rating_set.all %}
-            {{ r.user_id }} : {{ r.reviews }}<br/>
-          {% endfor %}
+      {% if res %}
+      <div class="pagination justify-content-center">
 
-        </p>
-      </div>
-      </div>
-      <div class="modal-footer">
-        <a id = "{{ f.food_id }}" class="btn btn-info" href="#myModal" onclick="addCart(event);" class="trigger-btn" data-toggle="modal"> Add To Cart</a>
-        <a role="button" href="/fooditems/delete_favourites/{{ f.food_id }}" class="btn btn-primary">Remove from favorites</a>
-      </div>
-    </div>
-  </div>
-</div>
-{% endif %}
-{% empty %}
-
-    <div class="center-block" style="margin-left:40% ; margin-top: 5%;margin-bottom: 10%; margin-right: 30%; text-align:center;">
-      <img src="https://cdn0.iconfinder.com/data/icons/30-hardware-line-icons/64/Search-512.png" height=170rem width=170rem/>
-      <h2 class="text-center">No Results Found </h2>
-    </div>
-  {% endfor %}
-
-  </div>
-  {% endif %}
-
-  {% if res %}
-    <div class="pagination justify-content-center">
-
-      {% if res.has_previous %}
+        {% if res.has_previous %}
         <a class="page-action" href="?page=1"><i class="fa fa-angle-double-left"></i></a>
         <a class="page-action" href="?page={{ res.previous_page_number }}"><i class="fa fa-angle-left"></i></a>
-      {% endif %}
+        {% endif %}
 
-      {% for n in res.paginator.page_range %}
+        {% for n in res.paginator.page_range %}
         {% if res.number == n %}
-          <span class="pagination-number pagination-current">{{ n }}</span>
-          {% elif n > res.number|add:'-2' and n < res.number|add:'2' %}
-            <a class="pagination-number" href="?page={{ n }}">{{ n }}</a>
-          {% endif %}
-      {% endfor %}
+        <span class="pagination-number pagination-current">{{ n }}</span>
+        {% elif n > res.number|add:'-2' and n < res.number|add:'2' %}
+        <a class="pagination-number" href="?page={{ n }}">{{ n }}</a>
+        {% endif %}
+        {% endfor %}
 
-      {% if res.has_next %}
+        {% if res.has_next %}
         <a class="page-action" href="?page={{ res.next_page_number }}"><i class="fa fa-angle-right"></i></a>
         <a class="page-action" href="?page={{ res.paginator.num_pages }}"><i class="fa fa-angle-double-right"></i></a>
+        {% endif %}
+
+      </div>
       {% endif %}
-      
     </div>
-    {% endif %}
-</div>
 
-<script>
+    <div class="modal fade in" id="myModaln" role="dialog">
+      <div class="modal-dialog modal-sm">
 
-  function addCart(event)
-  {
-    var me = event.currentTarget
-    var food_id = me.getAttribute("id");
-    jQuery.get("/food/addToCart/"+food_id+"/",function(data, status){
-    });
-  }
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" style="color:#FF9900">
+              <center>Food added to your cart !!</center>
+            </h4>
+            <button type="button" class="close" onclick="sus()" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <center> <img class="img-responsive"
+                src="https://i.pinimg.com/originals/77/9b/9d/779b9dc3928c2dbc304bcf6702bef6df.gif"
+                style="height:50%px;width:100%" />
+              <a href="/food/cart" type="button" class="btn btn-info btn-lg">Go To Cart</a></center>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="modal fade in" id="myModals" role="dialog">
+      <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" style="color:#FF9900">
+              <center>Your cart is filled</center>
+            </h4>
+            <button type="button" class="close" onclick="sus()" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <h4 style="color:#232F3E;margin:20px;">
+              <center>Hey {{request.user.username}} !! Clear your cart to add items from this restaurant.</center>
+            </h4>
+            <center> <img class="img-responsive"
+                src="https://cdn.dribbble.com/users/1708878/screenshots/4294624/comp-1.gif"
+                style="height:50%px;width:100%" />
+              <center><a href="/food/clear/" type="button" class="btn btn-info btn-lg">Clear the Cart</a></center>
+            </center>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+
+  <script>
+    function addCart(event) {
+      var me = event.currentTarget
+      var food_id = me.getAttribute("id");
+      jQuery.get("/food/addToCart/" + food_id + "/", function (data, status) {
+        if (data == "True") {
+          $("#myModaln").modal();
+
+        }
+        else {
+          $("#myModals").modal();
+        }
+      });
+    }
   </script>
-  
-  
+
+
+
+
   <div id="myModal" class="modal fade">
     <div class="modal-dialog modal-confirm">
       <div class="modal-content">
@@ -478,7 +571,7 @@
             <i class="material-icons">&#xE876;</i>
           </div class="modal-title">
           <h4>Awesome!</h4>
-          </div>
+        </div>
         <div class="modal-body">
           <p class="text-center">Your item is added to Cart.</p>
         </div>
@@ -490,11 +583,12 @@
   </div>
   </div>
 
-</div>
-<div class="container-fluid border" style="background-color:#232F3E;color:#ffffff;height:15%;width:100%;">  
-  <p class="text-center" style="font-size: 2rem;padding-top: 4rem;">AmazEats</p>
-</div>
+  </div>
+  <div class="container-fluid border" style="background-color:#232F3E;color:#ffffff;height:15%;width:100%;">
+    <p class="text-center" style="font-size: 2rem;padding-top: 4rem;">AmazEats</p>
+  </div>
 </body>
+
 </html>
 
 {% endblock %}

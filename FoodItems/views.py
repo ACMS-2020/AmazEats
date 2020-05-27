@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404,redirect
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from .models import *
 from accounts.models import *
-from .forms import FoodItemsForm,PriceForm,AcceptableForm,RestaurantForm
+from .forms import *
 from .filters import ProductFilter
 from .decorators import only_customer,only_restaurant
 from django.contrib.auth.decorators import login_required
@@ -14,7 +14,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 @login_required
 @only_customer
 def display_fooditems(request,username):
-    print(request.POST)
     res = Restaurant.objects.get(pk = username)
     food = FoodItem.objects.filter(restaurant = res)
     pFilter = ProductFilter(request.POST , queryset = food)
@@ -30,6 +29,7 @@ def display_fooditems(request,username):
         food = paginator.page(paginator.num_pages)
     return render(request,'food_customer/foodItems.html',{'food':food , 'pFilter' : pFilter, 'res':res })
 
+@login_required
 @only_customer
 def list_restaurants(request):
     restaurants = Restaurant.objects.all()
@@ -46,6 +46,7 @@ def list_restaurants(request):
         restaurants = paginator.page(paginator.num_pages)
     return render(request, 'food_customer/restaurants.html', {'restaurants': restaurants , 'pFilter':pFilter})
 
+@only_customer
 def search(request, username):
     query_string = ''
     res = Restaurant.objects.get(pk = username )
@@ -67,6 +68,7 @@ def search(request, username):
         food = paginator.page(paginator.num_pages)
     return render(request,'food_customer/foodItems.html',{'food':food , 'res':res , 'pFilter' : pFilter })
 
+@only_customer
 def fav_search(request, typ):
     query_string = ''
     user = Customer.objects.get(username=request.user.username)
@@ -108,12 +110,13 @@ def fav_search(request, typ):
         res = paginator.page(paginator.num_pages)
     return render(request,'food_customer/favorites.html',{'res': res , 'type':typ })
 
+
+@only_customer
 def res_search(request):
     query_string = ''
     if 'q' in request.GET:
         query_string = request.GET['q']
         res = Restaurant.objects.filter(username__username__icontains = query_string)
-        print(res)
     else:
         res = Restaurant.objects.all()
     pFilter = ProductFilter(request.POST , queryset = res)
@@ -144,7 +147,6 @@ def res_favourites(request,username):
 
 @only_customer
 def food_favourites(request,id):
-    print(type(id))
     user = Customer.objects.get(username=request.user.username)
     if (Favourite.objects.filter(category_id = str(id) , user_id = user).exists()):
         pass
@@ -154,26 +156,20 @@ def food_favourites(request,id):
         fav.category_id = str(id)
         fav.type = "fooditems"
         fav.save()
-        print(fav)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @only_customer
 def favourites(request,typ):
-    print("favourites")
     user = Customer.objects.get(username=request.user.username)
-    print(user)
     res = []
     fav = user.favourite_set.filter(type = typ)
-    print(fav)
     if(typ == 'restaurants'):
         for f in fav:
             r = Restaurant.objects.get(pk = f.category_id)
             res.append(r)
     else:
         for f in fav:
-            print(fav)
             c = int(f.category_id)
-            print(type(c))
             r = FoodItem.objects.get(pk = c)
             res.append(r)
 
@@ -189,7 +185,6 @@ def favourites(request,typ):
 
 
 
-# @login_required
 @only_customer
 def input_ratings(request , id):
     food = FoodItem.objects.get(pk = id)
@@ -214,6 +209,7 @@ def delete_favourites(request,id):
     fav.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+
 #VIEWS FOR RESTAURANT ACCOUNT
 
 
@@ -224,14 +220,21 @@ def add_fooditems(request):
         form = FoodItemsForm(request.POST,request.FILES)
         if form.is_valid():
             try:
-                instance = form.save(commit = False)
+                name = form['food_name'].value().lower()
                 res = Restaurant.objects.get(pk = request.user.username )
+                food = FoodItem.objects.filter(restaurant = res)
+                for f in food:
+                    if (f.food_name == name ):
+                        return render(request,'food_restaurant/index.html',{'form':form , 'conflict': "True"})
+                instance = form.save(commit = False)
+                instance.food_name = form['food_name'].value().lower()
+                instance.cuisine_type = form['cuisine_type'].value().lower()
                 instance.restaurant = res
                 instance.save()
                 return redirect('/fooditems/restaurant_fooditems')
             except:
                 pass
-    return render(request,'food_restaurant/index.html',{'form':form})
+    return render(request,'food_restaurant/index.html',{'form':form , 'conflict': "False"})
 
 @only_restaurant
 def display(request):
@@ -283,23 +286,21 @@ def restaurant_search(request):
 @only_restaurant
 def update_price(request,id):
     food = FoodItem.objects.get(pk=id) 
-    if request.method == 'POST' and request.POST:
-        food.price = request.POST['p']
-        food.save()
+    if request.method == "POST" and request.POST:
+        if(request.POST.get('p')!=''):
+            food.price = request.POST.get('p')
+            food.save()
     else:
         pass
-    return redirect("/fooditems/restaurant_fooditems")
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @only_restaurant
 def update_acceptable(request,id):
     food = FoodItem.objects.get(pk=id)
-    print(food.serviceable)
-    if food.serviceable == "service available":
-        food.serviceable = "service not available"
-        print("made not available")
+    if food.serviceable == "Service Available":
+        food.serviceable = "Service Not Available"
     else:
-        food.serviceable = "service available"
-        print("made available")
+        food.serviceable = "Service Available"
     food.save()
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

@@ -130,7 +130,6 @@ def processed_order(request,order_id):
 @only_customer
 def user_order_details(request):
     obj = Order.objects.filter(user_id=request.user.username).exclude(status="Delivered").exclude(status="Rejected").order_by('-order_id')
-    print("user orders",len(obj))
     paginator = Paginator(obj, items_per_page)
     page = request.GET.get('page')
     if page == None:
