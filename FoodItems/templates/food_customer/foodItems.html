@@ -449,7 +449,9 @@
             <div class="text-justify" style="display:inline-block; font-size: medium; padding-left:10rem; ">
 
               {% for field in pFilter.form%}
+              {% if field.html_name != 'serviceable' %}
               <label style="padding-right: 1rem;padding-left: 2rem;"> {{field.html_name | title}}: </label>{{field}}
+              {% endif %}
               {% endfor %}
             </div>
             <button class="btn btn-lg" type="submit" style="margin-bottom: 1rem;">search</button>
@@ -463,7 +465,7 @@
         <hr />
         <div class="row row-cols-1 row-cols-md-5" style="padding-left: 1rem;padding-top: 2rem; max-width:100%;">
           {% for f in food %}
-          {% if f.serviceable == 'Available'%}
+          {% if f.serviceable == 'Service Available'%}
           <div class="col mb-5" style="padding-right: 1rem;">
             <div class="card" id="{{f.food_id}}">
               <a class="card-block text-decoration-none" data-toggle="modal"

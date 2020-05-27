@@ -2,6 +2,7 @@
 
 
 {% block content %}
+
 <html lang="en">
 
 <head>
@@ -13,6 +14,7 @@
   <link rel="stylesheet" href="animate.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -246,11 +248,11 @@
         <form method="post">
           {% csrf_token %}
 
-          <!-- {{ pFilter.form }} -->
+          <!-- Filters form }} -->
           <div class="text-justify" style="display:inline-block; font-size: medium; padding-left:10rem; ">
 
             {% for field in pFilter.form%}
-            <label style="padding-right: 1rem;padding-left: 2rem;"> {{field.html_name | title}}: </label>{{field}}
+            <label style="padding-right: 1rem;padding-left: 2rem;"> {{field.html_name | title }}: </label>{{field}}
             {% endfor %}
           </div>
           <button class="btn btn-lg" type="submit" style="margin-bottom: 1rem;">search</button>
@@ -273,19 +275,20 @@
                 onerror="this.src='https://mamadips.com/wp-content/uploads/2016/11/defimage.gif'"
                 src="/media/{{ f.image }}" alt="Card image cap">
               <div class="card-body text-white">
-                <h5 class="card-title" style="color:#ffffff;font-size:2.5rem;">{{ f.food_name | title}}</h5>
+                <h5 class="card-title" style="color:#ffffff;font-size:2.5rem;">{{ f.food_name | title }}</h5>
                 <p style="float:left;">{{ f.veg }}</p>
                 <p style="float:right;font-size: 20px;"><b>&#x20B9;{{f.price}}</b></p>
               </div>
             </a>
 
             <div class="card-footer text-center">
-              {% if f.serviceable == "Available" %}
-              <button id="{{ f.food_id }}" class="btn" onclick="change(event);"
-                class="trigger-btn">out-of-service</button>
-              {% elif f.serviceable == "Not Available" %}
-              <button id="{{ f.food_id }}" class="btn" onclick="change(event);" class="trigger-btn">in-service</button>
-              {% endif %}
+              
+                {% if f.serviceable == "Service Available" %}
+                <button id="{{ f.food_id }}" class="btn" onclick="change(event);" class="trigger-btn">Stop Service</button>
+                {% elif f.serviceable == "Service Not Available" %}
+                <button id="{{ f.food_id }}" class="btn" onclick="change(event);" class="trigger-btn">Start Service</button>
+                {% endif %}
+              
             </div>
           </div>
         </div>
@@ -294,10 +297,10 @@
           function change(event) {
             var me = event.currentTarget
             var food_id = me.getAttribute("id");
-            if (me.textContent == "in-service") me.textContent = "out-of-service";
-            else me.textContent = "in-service";
+            if (me.textContent == "Start Service") me.textContent = "Stop Service";
+            else me.textContent = "Start Service";
             jQuery.get("/fooditems/update_acceptable/" + food_id + "/", function (data, status) {
-              alert("success");
+
             });
           }
         </script>
@@ -308,7 +311,7 @@
           <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title text-center" id="exampleModalScrollableTitle">{{f.food_name |title}}</h5>
+                <h5 class="modal-title text-center" id="exampleModalScrollableTitle">{{f.food_name | title}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -371,7 +374,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <p class="modal-title" id="exampleModalLabel" style="font-size: 1.5 rem;">Update Price</p>
+                <p class="modal-title" id="exampleModalLabel" style="font-size: 1.5 rem;">update Price</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -384,11 +387,11 @@
                       <label>Price</label>
                     </div>
                     <div class="col-7">
-                      <input type="text" name="p" pattern="\d+" class="form-control form-control-lg"
-                        placeholder="New price" default="{{ f.price }}" style="max-width: 100%;">
+                      <input type="number" name="p" class="form-control form-control-lg" placeholder="New price"
+                        default="{{ f.price }}" style="max-width: 100%;">
                     </div>
                   </div>
-                  <button type="submit" class="btn" style="float: right;">Update{{f.food_id}}</button>
+                  <button type="submit" class="btn" style="float: right;">Update</button>
 
                 </form>
               </div>

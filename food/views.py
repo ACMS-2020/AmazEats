@@ -130,6 +130,7 @@ def processed_order(request,order_id):
 @only_customer
 def user_order_details(request):
     obj = Order.objects.filter(user_id=request.user.username).exclude(status="Delivered").exclude(status="Rejected").order_by('-order_id')
+    print("user orders",len(obj))
     paginator = Paginator(obj, items_per_page)
     page = request.GET.get('page')
     if page == None:
@@ -210,9 +211,9 @@ def cart(request):
     total=0
     for i in obj:
         total+=i.price*i.quantity
-        food = FoodItem.objects.get(food_id=i.food_id)
+        food = FoodItem.objects.get(food_id=int(i.food_id))
         if food_images.get(i.food_id)==None:
-            food_images[i.food_id]=food.image.url
+            food_images[i.food_id]=food.image
     return render(request,"cart.html",{'cart_items':obj,'food_images':food_images,'total':total})
 
 

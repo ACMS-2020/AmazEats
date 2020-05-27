@@ -294,16 +294,20 @@ def update_price(request,id):
         pass
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+
 @only_restaurant
 def update_acceptable(request,id):
     food = FoodItem.objects.get(pk=id)
+    print(food.serviceable)
     if food.serviceable == "Service Available":
         food.serviceable = "Service Not Available"
+        print("made not available")
     else:
         food.serviceable = "Service Available"
+        print("made available")
     food.save()
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return redirect("/fooditems/restaurant_fooditems")
 
 
 @only_restaurant

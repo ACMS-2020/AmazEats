@@ -12,7 +12,7 @@ class FoodItem(models.Model):
 
 	v_choice = [('Veg' , 'Veg'),('Non-veg' , 'Non-Veg')]
 	item_choice = [('Starters', 'Starters'), ('Main Courses', 'Main Course'), ('Desserts', 'Desserts'), ('Beverages', 'Beverages')]
-	s_choice = [('Available', 'Service Available'),('Not Available', 'Service Not Available')]
+	s_choice = [('Service Available', 'Service Available'),('Service Not Available', 'Service Not Available')]
 
 	item_type = models.CharField(choices=item_choice,max_length=50 ,blank=True,null=True )
 	serviceable = models.CharField(max_length=30, choices=s_choice, default='Service Available')
